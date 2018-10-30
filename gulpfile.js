@@ -11,16 +11,13 @@ const dotify       = require('gulp-dotify');
 const browserify   = require('browserify');
 const babelify     = require('babelify');
 const watchify     = require('watchify');
-const babel        = require('gulp-babel');
 const uglify       = require('gulp-uglify');
-const htmlmin      = require('gulp-htmlmin');
 const sass         = require('gulp-sass');
 const csso         = require('gulp-csso');
 const gap          = require('gulp-append-prepend');
 const autoprefixer = require('gulp-autoprefixer');
 const source       = require('vinyl-source-stream');
 const buffer       = require('vinyl-buffer');
-const sourcemaps   = require('gulp-sourcemaps');
 const notify       = require('gulp-notify');
 const sequence     = require('gulp-sequence');
 const clean        = require('gulp-clean');
@@ -80,7 +77,7 @@ gulp.task('plugins', done => {
 			.pipe(rename({
 				suffix: '.min'
 			}))
-			.pipe(gulp.dest('dist'))
+			.pipe(gulp.dest('dist'));
 
 		});
 
@@ -93,7 +90,7 @@ gulp.task('plugins', done => {
 gulp.task('locales', () => {
 
 	return gulp.src(locales)
-			.pipe(gulp.dest('dist/locales'))
+			.pipe(gulp.dest('dist/locales'));
 
 });
 
@@ -121,7 +118,7 @@ gulp.task('templates', () => {
 			}))
 			.pipe(gulp.dest('dist/theme/basic/templates'))
 			.pipe(concat('templates.min.js'))
-			.pipe(gulp.dest('dist/theme/basic'))
+			.pipe(gulp.dest('dist/theme/basic'));
 
 });
 
