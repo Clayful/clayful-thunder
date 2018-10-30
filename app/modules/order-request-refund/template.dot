@@ -1,0 +1,191 @@
+<div class="thunder--order-request-refund">
+
+	<h2 class="thunder--with-back-button">
+		{{= it.m('orderRequestRefund') }}
+	</h2>
+	<a class="thunder--back-to-order">
+		{{= it.m('backToOrder') }}
+	</a>
+
+	{{? !it.order.hasRefundableItem }}
+	<p class="thunder--order-has-no-refundable-item">
+		{{= it.m('hasNoRefundableItem') }}
+	</p>
+	{{? }}
+
+	{{? it.order.hasRefundableItem }}
+	<div class="thunder--order-refund-process">
+
+		<div class="thunder--order-refundable-items thunder--cart-items">
+
+			<h3>
+				{{= it.m('refundItems') }}
+			</h3>
+
+			<table class="thunder--table">
+				<thead>
+					<tr>
+						<th colspan="2">{{= it.m('itemInfo') }}</th>
+						<th>{{= it.m('itemRefundQuantity') }}</th>
+						<th>{{= it.m('itemRefundAmount') }}</th>
+					</tr>
+				</thead>
+				<tbody>
+					{{~ it.order.items :item }}
+					{{? item.refundableQuantity > 0 }}
+					<tr class="thunder--cart-item inactive" data-item="{{= item._id }}">
+						<td class="thunder--cart-item-thumbnail-container">
+							<img src="{{= item.product ? it.imageURL(item.product.thumbnail, 120, 120) : '' }}" class="thunder--cart-item-thumbnail">
+						</td>
+						<td class="thunder--cart-item-name">
+
+							<div class="thunder--cart-item-summary">
+								<h3 class="thunder--cart-item-name">
+									{{= item.product.name }}
+								</h3>
+								<ul>
+									{{? item.variant && item.variant.types.length > 0 }}
+									<li class="thunder--cart-item-option">
+										<span class="thunder--cart-entity-label">{{= it.m('itemOption') }}</span>
+										{{= it.variantName(item.variant) }}
+									</li>
+									{{? }}
+									{{? item.shippingMethod }}
+									<li class="thunder--cart-item-shipping-method">
+										<span class="thunder--cart-entity-label">{{= it.m('shippingMethod') }}</span>
+										{{= item.shippingMethod.name }}
+									</li>
+									{{? }}
+								</ul>
+								<button class="thunder--toggle-item-selection thunder--button-tiny skeleton">
+									{{= it.m('addToRefund') }}
+								</button>
+							</div>
+
+						</td>
+						<td class="thunder--cart-item-quantity">
+							<span class="thunder--cart-item-quantity-value">
+								<input type="number"
+									name="refundQuantity"
+									min="0"
+									max="{{= item.refundableQuantity }}"
+									value="0"
+									class="thunder--quantity">
+							</span>
+						</td>
+						<td class="thunder--cart-item-refund-amount"></td>
+					</tr>
+					{{? item.bundleItems && item.bundleItems.length > 0 }}
+					{{~ item.bundleItems :bundleItem }}
+					{{? bundleItem.refundableQuantity > 0 }}
+					<tr class="thunder--cart-item thunder--cart-bundle-item inactive" data-item="{{= bundleItem._id }}">
+						<td class="thunder--cart-item-thumbnail-container"></td>
+						<td class="thunder--cart-item-name">
+
+							<div class="thunder--cart-item-summary">
+								<h3 class="thunder--cart-item-name">
+									{{= bundleItem.product.name }}
+								</h3>
+								<ul>
+									{{? bundleItem.variant && bundleItem.variant.types.length > 0 }}
+									<li class="thunder--cart-item-option">
+										<span class="thunder--cart-entity-label">{{= it.m('itemOption') }}</span>
+										{{= it.variantName(bundleItem.variant) }}
+									</li>
+									{{? }}
+									{{? bundleItem.shippingMethod }}
+									<li class="thunder--cart-item-shipping-method">
+										<span class="thunder--cart-entity-label">{{= it.m('shippingMethod') }}</span>
+										{{= bundleItem.shippingMethod.name }}
+									</li>
+									{{? }}
+								</ul>
+								<button class="thunder--toggle-item-selection thunder--button-tiny skeleton">
+									{{= it.m('addToRefund') }}
+								</button>
+							</div>
+
+						</td>
+						<td class="thunder--cart-item-quantity">
+							<span class="thunder--cart-item-quantity-value">
+								<input type="number"
+									name="refundQuantity"
+									min="0"
+									max="{{= bundleItem.refundableQuantity }}"
+									value="0"
+									class="thunder--quantity">
+							</span>
+						</td>
+						<td class="thunder--cart-item-refund-amount"></td>
+					</tr>
+					{{? }}
+					{{~ }}
+					{{? }}
+
+					{{? }}
+					{{~ }}
+
+				</tbody>
+
+			</table>
+
+		</div>
+
+		<div class="thunder--order-refund-summary">
+
+			<h3>
+				{{= it.m('refundSummary') }}
+			</h3>
+
+			<div class="thunder--refund-reason-detail thunder--form">
+				<h4>
+					{{= it.m('refundReason') }}
+				</h4>
+				<select class="thunder--refund-category">
+					<option value="" disabled selected>
+						{{= it.m('selectRefundReason') }}
+					</option>
+					{{~ it.options.reasonCategories :category }}
+					<option value="{{= category.label }}">
+						{{= it.m(category.label) }}
+					</option>
+					{{~ }}
+				</select>
+				<textarea class="thunder--refund-reason" placeholder="{{= it.m('typeDetailedReason') }}"></textarea>
+			</div>
+
+			<div class="thunder--refund-total-summary">
+				<h4>
+					{{= it.m('totalSummary') }}
+				</h4>
+				<p class="thunder--requires-refund-reason hidden">
+					{{= it.m('selectReasonFirst') }}
+				</p>
+				<table class="thunder--refund-total-detail hidden">
+					<tbody>
+						<tr class="thunder--refund-items-total">
+							<th>{{= it.m('itemsTotal') }}</th>
+							<td></td>
+						</tr>
+						<tr class="thunder--refund-shipping-total">
+							<th>{{= it.m('shippingTotal') }}</th>
+							<td></td>
+						</tr>
+						<tr class="thunder--refund-total">
+							<th>{{= it.m('total') }}</th>
+							<td></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+
+			<button class="thunder--button thunder--request-refund">
+				{{= it.m('requestRefund') }}
+			</button>
+
+		</div>
+
+	</div>
+	{{? }}
+
+</div>

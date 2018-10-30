@@ -1,0 +1,52 @@
+@include responsive(tablet) {
+
+	.thunder--order-detail {
+
+		.thunder--order-primary-info {
+
+			.thunder--order-basic-info {
+				width: 100%;
+			}
+
+			.thunder--order-item-details {
+				margin-right: 0;
+				width: 100%;
+			}
+
+			.thunder--order-cancellation-form {
+				width: 50%;
+			}
+
+			.thunder--payment-container {
+				width: 50%;
+			}
+
+		}
+
+		.thunder--order-secondary-info {
+
+			.thunder--order-refunds,
+			.thunder--order-fulfillments {
+				margin-right: 0;
+				width: 100%;
+			}
+
+			.thunder--order-customer-and-address {
+				width: 100%;
+
+				.thunder--order-customer,
+				.thunder--order-shipping-address {
+					float: left;
+					width: 49%;
+				}
+
+				.thunder--order-shipping-address {
+					margin-left: 2%;
+				}
+			}
+
+		}
+
+	}
+
+}

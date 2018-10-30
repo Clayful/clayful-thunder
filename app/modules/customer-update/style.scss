@@ -1,0 +1,84 @@
+.thunder--customer-update-form-wrapper {
+
+	max-width: 280px;
+	margin: 0 auto;
+
+	h2 {
+		margin: 0 0 12px 0;
+		font-size: 24px;
+		&.thunder--with-back-button {
+			margin-bottom: 0;
+		}
+	}
+
+	.thunder--back-to-checkout {
+		@extend a;
+		@include go-back-icon;
+		display: inline-block;
+		margin-bottom: 12px;
+		font-size: 14px;
+	}
+
+	.thunder--change-user-id,
+	.thunder--change-email,
+	.thunder--change-password {
+		@extend a;
+	}
+
+	.thunder--change-user-id,
+	.thunder--change-email {
+		font-size: 13px;
+	}
+
+	.thunder--customer-avatar-form {
+		margin-top: 24px;
+		margin-bottom: 12px;
+		text-align: center;
+		img {
+			width: 80px;
+			height: auto;
+			border-radius: 50%;
+			border: #eaeaea 1px solid;
+		}
+		label {
+			@extend a;
+		}
+		input[type="file"] {
+			// Use label as an input
+			position: fixed;
+			top: -1000px;
+		}
+	}
+
+	.thunder--customer-update-form {
+
+		& > div {
+			margin-bottom: 12px;
+		}
+
+		.thunder--customer-birthdate {
+
+			input[type="text"] {
+				margin-right: 8px;
+			}
+
+			input[name="birthYear"] {
+				width: 48px;
+			}
+
+			input[name="birthMonth"],
+			input[name="birthDate"] {
+				width: 36px;
+			}
+
+		}
+
+		.thunder--form-actions {
+			.thunder--button {
+				width: 100%;
+			}
+		}
+
+	}
+
+}

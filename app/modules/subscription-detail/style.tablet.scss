@@ -1,0 +1,51 @@
+@include responsive(tablet) {
+
+	.thunder--subscription-detail {
+
+		.thunder--subscription-primary-info {
+
+			.thunder--subscription-basic-info {
+				width: 100%;
+			}
+
+			.thunder--subscription-item-details {
+				margin-right: 0;
+				width: 100%;
+			}
+
+			.thunder--subscription-cancellation-form {
+				width: 50%;
+			}
+
+			.thunder--payment-container {
+				width: 50%;
+			}
+
+		}
+
+		.thunder--subscription-secondary-info {
+
+			.thunder--subscription-schedules {
+				margin-right: 0;
+				width: 100%;
+			}
+
+			.thunder--subscription-customer-and-address {
+				width: 100%;
+
+				.thunder--subscription-customer,
+				.thunder--subscription-shipping-address {
+					float: left;
+					width: 49%;
+				}
+
+				.thunder--subscription-shipping-address {
+					margin-left: 2%;
+				}
+			}
+
+		}
+
+	}
+
+}

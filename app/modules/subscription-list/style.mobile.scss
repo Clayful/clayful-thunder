@@ -1,0 +1,99 @@
+@include responsive(mobile) {
+
+	.thunder--subscription-list {
+
+		.thunder--subscriptions {
+
+			display: block;
+
+			thead {
+				display: none;
+			}
+
+			tbody,
+			tr,
+			th,
+			td {
+				display: block;
+				padding: 0;
+			}
+
+			.thunder--subscription {
+
+				@include clearfix;
+
+				margin-top: 14px;
+				padding: 18px 14px;
+				border: #ddd 1px solid;
+				border-radius: 4px;
+
+				td {
+					padding-top: 0;
+					font-size: 14px;
+					&:first-child {
+						float: left;
+						margin-bottom: 10px;
+						width: 100%;
+					}
+					&:nth-child(2) {
+						float: left;
+						width: 22%;
+						margin-right: 3%;
+					}
+					&:nth-child(3) {
+						float: left;
+						width: 75%;
+					}
+					&:nth-child(4) {
+						float: left;
+						margin-top: 10px;
+						width: 100%;
+					}
+					&:nth-child(5) {
+						float: left;
+						margin-top: 5px;
+						width: 100%;
+					}
+					&:nth-child(6) {
+						float: left;
+						margin-top: 10px;
+						width: 100%;
+						text-align: right;
+					}
+				}
+
+				.thunder--subscription-id {
+					display: inline-block;
+					float: right;
+				}
+
+				.thunder--subscription-thumbnail {
+					img {
+						width: 100%;
+						height: auto;
+					}
+				}
+
+				.thunder--subscription-max-amount-label {
+					display: inline-block;
+				}
+
+				.thunder--subscription-max-amount {
+					display: inline-block;
+				}
+
+				.thunder--subscription-plan-name-label {
+					display: inline-block;
+				}
+
+				.thunder--subscription-plan-name {
+					display: inline-block;
+				}
+
+			}
+
+		}
+
+	}
+
+}

@@ -1,0 +1,42 @@
+<div class="thunder--review-writer">
+
+	<form class="thunder--write-review-form thunder--form">
+		<input type="hidden" name="product" value="{{= it.options.product }}">
+		{{? it.options.useRating }}
+		<div class="thunder--product-review-rating">
+			<label>{{= it.m('reviewRating') }}</label>
+			{{= it.ui['review-star-rating'](5) }}
+		</div>
+		{{? }}
+		<div class="thunder--product-review-title">
+			<label>{{= it.m('reviewTitle') }}</label>
+			<input type="text" name="title" placeholder="{{= it.m('reviewTitle') }}">
+		</div>
+		<div class="thunder--product-review-body">
+			<label>{{= it.m('reviewBody') }}</label>
+			<textarea name="body" placeholder="{{= it.m('reviewBody') }}"></textarea>
+		</div>
+	</form>
+
+	<form class="thunder--review-image-form thunder--form">
+		<div class="thunder--review-images"></div>
+		<div class="thunder--review-image-inputs">
+			<label for="thunder--review-image">
+				{{= it.m('addImage') }}
+			</label>
+			<input type="hidden" name="model" value="Review">
+			<input type="hidden" name="application" value="images">
+			<input type="file" name="file" id="thunder--review-image" class="hidden">
+		</div>
+	</form>
+
+	<div class="thunder--form-actions">
+		<button class="thunder--post-product-review thunder--button">
+			{{= it.m('postReview') }}
+		</button>
+		<button class="thunder--cancel-product-review thunder--button skeleton">
+			{{= it.m('cancelReview') }}
+		</button>
+	</div>
+
+</div>

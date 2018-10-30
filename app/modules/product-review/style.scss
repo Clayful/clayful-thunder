@@ -1,0 +1,250 @@
+.thunder--product-review {
+
+	margin-bottom: 24px;
+	padding-bottom: 24px;
+	border-bottom: #e4e4e4 1px solid;
+
+	.thunder--delete-review-image,
+	.thunder--edit-review-image-form {
+		display: none;
+	}
+
+	&.editing {
+		.thunder--delete-review-image {
+			display: inline;
+		}
+		.thunder--edit-review-image-form {
+			display: block;
+		}
+	}
+
+	.thunder--product-review-header {
+
+		@include clearfix;
+
+		.thunder--product-review-product {
+
+			@include clearfix;
+
+			box-sizing: border-box;
+			float: right;
+			padding: 8px;
+			border: #ddd 1px solid;
+
+			.thunder--product-thumbnail {
+				margin-right: 10px;
+				float: left;
+				width: 64px;
+				height: auto;
+			}
+
+			.thunder--product-info {
+				float: left;
+				.thunder--product-title {
+					margin: 0;
+					padding: 0;
+					font-size: 14px;
+				}
+				.thunder--product-sale-price {
+					font-size: 13px;
+				}
+			}
+
+		}
+
+		.thunder--product-review-meta {
+
+			@include clearfix;
+
+			& > * {
+				float: left;
+			}
+
+			.thunder--customer-avatar {
+				margin-right: 12px;
+				width: 64px;
+				height: auto;
+				border-radius: 50%;
+				border: #eaeaea 1px solid;
+			}
+
+			.thunder--customer-identity {
+				font-size: 14px;
+			}
+
+			.thunder--review-stars {
+				img {
+					width: 16px;
+					height: auto;
+				}
+			}
+			select.thunder--review-stars {
+				font-size: 13px;
+				height: auto;
+				padding: 0;
+			}
+
+			.thunder--product-review-created-at {
+				font-size: 13px;
+			}
+
+		}
+
+	}
+
+	.thunder--product-review-title {
+		font-size: 14px;
+	}
+	input[type="text"].thunder--product-review-title {
+		width: 100%;
+		margin: 14px 0;
+		padding: 0 4px;
+		line-height: 8px;
+		border-radius: 4px;
+	}
+
+	.thunder--product-review-body {
+		white-space: pre-wrap;
+		font-size: 14px;
+	}
+	textarea.thunder--product-review-body {
+		padding: 4px;
+		min-height: 120px;
+		border-radius: 4px;
+		border-color: #ccc;
+	}
+
+	.thunder--read-more-wrapper {
+		margin-top: 8px;
+	}
+
+	.thunder--read-more {
+		@extend a;
+	}
+
+	.thunder--review-images {
+
+		margin-top: 12px;
+
+		.thunder--review-image {
+			display: inline-block;
+			margin-right: 6px;
+			margin-bottom: 2px;
+			width: 84px;
+			line-height: 1;
+			a {
+				display: inline-block;
+				line-height: 1;
+			}
+			img {
+				width: 100%;
+				height: auto;
+				border: #dfdfdf 1px solid;
+				line-height: 1;
+			}
+			.thunder--delete-review-image {
+				width: 100%;
+				font-size: 13px;
+				color: #666;
+				cursor: pointer;
+			}
+		}
+
+	}
+
+	.thunder--edit-review-image-form {
+		display: none;
+		margin-top: 6px;
+		label {
+			@extend a;
+			font-size: 14px;
+		}
+	}
+
+	.thunder--product-review-actions {
+
+		@include clearfix;
+
+		margin-top: 16px;
+
+		.thunder--product-review-helped {
+			float: left;
+			width: 50%;
+
+			.thunder--customers-find-helpful {
+				margin: 0 0 8px 0;
+				font-size: 13px;
+				color: #484848;
+			}
+
+			.thunder--helped-vote {
+
+				min-width: 100px;
+
+				& + .thunder--helped-vote {
+					margin-left: 10px;
+				}
+			}
+
+		}
+
+		.thunder--product-review-secondary-actions {
+			text-align: right;
+			float: right;
+			width: 50%;
+
+			.thunder--edit-product-review,
+			.thunder--delete-product-review,
+			.thunder--flag {
+				font-size: 13px;
+				margin-left: 10px;
+				cursor: pointer;
+			}
+
+			.thunder--edit-product-review {
+				color: $color-primary;
+				&:hover,
+				&:clicked {
+					color: darken($color-primary, 5%);
+				}
+			}
+
+			.thunder--delete-product-review {
+				color: $color-danger;
+				&:hover,
+				&:clicked {
+					color: darken($color-danger, 5%);
+				}
+			}
+
+			.thunder--flag {
+				color: #979797;
+				&:hover,
+				&:clicked {
+					color: #222;
+				}
+			}
+
+		}
+
+		.thunder--product-review-total-comments {
+
+			float: right;
+			margin-top: 12px;
+			text-align: right;
+
+			.thunder--show-product-review-comment {
+				@extend a;
+				font-size: 13px;
+			}
+
+		}
+
+	}
+
+}
+
+// Comments container
+.thunder--review-comments-container {
+	padding-left: 8%;
+}

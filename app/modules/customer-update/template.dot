@@ -1,0 +1,91 @@
+<div class="thunder--customer-update-form-wrapper">
+
+	<h2 class="{{= it.options.back ? 'thunder--with-back-button' : '' }}">
+		{{= it.m('customerInfo') }}
+	</h2>
+	{{? it.options.back }}
+	{{? it.options.back.component === 'checkout' }}
+	<a class="thunder--back-to-checkout">
+		{{= it.m('backToCheckout') }}
+	</a>
+	{{? }}
+	{{? }}
+
+	<form class="thunder--customer-avatar-form thunder--form">
+
+		<img class="thunder--customer-avatar"
+			src="{{= it.customer.avatar ? it.imageURL(it.customer.avatar, 120, 120) : it.ui['avatar-placeholder']() }}">
+
+		<label for="thunder--customer-avatar-input">
+			{{= it.m('changeAvatar') }}
+		</label>
+
+		<input type="hidden" name="model" value="Customer">
+		<input type="hidden" name="application" value="avatar">
+		<input type="file" name="file" id="thunder--customer-avatar-input">
+
+	</form>
+
+	<form class="thunder--customer-update-form thunder--form">
+
+		{{~ it.fields :field }}
+		<div class="thunder--customer-{{= it.kebabCase(field.key) }}">
+
+			<label for="{{= field.key }}">
+				{{= it.m(field.translationKey) }} {{? field.required }}<span class="form-required-marker">({{= it.m('required') }})</span>{{? }}
+			</label>
+
+			{{? field.key === 'userId' }}
+			<input type="text" name="{{= field.key }}" placeholder="{{= it.m(field.translationKey) }}" disabled>
+			<div><span class="thunder--change-user-id" data-change-credential="userId">{{= it.m('changeUserId') }}</span></div>
+			{{? }}
+			{{? field.key === 'email' }}
+			<input type="email" name="{{= field.key }}" placeholder="{{= it.m(field.translationKey) }}" disabled>
+			<div><span class="thunder--change-email" data-change-credential="email">{{= it.m('changeEmail') }}</span></div>
+			{{? }}
+			{{? field.key === 'alias' }}
+			<input type="text" name="{{= field.key }}" placeholder="{{= it.m(field.translationKey) }}" {{? field.required }}required{{? }}>
+			{{? }}
+			{{? field.key === 'name.first' }}
+			<input type="text" name="{{= field.key }}" placeholder="{{= it.m(field.translationKey) }}"  {{? field.required }}required{{? }}>
+			{{? }}
+			{{? field.key === 'name.last' }}
+			<input type="text" name="{{= field.key }}" placeholder="{{= it.m(field.translationKey) }}"  {{? field.required }}required{{? }}>
+			{{? }}
+			{{? field.key === 'name.full' }}
+			<input type="text" name="{{= field.key }}" placeholder="{{= it.m(field.translationKey) }}"  {{? field.required }}required{{? }}>
+			{{? }}
+			{{? field.key === 'mobile' }}
+			<input type="text" name="{{= field.key }}" placeholder="{{= it.m(field.translationKey) }}" {{? field.required }}required{{? }}>
+			{{? }}
+			{{? field.key === 'phone' }}
+			<input type="text" name="{{= field.key }}" placeholder="{{= it.m(field.translationKey) }}" {{? field.required }}required{{? }}>
+			{{? }}
+			{{? field.key === 'gender' }}
+			<select name="{{= field.key }}" {{? field.required }}required{{? }}>
+				<option value="" {{? it.customer.gender === null }}selected{{? }}>{{= it.m('noSelect') }}</option>
+				<option value="male" {{? it.customer.gender === 'male' }}selected{{? }}>{{= it.m('male') }}</option>
+				<option value="female" {{? it.customer.gender === 'female' }}selected{{? }}>{{= it.m('female') }}</option>
+			</select>
+			{{? }}
+			{{? field.key === 'birthdate' }}
+			{{~ it.birthdateFields :bField }}
+			<input type="text" class="{{= bField.last ? 'last' : '' }}" name="{{= bField.key }}" placeholder="{{= it.m(bField.translationKey) }}" {{? field.required }}required{{? }}>
+			{{~ }}
+			{{? }}
+		</div>
+		{{~ }}
+
+		<div class="thunder--form-actions">
+			<button type="submit" class="thunder--update-customer thunder--button">{{= it.m('doUpdate') }}</button>
+		</div>
+
+	</form>
+
+	<ul class="thunder--form-useful-actions">
+		<li>
+			<span class="thunder--change-password" data-change-credential="password">{{= it.m('changePassword') }}</span>
+		</li>
+	</ul>
+
+</div>

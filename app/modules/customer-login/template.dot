@@ -1,0 +1,39 @@
+<div class="thunder--login-form-wrapper">
+
+	<h2>
+		{{= it.m('login') }}
+	</h2>
+
+	<form class="thunder--login-form thunder--form">
+
+		<div class="thunder--customer-user-id-or-email">
+			<label for="userIdOrEmail">
+				{{= it.m('userIdOrEmail') }}
+			</label>
+
+			<input type="text" name="userIdOrEmail" placeholder="{{= it.m('userIdOrEmail') }}" required>
+		</div>
+
+		<div class="thunder--customer-password">
+			<label for="password">
+				{{= it.m('password') }}
+			</label>
+
+			<input type="password" name="password" placeholder="{{= it.m('password') }}" required>
+
+			<div class="thunder--password-action">
+				<a class="thunder--go-to-reset-password">
+					{{= it.m('goToResetPassword') }}
+				</a>
+			</div>
+		</div>
+
+		<div class="thunder--form-actions">
+			<button type="submit" class="thunder--login-customer thunder--button">{{= it.m('doLogin') }}</button>
+		</div>
+
+	</form>
+
+	{{= it.social() }}
+
+</div>

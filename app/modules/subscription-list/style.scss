@@ -1,0 +1,96 @@
+.thunder--subscription-list {
+
+	h2 {
+		margin: 0 0 12px 0;
+		font-size: 24px;
+	}
+
+	.thunder--subscriptions {
+
+		.thunder--subscription {
+			td {
+				&:nth-child(3) {
+					max-width: 280px;
+				}
+				&:nth-child(4) {
+					min-width: 80px;
+				}
+				&:nth-child(5) {
+					min-width: 80px;
+				}
+			}
+		}
+
+		.thunder--subscription-id {
+			display: block;
+			margin-bottom: 8px;
+			font-size: 13px;
+			cursor: pointer;
+		}
+
+		.thunder--subscription-status {
+			&[data-status="scheduled"] {
+				border-color: $color-success;
+				color: $color-success;
+			}
+			&[data-status="cancelled"] {
+				border-color: $color-danger;
+				color: $color-danger;
+			}
+		}
+
+		.thunder--subscription-thumbnail {
+			display: inline;
+			img {
+				width: 60px;
+				height: auto;
+				vertical-align: top;
+				cursor: pointer;
+			}
+		}
+
+		.thunder--subscription-first-item {
+			cursor: pointer;
+		}
+
+		.thunder--subscription-rest-items {
+			cursor: pointer;
+			display: block;
+			font-size: 13px;
+			color: #888;
+		}
+
+
+		.thunder--subscription-max-amount-label {
+			&:after {
+				content: ':';
+				margin-right: 6px;
+			}
+		}
+		.thunder--subscription-plan-name-label {
+			&:after {
+				content: ':';
+				margin-right: 6px;
+			}
+		}
+
+		.thunder--subscription-started-at,
+		.thunder--subscription-ends-at {
+			font-size: 13px;
+		}
+
+		.thunder--subscription-ends-at {
+			&:before {
+				content: '–';
+				margin-right: 4px;
+			}
+		}
+
+	}
+
+	.thunder--subscription-list-pagination {
+		margin-top: 14px;
+		text-align: right;
+	}
+
+}

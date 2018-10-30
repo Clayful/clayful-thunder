@@ -1,0 +1,18 @@
+@include responsive(tablet) {
+
+	.thunder--product-list {
+
+		.thunder--product {
+
+			width: 32% !important;
+			margin-right: 2% !important;
+
+			&:nth-child(3n) {
+				margin-right: 0 !important;
+			}
+
+		}
+
+	}
+
+}

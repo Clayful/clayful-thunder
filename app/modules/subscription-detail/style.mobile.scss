@@ -1,0 +1,108 @@
+@include responsive(mobile) {
+
+	.thunder--subscription-detail {
+
+		.thunder--subscription-primary-info {
+
+			.thunder--subscription-basic-info {
+				width: 100%;
+			}
+
+			.thunder--subscription-item-details {
+				margin-right: 0;
+				width: 100%;
+
+				.thunder--cart-items {
+
+					.thunder--cart-item {
+						&:first-child {
+							margin-top: 0;
+							padding-top: 8px;
+							border-top: none;
+						}
+
+						.thunder--cart-item-quantity {
+
+							font-size: 14px;
+
+							.thunder--cart-item-quantity-label {
+								display: inline-block;
+								margin-right: 6px;
+							}
+
+							.thunder--cart-item-quantity-value {
+								&:before {
+									padding: 0;
+								}
+							}
+
+						}
+
+					}
+
+					.thunder--subscription-applied-coupon {
+						td {
+							margin-top: 12px;
+						}
+					}
+
+				}
+
+			}
+
+		}
+
+		.thunder--subscription-secondary-info {
+
+			.thunder--subscription-customer-and-address {
+				width: 100%;
+			}
+
+			.thunder--subscription-schedules {
+				margin-right: 0;
+				width: 100%;
+
+				table,
+				tbody,
+				tr:not(.hidden),
+				th,
+				td {
+					display: block;
+				}
+
+				thead {
+					display: none;
+				}
+
+				td {
+					padding: 0;
+				}
+
+				.thunder--subscription-schedule {
+					margin-top: 14px;
+					padding: 14px;
+					border: #ddd 1px solid;
+					border-radius: 4px;
+
+					.thunder--schedule-order {
+						float: right;
+						width: auto;
+					}
+
+					.thunder--schedule-status {
+						margin: 0 0 10px 0;
+					}
+
+					.thunder--schedule-time-label,
+					.thunder--schedule-total-amount-label {
+						display: inline-block;
+					}
+
+				}
+			}
+
+		}
+
+	}
+
+}

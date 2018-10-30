@@ -1,0 +1,68 @@
+<div class="thunder--register-form-wrapper">
+
+	<h2>
+		{{= it.m('register') }}
+	</h2>
+
+	<form class="thunder--register-form thunder--form">
+
+		{{~ it.fields :field }}
+
+			<div class="thunder--customer-{{= it.kebabCase(field.key) }}">
+
+				<label for="{{= field.key }}">
+					{{= it.m(field.translationKey) }} {{? field.required }}<span class="form-required-marker">({{= it.m('required') }})</span>{{? }}
+				</label>
+
+				{{? field.key === 'userId' }}
+				<input type="text" name="{{= field.key }}" placeholder="{{= it.m(field.translationKey) }}" {{? field.required }}required{{? }}>
+				{{? }}
+				{{? field.key === 'email' }}
+				<input type="email" name="{{= field.key }}" placeholder="{{= it.m(field.translationKey) }}" {{? field.required }}required{{? }}>
+				{{? }}
+				{{? field.key === 'password' }}
+				<input type="password" name="{{= field.key }}" placeholder="{{= it.m(field.translationKey) }}" {{? field.required }}required{{? }}>
+				{{? }}
+				{{? field.key === 'alias' }}
+				<input type="text" name="{{= field.key }}" placeholder="{{= it.m(field.translationKey) }}" {{? field.required }}required{{? }}>
+				{{? }}
+				{{? field.key === 'name.first' }}
+				<input type="text" name="{{= field.key }}" placeholder="{{= it.m(field.translationKey) }}" {{? field.required }}required{{? }}>
+				{{? }}
+				{{? field.key === 'name.last' }}
+				<input type="text" name="{{= field.key }}" placeholder="{{= it.m(field.translationKey) }}" {{? field.required }}required{{? }}>
+				{{? }}
+				{{? field.key === 'name.full' }}
+				<input type="text" name="{{= field.key }}" placeholder="{{= it.m(field.translationKey) }}" {{? field.required }}required{{? }}>
+				{{? }}
+				{{? field.key === 'mobile' }}
+				<input type="text" name="{{= field.key }}" placeholder="{{= it.m(field.translationKey) }}" {{? field.required }}required{{? }}>
+				{{? }}
+				{{? field.key === 'phone' }}
+				<input type="text" name="{{= field.key }}" placeholder="{{= it.m(field.translationKey) }}" {{? field.required }}required{{? }}>
+				{{? }}
+				{{? field.key === 'gender' }}
+				<select name="{{= field.key }}" {{? field.required }}required{{? }}>
+					<option value="">{{= it.m('noSelect') }}</option>
+					<option value="male">{{= it.m('male') }}</option>
+					<option value="female">{{= it.m('female') }}</option>
+				</select>
+				{{? }}
+				{{? field.key === 'birthdate' }}
+				{{~ it.birthdateFields :bField }}
+				<input type="text" class="{{= bField.last ? 'last' : '' }}" name="{{= bField.key }}" placeholder="{{= it.m(bField.translationKey) }}" {{? field.required }}required{{? }}>
+				{{~ }}
+				{{? }}
+			</div>
+
+		{{~ }}
+
+		<div class="thunder--form-actions">
+			<button type="submit" class="thunder--register-customer thunder--button">{{= it.m('doRegister') }}</button>
+		</div>
+
+	</form>
+
+	{{= it.social() }}
+
+</div>

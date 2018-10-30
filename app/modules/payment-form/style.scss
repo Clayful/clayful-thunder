@@ -1,0 +1,70 @@
+.thunder--payment-form {
+
+	margin-bottom: 14px;
+
+	.thunder--payment-card-detail {
+
+		@include clearfix;
+
+		display: none;
+		margin-top: 8px;
+
+		& > div {
+			float: left;
+			margin-bottom: 8px;
+		}
+
+		.thunder--card-number {
+			width: 100%;
+		}
+
+		.thunder--is-company-card {
+			width: 100%;
+			label {
+				display: inline;
+				margin-left: 4px;
+			}
+		}
+
+		.thunder--card-expiration {
+
+			width: 50%;
+
+			[name="card.expiration.month"] {
+				width: 48px;
+			}
+
+			[name="card.expiration.year"] {
+				width: 64px;
+			}
+
+			.thunder--card-expiration-separator {
+				margin: 0 5px;
+				color: #aaa;
+			}
+
+		}
+
+		.thunder--card-password-first2 {
+
+			width: 50%;
+
+			[name="card.password2"] {
+				width: 48px;
+			}
+
+			.thunder--card-password-last2 {
+				position: relative;
+				top: 6px;
+				margin-left: 3px;
+			}
+
+		}
+
+		.thunder--card-owner {
+			width: 100%;
+		}
+
+	}
+
+}

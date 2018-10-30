@@ -1,0 +1,48 @@
+<div class="thunder--credential-form-wrapper">
+
+	<h2>
+		{{? it.options.field === 'userId' }}{{= it.m('changeUserId') }}{{? }}
+		{{? it.options.field === 'email' }}{{= it.m('changeEmail') }}{{? }}
+		{{? it.options.field === 'password' }}{{= it.m('changePassword') }}{{? }}
+	</h2>
+
+	<form class="thunder--credential-form thunder--form">
+
+		{{? it.options.field === 'userId' }}
+		<div class="thunder--customer-new-user-id">
+			<label for="newUserId">{{= it.m('newUserId') }}</label>
+			<input type="text" name="credentials.userId" placeholder="{{= it.m('newUserId') }}" required>
+		</div>
+		{{? }}
+		{{? it.options.field === 'email' }}
+		<div class="thunder--customer-new-email">
+			<label for="newEmail">{{= it.m('newEmail') }}</label>
+			<input type="email" name="credentials.email" placeholder="{{= it.m('newEmail') }}" required>
+		</div>
+		{{? }}
+		{{? it.options.field === 'password' }}
+		<div class="thunder--customer-new-password">
+			<label for="newPassword">{{= it.m('newPassword') }}</label>
+			<input type="password" name="credentials.password" placeholder="{{= it.m('newPassword') }}" required>
+		</div>
+		{{? }}
+
+		<div class="thunder--customer-old-password">
+			<label for="oldPassword">{{= it.m('oldPassword') }}</label>
+
+			<input type="password" name="password" placeholder="{{= it.m('oldPassword') }}" required>
+		</div>
+
+		<div class="thunder--form-actions">
+			<button type="submit" class="thunder--update-credential thunder--button">{{= it.m('doChange') }}</button>
+		</div>
+
+	</form>
+
+	<ul class="thunder--form-useful-actions">
+		<li>
+			<span class="thunder--update-customer">{{= it.m('updateCustomer') }}</span>
+		</li>
+	</ul>
+
+</div>

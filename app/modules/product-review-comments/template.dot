@@ -1,0 +1,83 @@
+<div class="thunder--product-review-comments" data-review="{{= it.options.review }}">
+
+	{{? it.count.raw === 0 }}
+	<p class="thunder--review-has-no-comments">
+		{{= it.m('noReviewComments') }}
+	</p>
+	{{? }}
+
+	<div class="thunder--comment-writer-actions">
+		<button class="thunder--write-comment thunder--helped-vote thunder--button-tiny skeleton">
+			{{= it.m('writeComment') }}
+		</button>
+	</div>
+
+	<form class="thunder--comment-writer-container thunder--form">
+		<div class="thunder--comment-body">
+			<textarea placeholder="{{= it.m('commentBody') }}"></textarea>
+		</div>
+		<div class="thunder--form-actions">
+			<button class="thunder--post-comment thunder--button-small">
+				{{= it.m('postComment') }}
+			</button>
+			<button class="thunder--cancel-comment thunder--button-small skeleton">
+				{{= it.m('cancelComment') }}
+			</button>
+		</div>
+	</form>
+
+	<div class="thunder--review-comment-list">
+		{{~ it.comments :comment }}
+		<div class="thunder--review-comment" data-review-comment="{{= comment._id }}">
+			<div class="thunder--review-comment-header">
+				<div class="thunder--review-comment-author">
+					<span class="thunder--author-identity">
+						{{? comment.customer !== undefined }}
+						{{= it.customerIdentity(comment.customer) || it.m('deletedCustomer') }}
+						{{? }}
+						{{? comment.collaborator !== undefined }}
+						{{= comment.collaborator ? comment.collaborator.alias : it.m('deletedCollaborator') }}
+						{{? }}
+					</span>
+					<span class="thunder--review-comment-created-at">
+						{{= it.m('commentWrittenAt', { time: comment.createdAt.formatted }) }}
+					</span>
+				</div>
+			</div>
+			<div class="thunder--review-comment-body">
+				<!-- Body -->
+				{{? comment.body === comment.excerpt }}
+				{{= comment.body }}
+				{{? }}
+				<!-- Excerpt -->
+				{{? comment.body !== comment.excerpt }}
+				{{= comment.excerpt }}
+				<div class="thunder--read-more-wrapper">
+					<span class="thunder--read-more">{{= it.m('readMore') }}</span>
+				</div>
+				{{? }}
+			</div>
+			<div class="thunder--review-comment-actions">
+				{{? comment.editable }}
+				<span class="thunder--edit-review-comment">
+					{{= it.m('editComment') }}
+				</span>
+				<span class="thunder--delete-review-comment">
+					{{= it.m('deleteComment') }}
+				</span>
+				{{? }}
+				{{? it.options.useFlag }}
+				<span class="thunder--flag">
+					{{= it.m('flagComment') }}
+				</span>
+				{{? }}
+			</div>
+		</div>
+		{{~ }}
+	</div>
+
+	{{? it.options.usePagination }}
+	<div class="thunder--review-comment-list-pagination"></div>
+	{{? }}
+
+</div>

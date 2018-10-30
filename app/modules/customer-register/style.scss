@@ -1,0 +1,43 @@
+.thunder--register-form-wrapper {
+
+	max-width: 280px;
+	margin: 0 auto;
+
+	h2 {
+		margin: 0 0 12px 0;
+		font-size: 24px;
+	}
+
+	.thunder--register-form {
+
+		& > div {
+			margin-bottom: 12px;
+		}
+
+		.thunder--customer-birthdate {
+
+			input[type="text"] {
+				margin-right: 8px;
+			}
+
+			input[name="birthYear"] {
+				width: 48px;
+			}
+
+			input[name="birthMonth"],
+			input[name="birthDate"] {
+				width: 36px;
+			}
+
+
+		}
+
+		.thunder--form-actions {
+			.thunder--button {
+				width: 100%;
+			}
+		}
+
+	}
+
+}

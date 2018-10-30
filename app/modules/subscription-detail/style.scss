@@ -1,0 +1,272 @@
+.thunder--subscription-detail {
+
+	h2 {
+		&.thunder--with-back-button {
+			margin-bottom: 0;
+		}
+	}
+
+	.thunder--back-to-subscriptions {
+		@extend a;
+		@include go-back-icon;
+		display: inline-block;
+		margin-bottom: 4px;
+		font-size: 14px;
+	}
+
+	h3 {
+		padding-bottom: 8px;
+		border-bottom: #ddd 1px solid;
+	}
+
+	.thunder--data-label {
+		padding: 2px 8px 2px 0;
+		font-weight: normal;
+		text-align: left;
+		&:after {
+			content: ':';
+		}
+	}
+
+	.thunder--data-value {
+		padding: 2px 0;
+		text-decoration: underline;
+	}
+
+	.thunder--subscription-primary-info {
+
+		@include clearfix;
+
+		& > div {
+			margin-bottom: 18px;
+		}
+
+		.thunder--subscription-basic-info {
+
+			float: right;
+			width: 38%;
+
+			h4 {
+				font-size: 15px;
+				margin: 12px 0 8px 0;
+			}
+
+			table {
+				border-spacing: 0;
+				margin: 12px 0;
+				font-size: 14px;
+			}
+
+			.thunder--subscription-status {
+				&[data-status="scheduled"] {
+					border-color: $color-success;
+					color: $color-success;
+				}
+				&[data-status="cancelled"] {
+					border-color: $color-danger;
+					color: $color-danger;
+				}
+			}
+
+			.thunder--subscription-id {
+				margin-top: 8px;
+			}
+
+			.thunder--subscription-timezone {
+				margin-bottom: 8px;
+			}
+
+			.thunder--subscription-created-at,
+			.thunder--subscription-ends-at {
+				margin: 0;
+				padding: 0;
+				font-size: 14px;
+			}
+
+			.thunder--subscription-sync-failed {
+				font-size: 14px;
+				color: $color-danger;
+				&:before {
+					content: '🚨';
+					margin-right: 4px;
+				}
+			}
+
+			.thunder--subscription-cancellation {
+
+				.thunder--subscription-cancellation-reason {
+					font-size: 14px;
+					&:before { content: '“' };
+					&:after { content: '”' };
+				}
+
+			}
+
+			.thunder--subscription-request {
+
+				.thunder--subscription-request-body {
+					font-size: 14px;
+					&:before { content: '“' };
+					&:after { content: '”' };
+				}
+
+			}
+
+			.thunder--subscription-cancellation-form {
+				margin-top: 14px;
+
+				textarea {
+					width: 100%;
+					margin-bottom: 8px;
+					padding: 4px;
+					border-radius: 4px;
+					border: #ccc 1px solid;
+				}
+			}
+
+			.thunder--subscription-actions {
+				margin: 4px 0;
+				text-align: right;
+				font-size: 14px;
+				li {
+					list-style: none;
+					span {
+						@extend a;
+					}
+				}
+			}
+
+		}
+
+		.thunder--subscription-item-details {
+
+			float: left;
+			margin-right: 2%;
+			width: 60%;
+
+			.thunder--cart-items {
+
+				.thunder--cart-item-quantity-value {
+					font-size: 14px;
+					&:before {
+						content: '×';
+						margin-right: 4px;
+						color: #777;
+					}
+				}
+
+				.thunder--subscription-applied-coupon {
+					font-size: 14px;
+					td {
+						border-top: #eaeaea 1px solid;
+					}
+				}
+
+			}
+
+		}
+
+	}
+
+	.thunder--subscription-secondary-info {
+
+		@include clearfix;
+
+		& > div {
+			margin-bottom: 18px;
+		}
+
+		.thunder--subscription-customer-and-address {
+
+			float: right;
+			width: 38%;
+
+			h4 {
+				font-size: 15px;
+				margin: 12px 0 8px 0;
+			}
+
+			table {
+				border-spacing: 0;
+				font-size: 14px;
+			}
+
+		}
+
+		.thunder--subscription-schedules {
+
+			float: left;
+			margin-right: 2%;
+			width: 60%;
+
+			.thunder--subscription-schedule-list {
+
+				tbody {
+					font-size: 14px;
+					tr {
+						&[data-status="done"] {
+							.thunder--schedule-order {
+								@extend a;
+							}
+						}
+					}
+				}
+
+				.thunder--schedule-order {
+					display: inline-block;
+					width: 100%;
+					margin-bottom: 4px;
+					font-size: 13px;
+				}
+
+				.thunder--schedule-status {
+					&[data-status="cancelled"] {
+						border-color: $color-danger;
+						color: $color-danger;
+					}
+					&[data-status="done"] {
+						border-color: $color-success;
+						color: $color-success;
+					}
+				}
+
+				.thunder--schedule-time-label {
+					&:after {
+						content: ':';
+						margin-right: 6px;
+					}
+				}
+
+				.thunder--schedule-time {
+					display: inline-block;
+				}
+
+				.thunder--schedule-total-amount-label {
+					&:after {
+						content: ':';
+						margin-right: 6px;
+					}
+				}
+
+				.thunder--schedule-total-amount {
+					display: inline-block;
+				}
+
+				.thunder--subscription-omitted-schedules {
+
+					td {
+						padding: 16px 0;
+					}
+
+					.thunder--view-all-schedules {
+						@extend a;
+					}
+
+				}
+
+			}
+		}
+
+	}
+
+}

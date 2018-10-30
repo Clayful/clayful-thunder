@@ -1,0 +1,15 @@
+<div class="thunder--customer-review-comment">
+
+	<h2 class="{{= it.options.back ? 'thunder--with-back-button' : '' }}">
+		{{= it.m('customerReviewComment') }}
+	</h2>
+
+	{{? it.options.back }}
+	<a class="thunder--back-to-comments">
+		{{= it.m('backToComments') }}
+	</a>
+	{{? }}
+
+	<div class="thunder--customer-review-comment-container"></div>
+
+</div>

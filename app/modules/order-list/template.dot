@@ -1,0 +1,93 @@
+<div class="thunder--order-list">
+
+	<h2>
+		{{= it.m('orderList') }}
+	</h2>
+
+	<table class="thunder--table thunder--orders">
+
+		<thead>
+			<tr>
+				<th>{{= it.m('orderId') }}</th>
+				<th colspan="2">{{= it.m('orderItems') }}</th>
+				<th>{{= it.m('orderTotal') }}</th>
+				<th>{{= it.m('orderCreatedAt') }}</th>
+			</tr>
+		</thead>
+
+		<tbody>
+			{{~ it.orders :order }}
+			<tr class="thunder--order" data-order="{{= order._id }}">
+
+				<td>
+					<span class="thunder--order-id">
+						{{= order._id }}
+					</span>
+					<span class="thunder--tag thunder--order-status" data-status="{{= it.kebabCase(order.status) }}">
+						{{=
+							order.status === 'cancelled' ?
+								it.m(it.camelCase(['status', order.status, 'by', order.cancellation.by])) :
+								it.m(it.camelCase(['status', order.status]))
+						}}
+					</span>
+					{{? order.shippingStatus }}
+					<span class="thunder--tag thunder--order-shipping-status" data-status="{{= it.kebabCase(order.shippingStatus) }}">
+						{{= it.m(it.camelCase(['shippingStatus', order.shippingStatus])) }}
+					</span>
+					{{? }}
+				</td>
+
+				<td>
+					<span class="thunder--order-thumbnail">
+						<img src="{{= it.imageURL(order.items[0].product.thumbnail, 120, 120) }}">
+					</span>
+				</td>
+
+				<td>
+					{{? order.subscription !== undefined }}
+					<span class="thunder--order-subscription">
+						{{= it.m('orderSubscription') }}
+						{{? order.subscription && order.subscription.plan }}
+						&nbsp;({{= order.subscription.plan.name }})
+						{{? }}
+					</span>
+					{{? }}
+					<span class="thunder--order-first-item">
+						{{= order.items[0].product.name }}
+					</span>
+					{{? order.items.length > 1 }}
+					<span class="thunder--order-rest-items">
+						{{= it.m('restNItems', { smart_count: order.items.length - 1 }) }}
+					</span>
+					{{? }}
+				</td>
+
+				<td>
+					<span class="thunder--order-total-label hidden">
+						{{= it.m('orderTotal') }}
+					</span>
+					<span class="thunder--order-total">
+						{{= order.total.price.withTax.converted }}
+					</span>
+				</td>
+
+				<td>
+					<span class="thunder--order-created-at-label hidden">
+						{{= it.m('orderCreatedAt') }}
+					</span>
+					<span class="thunder--order-created-at">
+						{{= order.createdAt.formatted }}
+					</span>
+				</td>
+
+			</tr>
+			{{~ }}
+		</tbody>
+
+	</table>
+
+	{{? it.options.usePagination }}
+	<div class="thunder--order-list-pagination"></div>
+	{{? }}
+
+</div>

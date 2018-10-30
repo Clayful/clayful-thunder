@@ -1,0 +1,15 @@
+<div class="thunder--customer-review">
+
+	<h2 class="{{= it.options.back ? 'thunder--with-back-button' : '' }}">
+		{{= it.m('customerReview') }}
+	</h2>
+
+	{{? it.options.back }}
+	<a class="thunder--back-to-reviews">
+		{{= it.m('backToReviews') }}
+	</a>
+	{{? }}
+
+	<div class="thunder--customer-review-container"></div>
+
+</div>

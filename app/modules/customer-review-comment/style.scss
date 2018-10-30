@@ -1,0 +1,22 @@
+.thunder--customer-review-comment {
+
+	h2 {
+		&.thunder--with-back-button {
+			margin-bottom: 0;
+		}
+	}
+
+	.thunder--back-to-comments {
+		@extend a;
+		@include go-back-icon;
+		display: inline-block;
+		margin-bottom: 19px;
+		font-size: 14px;
+	}
+
+	.thunder--write-comment {
+		// Hide comment writer since it's not necessary in this context
+		display: none;
+	}
+
+}

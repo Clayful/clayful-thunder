@@ -1,0 +1,114 @@
+<div class="thunder--customer-coupons">
+
+	<h2>{{= it.m('coupons') }}</h2>
+
+	<div class="thunder-customer-coupon-list">
+
+		{{? it.coupons.length === 0 }}
+		<p class="thunder--customer-has-no-coupons">
+			{{= it.m('hasNoCoupons') }}
+		</p>
+		{{? }}
+
+		{{~ it.coupons :coupon }}
+		<div class="thunder--customer-coupon" data-coupon="{{= coupon._id }}" data-mh="customer-coupon-list-{{= it.couponListId }}">
+
+			<h3 class="thunder--customer-coupon-name">{{= coupon.name }}</h3>
+			<ul>
+				<li class="thunder--customer-coupon-discount-main">
+					<span class="thunder--customer-coupon--type">
+						{{= it.m(coupon.type + 'Type') }}
+					</span>
+					&nbsp;-&nbsp;
+					<span class="thunder--customer-coupon-discount-value">
+						{{= it.m('valueDiscount', { discount: coupon.discount.value.converted }) }}
+					</span>
+					{{? coupon.subscription }}
+					<div class="thunder--customer-coupon-subscription-rules">
+						{{? coupon.subscription.type === 'first' }}
+							{{= it.m('firstNOrdersDiscounted', { smart_count: coupon.subscription.value.raw }) }}
+						{{?  }}
+						{{? coupon.subscription.type === 'last' }}
+							{{= it.m('lastNOrdersDiscounted', { smart_count: coupon.subscription.value.raw }) }}
+						{{?  }}
+						{{? coupon.subscription.type === 'every' }}
+							{{= it.m('allOrdersDiscounted') }}
+						{{?  }}
+					</div>
+					{{? }}
+				</li>
+				{{? coupon.discount.min || coupon.discount.max }}
+				<li class="thunder--customer-coupon-condition thunder--customer-coupon-discount-min-max">
+					{{= coupon.discount.min ? it.m('minDiscount', { min: coupon.discount.min.converted }) : '' }}
+					{{? coupon.discount.min && coupon.discount.max }}
+					,&nbsp;
+					{{? }}
+					{{= coupon.discount.max ? it.m('maxDiscount', { max: coupon.discount.max.converted }) : '' }}
+				</li>
+				{{? }}
+				<li class="thunder--customer-coupon-condition thunder--customer-coupon-only">
+					{{= coupon.only ? it.m('usedOnly') : it.m('usedTogether') }}
+				</li>
+				{{? coupon.price.min || coupon.price.max }}
+				<li class="thunder--customer-coupon-condition thunder--customer-coupon-applicable-range">
+					{{? coupon.type === 'product' }}{{= it.m('applicableProductPrice') }}{{? }}
+					{{? coupon.type === 'cart' }}{{= it.m('applicableOrderTotal') }}{{? }}
+					{{? coupon.type === 'shipping' }}{{= it.m('applicableShipmentFee') }}{{? }}
+					:&nbsp;
+					{{= coupon.price.min ? it.m('greaterThanEqual', { price: coupon.price.min.converted }) : '' }}
+					{{? coupon.price.min && coupon.price.max }}
+					,&nbsp;
+					{{? }}
+					{{= coupon.price.max ? it.m('lessThanEqual', { price: coupon.price.max.converted }) : '' }}
+				</li>
+				{{? }}
+				{{? coupon.category.type && coupon.category.type !== 'any' }}
+				<li class="thunder--customer-coupon-condition thunder--customer-coupon-applicable-category">
+					<span data-balloon-length="fit"
+						data-balloon-pos="up"
+						data-balloon="{{=
+							coupon.category.type === 'include' ?
+								it.m('canOnlyUsedFor', { items: it.categories(coupon) }) :
+								it.m('cannotUsedFor', { items: it.categories(coupon) })
+						}}">
+						{{? coupon.category.products }}{{= it.m('onlyForCertainProducts') }}{{? }}
+						{{? coupon.category.brands }}{{= it.m('onlyForCertainBrands') }}{{? }}
+						{{? coupon.category.collections }}{{= it.m('onlyForCertainCollections') }}{{? }}
+						<span class="thunder--question-mark"></span>
+					</span>
+				</li>
+				{{? }}
+			</ul>
+
+			<p class="thunder--customer-coupon-expires-at">
+				{{=
+					coupon.expiresAt ?
+						it.m('expiresAt', { time: coupon.expiresAt.formatted }) :
+						it.m('withoutExpiration')
+				}}
+			</p>
+
+			{{? !coupon.active }}
+			<p class="thunder--inactive-coupon-warning">
+				{{= it.m('inactiveCoupon') }}
+			</p>
+			{{? }}
+
+			<div class="thunder--customer-coupon-actions">
+
+				<button class="thunder--button thunder--delete-coupon" data-coupon="{{= coupon._id }}">
+					{{= it.m('deleteCoupon') }}
+				</button>
+
+			</div>
+
+		</div>
+		{{~ }}
+
+	</div>
+
+	{{? it.coupons.length > 0 && it.options.usePagination }}
+	<div class="thunder--customer-coupon-list-pagination"></div>
+	{{? }}
+
+</div>

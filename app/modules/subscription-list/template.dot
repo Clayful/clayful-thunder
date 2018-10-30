@@ -1,0 +1,91 @@
+<div class="thunder--subscription-list">
+
+	<h2>
+		{{= it.m('subscriptionList') }}
+	</h2>
+
+	<table class="thunder--table thunder--subscriptions">
+
+		<thead>
+			<tr>
+				<th>{{= it.m('subscriptionId') }}</th>
+				<th colspan="2">{{= it.m('subscriptionItems') }}</th>
+				<th>{{= it.m('subscriptionAmount') }}</th>
+				<th>{{= it.m('subscriptionPlan') }}</th>
+				<th>{{= it.m('subscriptionTime') }}</th>
+			</tr>
+		</thead>
+
+		<tbody>
+			{{~ it.subscriptions :subscription }}
+			<tr class="thunder--subscription" data-subscription="{{= subscription._id }}">
+
+				<td>
+					<span class="thunder--subscription-id">
+						{{= subscription._id }}
+					</span>
+					<span class="thunder--tag thunder--subscription-status" data-status="{{= it.kebabCase(subscription.status) }}">
+						{{=
+							subscription.status === 'cancelled' ?
+								it.m(it.camelCase(['status', subscription.status, 'by', subscription.cancellation.by])) :
+								it.m(it.camelCase(['status', subscription.status]))
+						}}
+					</span>
+				</td>
+
+				<td>
+					<span class="thunder--subscription-thumbnail">
+						<img src="{{= it.imageURL(subscription.items[0].product.thumbnail, 120, 120) }}">
+					</span>
+				</td>
+
+				<td>
+					<span class="thunder--subscription-first-item">
+						{{= subscription.items[0].product.name }}
+					</span>
+					{{? subscription.items.length > 1 }}
+					<span class="thunder--subscription-rest-items">
+						{{= it.m('restNItems', { smart_count: subscription.items.length - 1 }) }}
+					</span>
+					{{? }}
+				</td>
+
+				<td>
+					<span class="thunder--subscription-max-amount-label hidden">
+						{{= it.m('subscriptionAmount') }}
+					</span>
+					<span class="thunder--subscription-max-amount">
+						{{= subscription.maxScheduledAmount.converted }}
+					</span>
+				</td>
+
+				<td>
+					<span class="thunder--subscription-plan-name-label hidden">
+						{{= it.m('subscriptionPlan') }}
+					</span>
+					<span class="thunder--subscription-plan-name">
+						{{= subscription.plan.name }}
+					</span>
+				</td>
+
+				<td>
+					<span class="thunder--subscription-started-at">
+						{{= subscription.duration[0].formatted }}
+					</span>
+					<br>
+					<span class="thunder--subscription-ends-at">
+						{{= subscription.duration[1].formatted }}
+					</span>
+				</td>
+
+			</tr>
+			{{~ }}
+		</tbody>
+
+	</table>
+
+	{{? it.options.usePagination }}
+	<div class="thunder--subscription-list-pagination"></div>
+	{{? }}
+
+</div>

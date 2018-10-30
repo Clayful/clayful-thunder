@@ -1,0 +1,85 @@
+@include responsive(mobile) {
+
+	.thunder--checkout {
+
+		.thunder--checkout-process {
+			width: 100%;
+			margin-right: 0;
+
+			.thunder--cart-items {
+				table {
+					thead {
+						display: none;
+					}
+				}
+
+				.thunder--cart-item-quantity {
+
+					font-size: 14px;
+
+					.thunder--cart-item-quantity-label {
+						display: inline-block;
+						margin-right: 6px;
+					}
+
+					.thunder--cart-item-quantity-value {
+						&:before {
+							padding: 0;
+						}
+					}
+
+				}
+
+			}
+
+			.thunder--cart-item-coupon-wrapper,
+			.thunder--cart-coupon-wrapper {
+
+				margin-top: 10px;
+				margin-bottom: 10px;
+
+				.thunder--cart-applied-coupon {
+					font-size: 14px;
+
+					& + .thunder--cart-coupon {
+						margin-top: 6px;
+					}
+				}
+
+				.thunder--cart-item-coupon,
+				.thunder--cart-coupon {
+					font-size: 13px;
+					option {
+						font-size: 13px;
+					}
+				}
+
+			}
+
+			.thunder--customer {
+				width: 100%;
+			}
+
+			.thunder--address {
+				width: 100%;
+				margin-right: 0;
+			}
+
+			.thunder--order-payment {
+				width: 100%;
+				margin-right: 0;
+			}
+
+			.thunder--order-request {
+				width: 100%;
+			}
+
+		}
+
+		.thunder--total {
+			width: 100%;
+		}
+
+	}
+
+}

@@ -1,0 +1,57 @@
+.thunder--customer-address-update-form-wrapper {
+
+	max-width: 280px;
+	margin: 0 auto;
+
+	h2 {
+		margin: 0 0 12px 0;
+		font-size: 24px;
+	}
+
+	.thunder--customer-address-update-form {
+
+		@include clearfix;
+
+		& > div {
+			float: left;
+			width: 100%;
+			margin-bottom: 8px;
+		}
+
+		.thunder--customer-address-state,
+		.thunder--customer-address-city {
+			width: 49%;
+		}
+
+		.thunder--customer-address-city {
+			margin-left: 2%;
+		}
+
+		.thunder--action-address {
+			margin-top: 14px;
+			text-align: right;
+		}
+
+		.thunder--search-address {
+			padding: 4px 8px;
+			border-radius: 4px;
+			border: #555 1px solid;
+			background: none;
+			color: #555;
+			font-size: 13px;
+			text-shadow: none;
+			&:hover {
+				border-color: #222;
+				color: #222;
+			}
+		}
+
+		.thunder--form-actions {
+			.thunder--button {
+				width: 100%;
+			}
+		}
+
+	}
+
+}

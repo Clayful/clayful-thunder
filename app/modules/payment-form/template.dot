@@ -1,0 +1,47 @@
+<div class="thunder--payment-form thunder--form">
+
+	<div class="thunder--payment-method">
+		<label for="paymentMethod">{{= it.m('paymentMethod') }}</label>
+		<select name="paymentMethod">
+			<option disabled selected>{{= it.m('selectPaymentMethod') }}</option>
+			{{~ it.paymentMethods :paymentMethod }}
+			<option value="{{= paymentMethod.id }}.{{= paymentMethod.label }}">
+				{{= it.m(paymentMethod.label) }}
+			</option>
+			{{~ }}
+		</select>
+	</div>
+
+	<div class="thunder--payment-card-detail thunder--form">
+
+		<div class="thunder--card-number">
+			<label for="card.number">{{= it.m('cardNumber') }}</label>
+			<input type="text" name="card.number" placeholder="XXXX XXXX XXXX XXXX">
+		</div>
+
+		<div class="thunder--is-company-card">
+			<input type="checkbox" id="is-company-card">
+			<label for="is-company-card">{{= it.m('isCompanyCard') }}</label>
+		</div>
+
+		<div class="thunder--card-expiration">
+			<label for="card.expiration">{{= it.m('cardExpiration') }}</label>
+			<input type="number" name="card.expiration.month" placeholder="MM" min="1" max="12">
+			<span class="thunder--card-expiration-separator">/</span>
+			<input type="number" name="card.expiration.year" placeholder="YYYY" min="2018" max="3000">
+		</div>
+
+		<div class="thunder--card-password-first2">
+			<label for="card.password2">{{= it.m('cardPassword2') }}</label>
+			<input type="password" name="card.password2" placeholder="XX" maxlength="2">
+			<span class="thunder--card-password-last2">**</span>
+		</div>
+
+		<div class="thunder--card-owner">
+			<label for="card.owner"></label>
+			<input type="text" name="card.owner" placeholder="">
+		</div>
+
+	</div>
+
+</div>

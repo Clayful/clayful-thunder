@@ -1,0 +1,62 @@
+{
+  "name": "clayful-thunder",
+  "version": "0.0.0",
+  "description": "Embeddable eCommerce built on top of Clayful APIs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "eCommerce",
+    "widget",
+    "webite",
+    "web"
+  ],
+  "author": "Daeik Kim <daeik.kim@clayful.io>",
+  "license": "MIT",
+  "devDependencies": {
+    "babel-core": "^6.26.3",
+    "babel-preset-env": "^1.7.0",
+    "babelify": "^8.0.0",
+    "browserify": "^16.2.2",
+    "browserify-shim": "^3.8.14",
+    "event-stream": "^3.3.4",
+    "glob": "^7.1.2",
+    "gulp": "^3.9.1",
+    "gulp-append-prepend": "^1.0.4",
+    "gulp-autoprefixer": "^3.1.1",
+    "gulp-babel": "^7.0.1",
+    "gulp-clean": "^0.4.0",
+    "gulp-concat": "^2.6.1",
+    "gulp-connect": "^5.5.0",
+    "gulp-csso": "^3.0.0",
+    "gulp-dotify": "^0.1.2",
+    "gulp-htmlmin": "^3.0.0",
+    "gulp-notify": "^3.2.0",
+    "gulp-rename": "^1.2.2",
+    "gulp-replace": "^0.5.4",
+    "gulp-sass": "^3.1.0",
+    "gulp-sequence": "^1.0.0",
+    "gulp-sourcemaps": "^2.6.4",
+    "gulp-uglify": "^2.1.2",
+    "vinyl-buffer": "^1.0.1",
+    "vinyl-source-stream": "^2.0.0",
+    "watchify": "^3.11.0"
+  },
+  "dependencies": {
+    "balloon-css": "^0.5.0",
+    "core-js": "^2.5.7",
+    "imagesloaded": "^4.1.4",
+    "jquery-form": "^4.2.2",
+    "jquery-match-height": "^0.7.2",
+    "jstimezonedetect": "^1.0.6",
+    "lodash.camelcase": "^4.3.0",
+    "lodash.get": "^4.4.2",
+    "lodash.kebabcase": "^4.1.1",
+    "lodash.mergewith": "^4.6.1",
+    "lodash.omit": "^4.5.0",
+    "lodash.set": "^4.3.2",
+    "node-polyglot": "^2.2.2",
+    "pikaday": "^1.7.0"
+  }
+}

@@ -1,0 +1,81 @@
+.thunder--review-writer {
+
+	@include clearfix;
+
+	margin: 24px auto;
+	max-width: 380px;
+
+	.thunder--write-review-form {
+
+		@include clearfix;
+
+		& > div {
+			float: left;
+			width: 100%;
+			margin-bottom: 8px;
+		}
+
+		.thunder--product-review-rating {
+			width: 140px;
+		}
+
+		.thunder--product-review-body {
+
+			textarea {
+				min-height: 120px;
+			}
+
+		}
+
+	}
+
+	.thunder--review-image-form {
+		margin: 8px 0 18px 0;
+
+		label {
+			@extend a;
+			font-size: 14px;
+		}
+
+		.thunder--review-images {
+
+			margin-top: 12px;
+
+			.thunder--review-image {
+				display: inline-block;
+				margin-right: 6px;
+				margin-bottom: 8px;
+				width: 84px;
+				line-height: 1;
+				a {
+					display: inline-block;
+					line-height: 1;
+				}
+				img {
+					width: 100%;
+					height: auto;
+					border: #dfdfdf 1px solid;
+					line-height: 1;
+				}
+				.thunder--delete-review-image {
+					width: 100%;
+					font-size: 13px;
+					color: #666;
+					cursor: pointer;
+				}
+			}
+
+		}
+
+	}
+
+	.thunder--post-product-review,
+	.thunder--cancel-product-review {
+		width: 49%;
+	}
+
+	.thunder--cancel-product-review {
+		margin-left: 2%;
+	}
+
+}

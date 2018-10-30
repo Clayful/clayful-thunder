@@ -1,0 +1,161 @@
+@include responsive(mobile) {
+
+	.thunder--order-detail {
+
+		.thunder--order-primary-info {
+
+			.thunder--order-basic-info {
+				width: 100%;
+			}
+
+			.thunder--order-item-details {
+				margin-right: 0;
+				width: 100%;
+
+				.thunder--cart-items {
+
+					tfoot {
+						display: table;
+						width: 100%;
+						tr {
+							display: table-row;
+						}
+						th, td {
+							display: table-cell;
+						}
+
+						.thunder--total-value {
+							text-align: right;
+							width: 25%;
+						}
+					}
+
+					.thunder--cart-item {
+						&:first-child {
+							margin-top: 0;
+							padding-top: 8px;
+							border-top: none;
+						}
+
+						.thunder--cart-item-quantity {
+
+							font-size: 14px;
+
+							.thunder--cart-item-quantity-label {
+								display: inline-block;
+								margin-right: 6px;
+							}
+
+							.thunder--cart-item-quantity-value {
+								&:before {
+									padding: 0;
+								}
+							}
+
+						}
+
+					}
+
+					.thunder--order-applied-coupon {
+						td {
+							margin-top: 12px;
+						}
+					}
+
+				}
+
+			}
+
+		}
+
+		.thunder--order-secondary-info {
+
+			.thunder--order-refunds,
+			.thunder--order-fulfillments {
+				margin-right: 0;
+				width: 100%;
+			}
+
+			.thunder--order-refunds {
+
+				table,
+				tbody,
+				tr,
+				th,
+				td {
+					display: block;
+				}
+
+				thead {
+					display: none;
+				}
+
+				td {
+					padding: 0;
+				}
+
+				.thunder--order-refund {
+					margin-top: 14px;
+					padding: 14px;
+					border: #ddd 1px solid;
+					border-radius: 4px;
+
+					.thunder--refund-items {
+						margin: 10px 0;
+					}
+
+					.thunder--refund-cancellation {
+						margin-bottom: 10px;
+					}
+
+					.thunder--refund-total-label {
+						display: inline-block;
+					}
+
+					.thunder--refund-total {
+						display: inline-block;
+					}
+				}
+
+			}
+
+			.thunder--order-fulfillments {
+
+				table,
+				tbody,
+				tr,
+				th,
+				td {
+					display: block;
+				}
+
+				thead {
+					display: none;
+				}
+
+				td {
+					padding: 0;
+				}
+
+				.thunder--order-fulfillment {
+					margin-top: 14px;
+					padding: 14px;
+					border: #ddd 1px solid;
+					border-radius: 4px;
+
+					.thunder--fulfillment-items {
+						margin: 10px 0;
+					}
+				}
+
+			}
+
+			.thunder--order-customer-and-address {
+				width: 100%;
+			}
+
+		}
+
+	}
+
+}

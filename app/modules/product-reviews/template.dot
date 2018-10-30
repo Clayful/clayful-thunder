@@ -1,0 +1,45 @@
+<div class="thunder--product-reviews">
+
+	<div class="thunder--product-reviews-header">
+		<h2>{{= it.m('productReviews') }}</h2>
+		{{? it.count.raw > 0 }}
+		<p class="thunder--product-has-n-reviews">
+			{{= it.m('totalNReviews', { count: it.count.converted, smart_count: it.count.raw }) }}
+		</p>
+		{{? }}
+		{{?
+			it.options.useRating &&
+			it.options.productRating !== null &&
+			it.options.productRating.average.raw > 0
+		}}
+		<p class="thunder--product-rating">
+			{{= it.ui['review-stars'](it.options.productRating.average.raw) }}
+			<span class="thunder--product-rating-value">
+				({{= it.m('productRating', { rating: it.options.productRating.average.converted, smart_count: it.options.productRating.average.raw }) }})
+			</span>
+		</p>
+		{{? }}
+	</div>
+
+	{{? it.count.raw === 0 }}
+	<p class="thunder--product-has-no-review">
+		{{= it.m('noProductReviews') }}
+	</p>
+	{{? }}
+
+	<div class="thunder--review-writer-actions">
+
+		<button class="thunder--write-review thunder--button-small skeleton">
+			{{= it.m('writeReview') }}
+		</button>
+
+	</div>
+
+	<div class="thunder--review-writer-container"></div>
+	<div class="thunder--product-review-list"></div>
+
+	{{? it.options.usePagination }}
+	<div class="thunder--product-review-list-pagination"></div>
+	{{? }}
+
+</div>

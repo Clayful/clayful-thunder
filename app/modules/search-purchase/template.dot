@@ -1,0 +1,48 @@
+<div class="thunder--search-purchase-form-wrapper">
+
+	<h2>
+		{{= it.m(it.camelCase(['search', it.options.type])) }}
+	</h2>
+
+	<form class="thunder--search-purchase-form thunder--form">
+
+		<div class="thunder--subject">
+			<label for="subject">
+				{{= it.m(it.options.type + 'Id') }}
+			</label>
+
+			<input type="text" name="subject" placeholder="{{= it.m(it.options.type + 'Id') }}" required>
+		</div>
+
+		{{~ it.authFields :field }}
+		<div class="thunder--{{= it.kebabCase(field.key) }}">
+			<label for="{{= field.key }}">
+				{{= it.m(field.translationKey) }}
+			</label>
+
+			<input type="{{= field.key === 'email' ? 'email' : 'text' }}" name="{{= field.key }}" placeholder="{{= it.m(field.translationKey) }}">
+		</div>
+		{{~ }}
+
+		<div class="thunder--form-actions">
+			<button type="submit" class="thunder--search-purchase thunder--button">{{= it.m('doSearch') }}</button>
+		</div>
+
+	</form>
+
+	<ul class="thunder--form-useful-actions">
+		<li>
+			{{? it.options.type === 'subscription' && it.showLinks.subscription }}
+			<a class="thunder--go-to-search-purchase" data-type="order">
+				{{= it.m('goToSearchOrder') }}
+			</a>
+			{{? }}
+			{{? it.options.type === 'order' && it.showLinks.order }}
+			<a class="thunder--go-to-search-purchase" data-type="subscription">
+				{{= it.m('goToSearchSubscription') }}
+			</a>
+			{{? }}
+		</li>
+	</ul>
+
+</div>

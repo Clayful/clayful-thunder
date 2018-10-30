@@ -1,0 +1,35 @@
+<div class="thunder--reset-password-form-wrapper">
+
+	<h2>
+		{{= it.m('verifyEmail') }}
+	</h2>
+
+	<form class="thunder--reset-password-form thunder--form">
+
+		{{? it.type === 'request-email' }}
+
+		<div class="thunder--customer-user-id-or-email">
+			<label for="userIdOrEmail">
+				{{= it.m('userIdOrEmail') }}
+			</label>
+
+			<input type="text" name="userIdOrEmail" placeholder="{{= it.m('userIdOrEmail') }}" required>
+		</div>
+
+		<div class="thunder--form-actions">
+			<button type="submit" class="thunder--request-email thunder--button">{{= it.m('requestEmail') }}</button>
+		</div>
+
+		{{? }}
+
+		{{? it.type === 'verification' }}
+
+		<div class="thunder--form-actions">
+			<button type="submit" class="thunder--finish-verification thunder--button">{{= it.m('finishVerification') }}</button>
+		</div>
+
+		{{? }}
+
+	</form>
+
+</div>

@@ -1,0 +1,92 @@
+@include responsive(mobile) {
+
+	.thunder--product-detail {
+
+		.thunder--product-catalogs {
+			margin-right: 0;
+			max-width: 100%;
+			width: 100%;
+		}
+
+		.thunder--product-info {
+			margin-top: 12px;
+			margin-left: 0;
+			width: 100%;
+
+			.thunder--product-name {
+				font-size: 18px;
+			}
+
+			.thunder--product-option {
+
+				margin-top: 14px;
+
+				.thunder--product-variant {
+					width: 100%
+				}
+
+				.thunder--item-quantity {
+					width: 100%;
+					margin-top: 0;
+					label {
+						display: none;
+					}
+					input[type="number"] {
+						width: 15%;
+					}
+				}
+
+				.thunder--quantity-wrapper {
+					width: 100%;
+					margin-left: 0;
+					text-align: right;
+				}
+			}
+
+			.thunder--product-bundles {
+
+				.thunder--label-select-bundle-item {
+					width: 100%;
+				}
+
+				.thunder--label-bundle-item-quantity {
+					display: none;
+				}
+
+				.thunder--product-bundle-item {
+					margin-bottom: 4px;
+					select {
+						width: 100%
+					}
+					input[type="number"] {
+						width: 15%;
+					}
+
+					.thunder--quantity-wrapper {
+						width: 100%;
+						margin-left: 0;
+						text-align: right;
+					}
+				}
+
+			}
+
+			.thunder--product-detail-buttons {
+
+				&.single-action {
+					button {
+						width: 100%;
+					}
+				}
+
+				button[disabled] {
+					width: 100%;
+				}
+
+			}
+
+		}
+
+	}
+
+}

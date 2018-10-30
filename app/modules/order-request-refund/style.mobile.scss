@@ -1,0 +1,28 @@
+@include responsive(mobile) {
+
+	.thunder--order-request-refund {
+
+		.thunder--order-refundable-items {
+			width: 100%;
+			margin-right: 0;
+
+			.thunder--cart-item {
+				position: relative;
+				padding-bottom: 36px;
+
+				.thunder--toggle-item-selection {
+					position: absolute;
+					bottom: 0;
+					right: 0;
+				}
+
+			}
+		}
+
+		.thunder--order-refund-summary {
+			width: 100%;
+		}
+
+	}
+
+}

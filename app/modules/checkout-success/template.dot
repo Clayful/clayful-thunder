@@ -1,0 +1,28 @@
+<div class="thunder--checkout-success">
+
+	<h2>{{= it.m(it.options.type + 'Success') }}</h2>
+
+	<h3>{{= it.m(it.options.type + 'Info') }}</h3>
+
+	<table class="thunder--{{= it.options.type }}-info">
+		<tbody>
+			<tr>
+				<td>{{= it.m(it.options.type + 'Id') }}</td>
+				<td>{{= it.subject._id }}</td>
+			</tr>
+			<tr>
+				<td>{{= it.options.type === 'order' ? it.m('orderedAt') : it.m('subscribedAt') }}</td>
+				<td>{{= it.subject.createdAt.formatted }}</td>
+			</tr>
+		</tbody>
+	</table>
+
+	<div class="thunder--checkout-success-actions">
+
+		<button class="thunder--button thunder--view-more-details">
+			{{= it.m('viewMoreDetails') }}
+		</button>
+
+	</div>
+
+</div>

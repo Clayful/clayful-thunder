@@ -1,0 +1,45 @@
+<div class="thunder--customer-review-comments">
+
+	<h2>
+		{{= it.m('customerComments') }}
+	</h2>
+
+	<div class="thunder--customer-review-comment-list">
+
+		{{? it.count.raw === 0 }}
+		<p class="thunder--customer-has-no-comment">
+			{{= it.m('noCustomerComments') }}
+		</p>
+		{{? }}
+
+		{{~ it.comments :comment }}
+		<div class="thunder--customer-review-comment" data-comment="{{= comment._id }}" data-mh>
+
+			<h4 class="thunder--customer-review-comment-review-title">
+				{{= it.m('commentFor', { review: it.excerpt(comment.review.title, 30) }) }}
+			</h4>
+
+			<div class="thunder--customer-review-comment-body">
+				{{= it.excerpt(comment.body, 50) }}
+			</div>
+
+			<div class="thunder--customer-review-comment-created-at">
+				{{= it.m('commentWrittenAt', { time: comment.createdAt.formatted }) }}
+			</div>
+
+			<div class="thunder--comment-actions">
+				<a class="thunder--view-comment">
+					{{= it.m('viewComment') }} &#8250;
+				</a>
+			</div>
+
+		</div>
+		{{~ }}
+
+	</div>
+
+	{{? it.options.usePagination }}
+	<div class="thunder--customer-review-comment-list-pagination"></div>
+	{{? }}
+
+</div>

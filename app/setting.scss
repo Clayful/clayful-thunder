@@ -1,0 +1,34 @@
+/**
+ * Theme Colors
+ */
+
+$color-primary: #2a6fcc;
+$color-success: #00a754;
+$color-danger: #eb331c;
+
+@mixin responsive($media) {
+	@if $media == mobile {
+		@media only screen and (max-width: 480px) { @content; }
+	}
+	@else if $media == tablet {
+		@media only screen and (min-width: 481px) and (max-width: 768px) { @content; }
+	}
+	@else if $media == big-tablet {
+		@media only screen and (min-width: 769px) and (max-width: 1024px) { @content; }
+	}
+	@else if $media == laptop {
+		@media only screen and (min-width: 1025px) and (max-width: 1440px) { @content; }
+	}
+}
+
+@mixin clearfix {
+	&:after {
+		content: "";
+		display: table;
+		clear: both;
+	}
+}
+
+@keyframes spin {
+	to { transform: rotate(360deg); }
+}

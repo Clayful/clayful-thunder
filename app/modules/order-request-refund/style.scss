@@ -1,0 +1,112 @@
+.thunder--order-request-refund {
+
+	h2 {
+		&.thunder--with-back-button {
+			margin-bottom: 0;
+		}
+	}
+
+	h3 {
+		margin-top: 18px;
+	}
+
+	.thunder--back-to-order {
+		@extend a;
+		@include go-back-icon;
+		display: inline-block;
+		margin-bottom: 4px;
+		font-size: 14px;
+	}
+
+	.thunder--order-has-no-refundable-item {
+		font-size: 15px;
+	}
+
+	.thunder--order-refund-process {
+		@include clearfix;
+	}
+
+	.thunder--order-refundable-items {
+		float: left;
+		margin-right: 4%;
+		width: 65%;
+
+		.thunder--cart-item {
+
+			&.inactive {
+				.thunder--cart-item-thumbnail,
+				.thunder--cart-item-summary .thunder--cart-item-name,
+				.thunder--cart-item-summary ul,
+				.thunder--cart-item-quantity,
+				.thunder--cart-item-refund-amount {
+					opacity: 0.4;
+				}
+			}
+
+			.thunder--toggle-item-selection {
+				margin-top: 14px;
+			}
+
+		}
+	}
+
+	.thunder--order-refund-summary {
+		float: right;
+		width: 31%;
+
+		h4 {
+			font-size: 15px;
+			margin: 12px 0 8px 0;
+		}
+
+		.thunder--refund-reason {
+			margin-top: 12px;
+		}
+
+		.thunder--requires-refund-reason {
+			margin: 8px 0;
+			font-size: 14px;
+		}
+
+		.thunder--refund-total-summary {
+
+			table {
+				width: 100%;
+				font-size: 15px;
+
+				th {
+					padding: 4px 0;
+					text-align: left;
+					font-weight: normal;
+					color: #666;
+				}
+
+				td {
+					padding: 4px 0;
+					text-align: right;
+				}
+
+				.thunder--refund-shipping-total {
+					th, td {
+						padding-bottom: 6px;
+					}
+				}
+
+				.thunder--refund-total {
+					th, td {
+						padding-top: 6px;
+						border-top: #eaeaea 1px solid;
+					}
+				}
+			}
+
+		}
+
+		.thunder--request-refund {
+			margin-top: 18px;
+			width: 100%;
+		}
+
+	}
+
+}

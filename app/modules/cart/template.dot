@@ -1,0 +1,196 @@
+<div class="thunder--cart">
+
+	<div class="thunder--cart-items">
+
+		<h2>{{= it.m('cart') }}</h2>
+
+		<table class="thunder--table">
+
+			<thead>
+				<tr>
+					<th colspan="2">{{= it.m('itemInfo') }}</th>
+					<th>{{= it.m('itemQuantity') }}</th>
+					<th>{{= it.m('itemPrice') }}</th>
+					<th></th>
+				</tr>
+			</thead>
+
+			<tbody>
+				{{? it.cart.items.length === 0 }}
+				<tr class="thunder--cart-has-no-items">
+					<td colspan="5">
+						<p>{{= it.m('hasNoItems') }}</p>
+					</td>
+				</tr>
+				{{? }}
+
+				{{~ it.cart.items :item }}
+				<tr class="thunder--cart-item" data-item="{{= item._id }}">
+
+					<td class="thunder--cart-item-thumbnail-container">
+						<img src="{{= item.product ? it.imageURL(item.product.thumbnail, 120, 120) : '' }}" class="thunder--cart-item-thumbnail">
+					</td>
+
+					<td class="thunder--cart-item-name">
+
+						<div class="thunder--cart-item-summary">
+
+							<h3 class="thunder--cart-item-name">{{= item.product ? item.product.name : it.m('deletedProduct') }}</h3>
+							<ul>
+								{{? item.variant && item.variant.types.length > 0 }}
+								<li class="thunder--cart-item-option">
+									<span class="thunder--cart-entity-label">{{= it.m('itemOption') }}</span>
+									{{= it.variantName(item.variant) }}
+								</li>
+								{{? }}
+								{{? item.shippingMethod }}
+								<li class="thunder--cart-item-shipping-method">
+									<span class="thunder--cart-entity-label">{{= it.m('shippingMethod') }}</span>
+									{{= item.shippingMethod.name }}
+								</li>
+								{{? }}
+							</ul>
+
+							{{? item.status !== 'ok' }}
+							<div class="thunder--item-error">
+								<p>{{= it.m(it.camelCase(item.errors[0].code)) }}</p>
+							</div>
+							{{? }}
+
+						</div>
+
+					</td>
+
+					<td class="thunder--cart-item-quantity">
+						<span class="thunder--cart-item-quantity-value">
+							<input type="number"
+								name="itemQuantity"
+								min="1"
+								value="{{= item.quantity.raw }}"
+								class="thunder--quantity"
+								data-item="{{= item._id }}"
+								data-original-quantity="{{= item.quantity.raw }}">
+						</span>
+					</td>
+
+					<td class="thunder--cart-item-price">
+
+						<span class="thunder--cart-item-sale-price">{{= item.price.sale.converted }}</span>
+						{{? item.price.sale.converted !== item.price.original.converted }}
+						<span class="thunder--cart-item-compare-price">{{= item.price.original.converted }}</span>
+						{{? }}
+
+					</td>
+
+					<td class="thunder--action-delete-cart-item">
+						<span class="thunder--delete-cart-item" data-item="{{= item._id }}">×</span>
+					</td>
+
+				</tr>
+
+				{{? item.bundleItems && item.bundleItems.length > 0 }}
+				{{~ item.bundleItems :bundleItem }}
+				<tr class="thunder--cart-item thunder--cart-bundle-item" data-item="{{= item._id }}" data-bundle-item="{{= bundleItem._id }}">
+
+					<td class="thunder--cart-item-thumbnail-container"></td>
+
+					<td class="thunder--cart-item-name">
+
+						<div class="thunder--cart-item-summary">
+
+							<h3 class="thunder--cart-item-name">{{= bundleItem.product ? bundleItem.product.name : it.m('deletedProduct') }}</h3>
+							<ul>
+								{{? bundleItem.variant && bundleItem.variant.types.length > 0 }}
+								<li class="thunder--cart-item-option">
+									<span class="thunder--cart-entity-label">{{= it.m('itemOption') }}</span>
+									{{= it.variantName(bundleItem.variant) }}
+								</li>
+								{{? }}
+								{{? bundleItem.shippingMethod }}
+								<li class="thunder--cart-item-shipping-method">
+									<span class="thunder--cart-entity-label">{{= it.m('shippingMethod') }}</span>
+									{{= bundleItem.shippingMethod.name }}
+								</li>
+								{{? }}
+							</ul>
+
+							{{? bundleItem.status !== 'ok' }}
+							<div class="thunder--item-error">
+								<p>{{= it.m(it.camelCase(bundleItem.errors[0].code)) }}</p>
+							</div>
+							{{? }}
+
+						</div>
+
+					</td>
+
+					<td class="thunder--cart-item-quantity">
+						<span class="thunder--cart-item-quantity-value">
+							<input type="number"
+								name="itemQuantity"
+								min="1"
+								value="{{= bundleItem.quantity.raw }}"
+								class="thunder--quantity"
+								data-item="{{= item._id }}"
+								data-bundle-item="{{= bundleItem._id }}"
+								data-original-quantity="{{= bundleItem.quantity.raw }}">
+						</span>
+					</td>
+
+					<td class="thunder--cart-item-price">
+
+						<span class="thunder--cart-item-sale-price">{{= bundleItem.price.sale.converted }}</span>
+						{{? bundleItem.price.sale.converted !== bundleItem.price.original.converted }}
+						<span class="thunder--cart-item-compare-price">{{= bundleItem.price.original.converted }}</span>
+						{{? }}
+
+					</td>
+
+					<td class="thunder--action-delete-cart-item">
+						{{? !bundleItem.required }}
+						<span class="thunder--delete-cart-item" data-item="{{= item._id }}" data-bundle-item="{{= bundleItem._id }}">×</span>
+						{{? }}
+					</td>
+
+				</tr>
+				{{~ }}
+				{{? }}
+
+				{{~ }}
+
+			</tbody>
+
+			<tfoot class="thunder--total">
+
+				<tr class="thunder--action-apply-changes">
+					<td colspan="5">
+						<button class="thunder--apply-changes">{{= it.m('applyChanges') }}</button>
+					</td>
+				</tr>
+
+				<tr class="thunder--item-total">
+					<td class="thunder--total-label" colspan="3">
+						{{= it.m('itemTotal') }}
+					</td>
+					<td class="thunder--total-value" colspan="2">
+						{{= it.cart.total.items.price.withTax.converted }}
+					</td>
+				</tr>
+
+			</tfoot>
+
+		</table>
+
+		<div class="thunder--checkout">
+
+			{{~ it.options.orderActions :action }}
+			<button class="thunder--checkout-as-{{= action }} thunder--button" data-checkout-type="{{= action }}">
+				{{= action === 'order' ? it.m('doOrder') : it.m('doSubscription') }}
+			</button>
+			{{~ }}
+
+		</div>
+
+	</div>
+
+</div>

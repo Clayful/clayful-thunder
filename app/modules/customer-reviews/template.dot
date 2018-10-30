@@ -1,0 +1,80 @@
+<div class="thunder--customer-reviews">
+
+	<h2>
+		{{= it.m('customerReviews') }}
+	</h2>
+
+	<div class="thunder--customer-review-list">
+
+		{{? it.count.raw === 0 }}
+		<p class="thunder--customer-has-no-review">
+			{{= it.m('noCustomerReviews') }}
+		</p>
+		{{? }}
+
+		{{~ it.reviews :review }}
+		<div class="thunder--customer-review" data-review="{{= review._id }}" data-mh>
+
+			<div class="thunder--customer-review-product">
+				{{? review.product.thumbnail }}
+				<img class="thunder--customer-review-product-thumbnail" src="{{= it.imageURL(review.product.thumbnail, 120, 120) }}">
+				{{? }}
+				<h4 class="thunder--customer-review-product-title">{{= review.product.name }}</h4>
+			</div>
+
+			{{? it.options.useRating }}
+			<div class="thunder--customer-review-stars">
+				{{? review.rating }}
+				{{= it.ui['review-stars'](review.rating.raw) }}
+				{{? }}
+			</div>
+			{{? }}
+
+			<h3 class="thunder--customer-review-title">
+				{{= it.excerpt(review.title, 30) }}
+			</h3>
+
+			{{? review.images.length }}
+			<div class="thunder--review-images">
+				{{~ review.images :img }}
+				<div class="thunder--review-image" data-image="{{= img._id }}">
+					<a href="{{= it.imageURL(img) }}" target="_blank">
+						<img src="{{= it.imageURL(img, 120, 120) }}">
+					</a>
+				</div>
+				{{~ }}
+			</div>
+			{{? }}
+
+			<div class="thunder--customer-review-created-at">
+				{{= it.m('reviewWrittenAt', { time: review.createdAt.formatted }) }}
+			</div>
+
+			{{? it.options.useHelpVote }}
+			<div class="thunder--customer-review-helped">
+				{{= it.m('totalNCustomerFindHelpful', { count: review.helped.up.converted, smart_count: review.helped.up.raw  }) }}
+			</div>
+			{{? }}
+
+			{{? it.options.useComments }}
+			<div class="thunder--customer-review-total-comment">
+				{{= it.m('totalComment', { count: review.totalComment.converted, smart_count: review.totalComment.raw  }) }}
+			</div>
+			{{? }}
+
+			<div class="thunder--review-actions">
+				<a class="thunder--view-review">
+					{{= it.m('viewReview') }} &#8250;
+				</a>
+			</div>
+
+		</div>
+		{{~ }}
+
+	</div>
+
+	{{? it.options.usePagination }}
+	<div class="thunder--customer-review-list-pagination"></div>
+	{{? }}
+
+</div>

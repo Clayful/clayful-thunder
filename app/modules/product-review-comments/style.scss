@@ -1,0 +1,110 @@
+.thunder--product-review-comments {
+
+	.thunder--review-has-no-comments {
+		font-size: 14px;
+	}
+
+	.thunder--comment-writer-actions {
+		text-align: right;
+	}
+
+	.thunder--comment-writer-container {
+
+		display: none;
+		margin: 18px 0;
+		padding-bottom: 18px;
+		border-bottom: #dfdfdf 1px solid;
+
+		.thunder--cancel-comment {
+			margin-left: 12px;
+		}
+
+	}
+
+	.thunder--review-comment {
+
+		& + .thunder--review-comment {
+			margin-top: 12px;
+			padding-top: 12px;
+			border-top: #dfdfdf 1px solid;
+		}
+
+		&:last-child:not(.hidden) {
+			margin-bottom: 12px;
+			padding-bottom: 12px;
+		}
+
+		.thunder--review-comment-header {
+
+			margin-bottom: 8px;
+			font-size: 14px;
+
+			.thunder--review-comment-created-at {
+				margin-left: 8px;
+				font-size: 13px;
+				color: #666;
+			}
+
+		}
+
+		.thunder--review-comment-body {
+			white-space: pre-wrap;
+			font-size: 14px;
+		}
+		textarea.thunder--review-comment-body {
+			padding: 4px;
+			min-height: 120px;
+			border-radius: 4px;
+			border-color: #ccc;
+		}
+
+		.thunder--read-more-wrapper {
+			margin-top: 8px;
+		}
+
+		.thunder--read-more {
+			@extend a;
+		}
+
+		.thunder--review-comment-actions {
+
+			margin-top: 8px;
+			text-align: right;
+
+			.thunder--edit-review-comment,
+			.thunder--delete-review-comment,
+			.thunder--flag {
+				font-size: 13px;
+				margin-left: 10px;
+				cursor: pointer;
+			}
+
+			.thunder--edit-review-comment {
+				color: $color-primary;
+				&:hover,
+				&:clicked {
+					color: darken($color-primary, 5%);
+				}
+			}
+
+			.thunder--delete-review-comment {
+				color: $color-danger;
+				&:hover,
+				&:clicked {
+					color: darken($color-danger, 5%);
+				}
+			}
+
+			.thunder--flag {
+				color: #979797;
+				&:hover,
+				&:clicked {
+					color: #222;
+				}
+			}
+
+		}
+
+	}
+
+}

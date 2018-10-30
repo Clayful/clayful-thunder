@@ -1,0 +1,30 @@
+@include responsive(mobile) {
+
+	.thunder--customer-dashboard {
+
+		.thunder--customer-dashboard-nav {
+
+			li {
+				box-sizing: border-box;
+				margin-bottom: 6px;
+				margin-right: 2%;
+				padding: 4px;
+				width: 49%;
+				border: #ddd 1px solid;
+				border-radius: 4px;
+				text-align: center;
+				font-size: 14px;
+				&:nth-child(2n) {
+					margin-right: 0;
+				}
+				&.active {
+					border-color: #aaa;
+					font-weight: normal;
+				}
+			}
+
+		}
+
+	}
+
+}

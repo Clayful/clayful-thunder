@@ -1,0 +1,24 @@
+@include responsive(tablet) {
+
+	.thunder--order-request-refund {
+
+		.thunder--order-refundable-items {
+			width: 100%;
+			margin-right: 0;
+			margin-bottom: 32px;
+			padding-bottom: 32px;
+			border-bottom: #ddd 1px dotted;
+		}
+
+		.thunder--order-refund-summary {
+			float: none;
+			clear: both;
+			margin-left: auto;
+			margin-right: auto;
+			padding-bottom: 32px;
+			width: 45%;
+		}
+
+	}
+
+}

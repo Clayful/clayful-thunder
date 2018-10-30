@@ -1,0 +1,113 @@
+.thunder--product-list {
+
+	@include clearfix;
+
+	$whitespace: 7%;
+
+	@for $i from 1 through 12 {
+		&.thunder--columns-#{ $i } .thunder--product {
+			@if $i == 1 {
+				width: 100%;
+			}
+			@if $i > 1 {
+				width: (100% - $whitespace) / $i;
+				margin-right: $whitespace / ($i - 1);
+
+				&:nth-child(4n) {
+					margin-right: 0;
+				}
+			}
+		}
+	}
+
+	.thunder--product {
+
+		float: left;
+		margin-bottom: 14px;
+
+		&.last {
+			margin-right: 0;
+		}
+
+		.thunder--product-thumbnail-wrapper,
+		.thunder--product-name,
+		.thunder--product-summary {
+			cursor: pointer;
+		}
+
+		.thunder--product-thumbnail-wrapper {
+			width: 100%;
+			img {
+				width: 100%;
+				height: auto;
+				-webkit-backface-visibility: hidden;
+				&:hover {
+					opacity: 0.8;
+					transition: all .4s;
+				}
+			}
+		}
+
+		.thunder--product-info {
+			margin: 4px 0;
+		}
+
+		.thunder--product-name {
+			margin: 0;
+			padding: 0;
+			font-size: 14px;
+		}
+
+		.thunder--product-summary {
+			margin: 4px 0 0 0;
+			padding: 0;
+			font-size: 13px;
+			color: #666;
+		}
+
+		.thunder--product-rating {
+			margin: 0;
+			.thunder--review-stars {
+				img {
+					width: 14px;
+				}
+			}
+			.thunder--product-rating-count {
+				margin-left: 4px;
+				font-size: 13px;
+				color: #aaa;
+			}
+		}
+
+		.thunder--product-sale-price,
+		.thunder--product-compare-price {
+			display: inline-block;
+			margin: 0;
+			padding: 0;
+			font-size: 14px;
+		}
+
+		.thunder--product-compare-price {
+			margin-left: 6px;
+			font-size: 14px;
+		}
+
+		.thunder--product-name + .thunder--product-sale-price {
+			margin-top: 4px;
+		}
+
+		.thunder--product-compare-price {
+			font-size: 13px;
+			text-decoration: line-through;
+			color: #888;
+		}
+
+	}
+
+}
+
+.thunder--product-list-pagination {
+
+	text-align: right;
+
+}

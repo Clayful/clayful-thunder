@@ -1,0 +1,126 @@
+<div class="thunder--product-review" data-review="{{= it.review._id }}">
+
+	<div class="thunder--product-review-header">
+		{{? it.options.showProduct }}
+		<div class="thunder--product-review-product">
+			<img class="thunder--product-thumbnail" src="{{= it.imageURL(it.review.product.thumbnail, 120, 120) }}">
+			<div class="thunder--product-info">
+				<h4 class="thunder--product-title">{{= it.review.product.name }}</h4>
+				<span class="thunder--product-sale-price">
+					{{= it.review.product.price.sale.converted }}
+				</span>
+			</div>
+		</div>
+		{{? }}
+		<div class="thunder--product-review-meta">
+			{{? it.options.useCustomerAvatar }}
+			<img class="thunder--customer-avatar"
+				src="{{= (it.review.customer && it.review.customer.avatar) ? it.imageURL(it.review.customer.avatar, 120, 120) : it.ui['avatar-placeholder']() }}">
+			{{? }}
+			<div>
+				<div class="thunder--customer-identity">
+					{{= it.customerIdentity(it.review.customer) || it.m('deletedCustomer') }}
+				</div>
+				{{? it.options.useRating }}
+				<div class="thunder--product-review-stars">
+					{{? it.review.rating }}
+					{{= it.ui['review-stars'](it.review.rating.raw) }}
+					{{? }}
+				</div>
+				{{? }}
+				<div class="thunder--product-review-created-at">
+					{{= it.m('reviewWrittenAt', { time: it.review.createdAt.formatted }) }}
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<h3 class="thunder--product-review-title">
+		{{= it.review.title }}
+	</h3>
+
+	<div class="thunder--product-review-body">
+		<!-- Body -->
+		{{? it.review.body === it.review.excerpt }}
+		{{= it.review.body }}
+		{{? }}
+		<!-- Excerpt -->
+		{{? it.review.body !== it.review.excerpt }}
+		{{= it.review.excerpt }}
+		<div class="thunder--read-more-wrapper">
+			<span class="thunder--read-more">{{= it.m('readMore') }}</span>
+		</div>
+		{{? }}
+	</div>
+
+	<div class="thunder--review-images" data-review="{{= it.review._id }}">
+		{{~ it.review.images :img }}
+		<div class="thunder--review-image" data-image="{{= img._id }}">
+			<a href="{{= it.imageURL(img) }}" target="_blank">
+				<img src="{{= it.imageURL(img, 120, 120) }}">
+			</a>
+			<span class="thunder--delete-review-image">{{= it.m('deleteImage') }}</span>
+		</div>
+		{{~ }}
+	</div>
+
+	{{? it.review.editable }}
+	<form class="thunder--edit-review-image-form thunder--form">
+		<div class="thunder--edit-review-images"></div>
+		<div class="thunder--edit-review-image-inputs">
+			<label for="thunder--edit-{{= it.id }}-image">
+				{{= it.m('addImage') }}
+			</label>
+			<input type="hidden" name="model" value="Review">
+			<input type="hidden" name="application" value="images">
+			<input type="file" name="file" id="thunder--edit-{{= it.id }}-image" class="hidden">
+		</div>
+	</form>
+	{{? }}
+
+	<div class="thunder--product-review-actions">
+		{{? it.options.useHelpVote }}
+		<div class="thunder--product-review-helped">
+			{{? it.review.helped.up.raw > 0 }}
+			<p class="thunder--customers-find-helpful">
+				{{= it.m('totalNCustomerFindHelpful', { count: it.review.helped.up.converted, smart_count: it.review.helped.up.raw }) }}
+			</p>
+			{{? }}
+			<button class="thunder--helped-vote thunder--button-tiny skeleton" data-type="up">
+				{{= it.m('helpful') }}
+			</button>
+			<button class="thunder--helped-vote thunder--button-tiny skeleton" data-type="down">
+				{{= it.m('unhelpful') }}
+			</button>
+		</div>
+		{{? }}
+		<div class="thunder--product-review-secondary-actions">
+			{{? it.review.editable }}
+			<span class="thunder--edit-product-review">
+				{{= it.m('editReview') }}
+			</span>
+			<span class="thunder--delete-product-review">
+				{{= it.m('deleteReview') }}
+			</span>
+			{{? }}
+			{{? it.options.useFlag }}
+			<span class="thunder--flag">
+				{{= it.m('flagReview') }}
+			</span>
+			{{? }}
+		</div>
+		{{? it.options.useComments }}
+		<div class="thunder--product-review-total-comments">
+			<span class="thunder--show-product-review-comment">
+				{{? it.review.totalComment.raw === 0 }}
+				{{= it.m('writeComment') }}
+				{{? }}
+				{{? it.review.totalComment.raw > 0 }}
+				{{= it.m('totalComment', { count: it.review.totalComment.converted, smart_count: it.review.totalComment.raw }) }}
+				{{? }}
+			</span>
+		</div>
+		{{? }}
+	</div>
+
+</div>

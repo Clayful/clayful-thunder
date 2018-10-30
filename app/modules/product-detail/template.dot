@@ -1,0 +1,182 @@
+<div class="thunder--product-detail">
+
+	<div class="thunder--product-detail-torso">
+
+		<div class="thunder--product-catalogs">
+
+			<div class="thunder--product-catalog-current">
+				{{~ it.product.catalogs :catalog:index }}
+					<div class="thunder--product-catalog-detail"
+						data-catalog-image="{{= catalog.image._id }}">
+						<img src="{{= it.imageURL(catalog.image, 480, 480) }}">
+						{{? catalog.title }}
+						<p>{{= catalog.title }}</p>
+						{{? }}
+					</div>
+				{{~ }}
+			</div>
+
+			<div class="thunder--product-catalog-thumbnails">
+				{{~ it.product.catalogs :catalog:index }}
+				<img class="{{= index === 4 ? 'last-catalog' : '' }}"
+					src="{{= it.imageURL(catalog.image, 120, 120) }}"
+					data-catalog-image="{{= catalog.image._id }}">
+				{{~ }}
+			</div>
+
+		</div>
+
+		<div class="thunder--product-info">
+
+			<h2 class="thunder--product-name">
+				{{= it.product.name }}
+			</h2>
+
+			<p class="thunder--product-summary">
+				{{= it.product.summary }}
+			</p>
+
+			<div class="thunder--product-price">
+				<span class="thunder--product-sale-price">{{= it.product.price.sale.converted }}</span>
+				{{? it.product.price.sale.converted !== it.product.price.original.converted }}
+				<span class="thunder--product-compare-price">&nbsp;{{= it.product.price.original.converted }}&nbsp;</span>
+				{{? it.product.discount.type === 'percentage' }}
+				<span class="thunder--product-discount-percentage">(-{{= it.product.discount.value.converted }})</span>
+				{{? }}
+				{{? }}
+			</div>
+
+			<div class="thunder--product-option">
+				{{? it.product.variants.length > 1 }}
+				<div class="thunder--product-variant">
+
+					<label>{{= it.m('selectVariant') }}</label>
+
+					<select name="variant" required>
+						<option value="" disabled selected>{{= it.m('selectVariant') }}</option>
+						{{~ it.product.variants :variant }}
+							<option value="{{= variant._id }}" {{= it.isUnavailableVariant(it.product, variant) ? 'disabled' : '' }}>
+								{{= it.variantName(variant) }}
+								&nbsp;/&nbsp;
+								{{= variant.price.sale.converted }}
+								{{=
+									it.isUnavailableVariant(it.product, variant) ?
+										' (' + it.m(it.isUnavailableVariant(it.product, variant)) + ')' :
+										''
+								}}
+							</option>
+						{{~ }}
+					</select>
+
+				</div>
+				{{? }}
+
+				<div class="thunder--item-quantity">
+
+					<label class="thunder--label">{{= it.m('quantity') }}</label>
+
+					<div>
+						<input type="number" name="quantity" value="1" min="1" class="thunder--quantity" />
+					</div>
+
+				</div>
+			</div>
+
+			{{? it.product.bundles.length > 0 }}
+			<div class="thunder--product-bundles">
+
+				<div>
+					<label class="thunder--label-select-bundle-item">{{= it.m('selectBundleItems') }}</label>
+					<label class="thunder--label-bundle-item-quantity">{{= it.m('quantity') }}</label>
+				</div>
+
+				{{~ it.product.bundles :bundle }}
+				<div class="thunder--product-bundle-item">
+					<select>
+						<option value="" selected>
+							{{= bundle.name }}{{? bundle.required }} ({{= it.m('requiredBundle') }}){{? }}
+						</option>
+						{{~ bundle.items :item }}
+						<option value="{{= item.product._id }}.{{= item.variant._id }}" {{= it.isUnavailableVariant(item.product, item.variant) ? 'disabled' : '' }}>
+							{{= it.productName(item.product, item.variant) }}
+							&nbsp;/&nbsp;
+							{{= item.variant.price.sale.converted }}
+							{{=
+								it.isUnavailableVariant(item.product, item.variant) ?
+									' (' + it.m(it.isUnavailableVariant(item.product, item.variant)) + ')' :
+									''
+							}}
+						</option>
+						{{~ }}
+					</select>
+					<input type="number" value="0" min="0" class="thunder--bundle-item-quantity thunder--quantity" />
+				</div>
+				{{~ }}
+
+			</div>
+			{{? }}
+
+			{{? it.product.type === 'tangible' }}
+			<div class="thunder--shipping-method">
+
+				<label>{{= it.m('selectShippingMethod') }}</label>
+
+				<select name="shippingMethod" required>
+					{{~ it.product.shipping.methods :method:index }}
+						<option value="{{= method._id }}">
+							{{= method.name }}
+						</option>
+					{{~ }}
+				</select>
+
+			</div>
+			{{? }}
+
+			<div class="thunder--product-detail-buttons {{= it.options.productActions.length === 1 ? 'single-action' : '' }}">
+
+				{{? !it.isUnavailableProduct(it.product) }}
+				{{~ it.options.productActions :action:index }}
+				<button class="thunder--button thunder--{{= action }} {{= index === 0 && it.options.productActions.length === 2 ? 'skeleton' : '' }}">
+					{{= it.m(it.camelCase(action)) }}
+				</button>
+				{{~ }}
+				{{? }}
+
+				<!-- unavailable product -->
+				{{? it.isUnavailableProduct(it.product) }}
+				<button class="thunder--button" disabled>{{= it.m('unavailableProduct') }}</button>
+				{{? }}
+
+				<div class="thunder--product-detail-button-helpers">
+					<a href="#" class="thunder--go-to-cart">{{= it.m('goToCart') }}</a>
+				</div>
+
+			</div>
+
+			{{? it.options.descriptionStyle === 'simple' }}
+			<div class="thunder--product-simple-description">
+				{{= it.product.description }}
+			</div>
+			{{? }}
+
+		</div>
+
+	</div>
+
+	{{? it.options.useFollowingNav }}
+	<div class="thunder--following-nav-container"></div>
+	{{? }}
+
+	{{? it.options.descriptionStyle === 'detailed' }}
+	<div class="thunder--product-detail-trunk">
+		<div class="thunder--product-detailed-description">
+			{{= it.product.description }}
+		</div>
+	</div>
+	{{? }}
+
+	{{? it.options.useReviews }}
+	<div class="thunder--product-reviews-wrapper"></div>
+	{{? }}
+
+</div>

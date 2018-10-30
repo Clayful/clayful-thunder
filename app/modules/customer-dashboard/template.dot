@@ -1,0 +1,11 @@
+<div class="thunder--customer-dashboard">
+
+	<ul class="thunder--customer-dashboard-nav">
+		{{~ it.nav :item }}
+		<li data-component="{{= item.key }}">{{= it.m(item.translationKey) }}</li>
+		{{~ }}
+	</ul>
+
+	<div class="thunder--customer-dashboard-view"></div>
+
+</div>

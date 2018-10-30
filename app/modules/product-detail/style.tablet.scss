@@ -1,0 +1,46 @@
+@include responsive(tablet) {
+
+	.thunder--product-detail {
+
+		.thunder--product-info {
+
+			.thunder--product-option {
+
+				.thunder--product-variant {
+					width: 63%;
+				}
+
+				.thunder--item-quantity {
+					width: 34%;
+					input[type="number"] {
+						width: 100%;
+					}
+				}
+			}
+
+			.thunder--product-bundles {
+
+				.thunder--label-select-bundle-item {
+					width: 63%;
+				}
+
+				.thunder--label-bundle-item-quantity {
+					width: 34%;
+				}
+
+				.thunder--product-bundle-item {
+					select {
+						width: 63%
+					}
+					input[type="number"] {
+						width: 34%;
+					}
+				}
+
+			}
+
+		}
+
+	}
+
+}

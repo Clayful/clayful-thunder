@@ -1,0 +1,23 @@
+.thunder--customer-review {
+
+	h2 {
+		&.thunder--with-back-button {
+			margin-bottom: 0;
+		}
+	}
+
+	.thunder--back-to-reviews {
+		@extend a;
+		@include go-back-icon;
+		display: inline-block;
+		margin-bottom: 19px;
+		font-size: 14px;
+	}
+
+	// Hide help vote buttons,
+	// since it doesn't make sense to vote for the contents by himself/herself.
+	.thunder--helped-vote {
+		visibility: hidden;
+	}
+
+}

@@ -1,0 +1,432 @@
+<div class="thunder--subscription-detail" data-subscription="{{= it.subscription._id }}">
+
+	<h2 class="{{= it.options.back ? 'thunder--with-back-button' : '' }}">
+		{{= it.m('subscriptionDetail') }}
+	</h2>
+	{{? it.options.back }}
+	<a class="thunder--back-to-subscriptions">
+		{{? it.options.back.component === 'subscription-list' }}
+		{{= it.m('backToSubscriptions') }}
+		{{? }}
+		{{? it.options.back.component === 'order-detail' }}
+		{{= it.m('backToOrder') }}
+		{{? }}
+	</a>
+	{{? }}
+
+	<div class="thunder--subscription-primary-info">
+
+		<div class="thunder--subscription-basic-info">
+
+			<h3>{{= it.m('subscriptionBasicInfo') }}</h3>
+
+			<span class="thunder--tag thunder--subscription-status" data-status="{{= it.subscription.status }}">
+				{{=
+					it.subscription.status === 'cancelled' ?
+						it.m(it.camelCase(['status', it.subscription.status, 'by', it.subscription.cancellation.by])) :
+						it.m(it.camelCase(['status', it.subscription.status]))
+				}}
+			</span>
+
+			{{? !it.subscription.synced}}
+			<p class="thunder--subscription-sync-failed">
+				{{= it.m('subscriptionSyncFailed') }}
+			</p>
+			{{? }}
+
+			<table>
+				<tr class="thunder--subscription-id">
+					<th class="thunder--data-label">{{= it.m('subscriptionId') }}</span>
+					<td class="thunder--data-value">{{= it.subscription._id }}</span>
+				</tr>
+				<tr class="thunder--subscription-plan">
+					<th class="thunder--data-label">{{= it.m('subscriptionPlan') }}</span>
+					<td class="thunder--data-value">{{= it.subscription.plan.name }}</span>
+				</tr>
+				<tr class="thunder--subscription-timezone">
+					<th class="thunder--data-label">{{= it.m('subscriptionTimezone') }}</span>
+					<td class="thunder--data-value">{{= it.subscription.timezone }}</span>
+				</tr>
+			</table>
+
+			<p class="thunder--subscription-created-at">
+				{{= it.m('subscriptionCreatedAt', { time: it.subscription.createdAt.formatted }) }}
+			</p>
+			<p class="thunder--subscription-ends-at">
+				{{= it.m('subscriptionEndsAt', { time: it.subscription.endsAt.formatted }) }}
+			</p>
+
+			{{? it.subscription.cancellation && it.subscription.cancellation.reason}}
+			<div class="thunder--subscription-cancellation">
+				<h4>
+					{{= it.m('subscriptionCancellation') }}
+				</h4>
+				<div class="thunder--subscription-cancellation-reason">
+					{{= it.subscription.cancellation.reason }}
+				</div>
+			</div>
+			{{? }}
+
+			{{? it.subscription.request }}
+			<div class="thunder--subscription-request">
+				<h4>
+					{{= it.m('subscriptionRequest') }}
+				</h4>
+				<div class="thunder--subscription-request-body">
+					{{= it.subscription.request }}
+				</div>
+			</div>
+			{{? }}
+
+			{{? it.shouldPay }}
+			<div class="thunder--payment-container">
+
+				<h4>
+					{{= it.m('processPayment') }}
+				</h4>
+
+				<div class="thunder--payment-form-container"></div>
+
+				<button class="thunder--make-payment thunder--button-small">
+					{{= it.m('makePayment') }}
+				</button>
+
+			</div>
+			{{? }}
+
+			{{? it.subscription.status !== 'cancelled' }}
+			<form class="thunder--subscription-cancellation-form hidden">
+				<h4>
+					{{= it.m('cancellationDetail') }}
+				</h4>
+				<textarea name="reason" class="thunder--subscription-cancellation-reason" placeholder="{{= it.m('cancellationReason') }}"></textarea>
+				<button class="thunder--button-small">
+					{{= it.m('cancelSubscription') }}
+				</button>
+			</form>
+			{{? }}
+
+			<ul class="thunder--subscription-actions">
+				{{? it.subscription.status !== 'cancelled' }}
+				<li>
+					<span class="thunder--cancel-subscription">
+						{{= it.m('startCancellation') }}
+					</span>
+				</li>
+				{{? }}
+			</ul>
+
+		</div>
+
+		<div class="thunder--subscription-item-details">
+
+			<h3>{{= it.m('subscriptionItemDetails') }}</h3>
+
+			<table class="thunder--table thunder--cart-items">
+				<thead>
+					<tr>
+						<th colspan="2">{{= it.m('itemInfo') }}</th>
+						<th>{{= it.m('itemQuantity') }}</th>
+						<th>{{= it.m('itemPrice') }}</th>
+					</tr>
+				</thead>
+				<tbody>
+					{{~ it.subscription.items :item }}
+					<tr class="thunder--cart-item" data-item="{{= item._id }}">
+
+						<td class="thunder--cart-item-thumbnail-container">
+							<img src="{{= item.product ? it.imageURL(item.product.thumbnail, 120, 120) : '' }}" class="thunder--cart-item-thumbnail">
+						</td>
+
+						<td class="thunder--cart-item-name">
+							<div class="thunder--cart-item-summary">
+								<h4 class="thunder--cart-item-name">
+									{{= item.product.name }}
+								</h4>
+								<ul>
+									{{? item.variant && item.variant.types.length > 0 }}
+									<li class="thunder--cart-item-option">
+										<span class="thunder--cart-entity-label">{{= it.m('itemOption') }}</span>
+										{{= it.variantName(item.variant) }}
+									</li>
+									{{? }}
+									{{? item.shippingMethod }}
+									<li class="thunder--cart-item-shipping-method">
+										<span class="thunder--cart-entity-label">{{= it.m('shippingMethod') }}</span>
+										{{= item.shippingMethod.name }}
+									</li>
+									{{? }}
+									{{? item.appliedCoupon }}
+									<li class="thunder--cart-item-applied-coupon">
+										<span class="thunder--cart-entity-label">{{= it.m('appliedCoupon') }}</span>
+										{{= item.appliedCoupon.name }}
+										<span data-balloon-break data-balloon-pos="up" data-balloon="{{= it.couponDetail(item.appliedCoupon) }}">
+											<span class="thunder--question-mark"></span>
+										</span>
+									</li>
+									{{? }}
+								</ul>
+							</div>
+						</td>
+
+						<td class="thunder--cart-item-quantity">
+							<span class="thunder--cart-item-quantity-label hidden">
+								{{= it.m('itemQuantity') }}
+							</span>
+							<span class="thunder--cart-item-quantity-value">
+								{{= item.quantity.converted }}
+							</span>
+						</td>
+
+						<td class="thunder--cart-item-price">
+							<span class="thunder--cart-item-sale-price">
+								{{= item.variant.price.sale.converted }}
+							</span>
+							{{? item.variant.price.sale.converted !== item.variant.price.original.converted }}
+							<span class="thunder--cart-item-compare-price">
+								{{= item.variant.price.original.converted }}
+							</span>
+							{{? }}
+						</td>
+
+					</tr>
+
+					{{? item.bundleItems && item.bundleItems.length > 0 }}
+					{{~ item.bundleItems :bundleItem }}
+					<tr class="thunder--cart-item thunder--cart-bundle-item" data-item="{{= item._id }}" data-bundle-item="{{= bundleItem._id }}">
+
+						<td class="thunder--cart-item-thumbnail-container"></td>
+
+						<td class="thunder--cart-item-name">
+
+							<div class="thunder--cart-item-summary">
+								<h4 class="thunder--cart-item-name">
+									{{= bundleItem.product.name }}
+								</h4>
+								<ul>
+									{{? bundleItem.variant && bundleItem.variant.types.length > 0 }}
+									<li class="thunder--cart-item-option">
+										<span class="thunder--cart-entity-label">{{= it.m('itemOption') }}</span>
+										{{= it.variantName(bundleItem.variant) }}
+									</li>
+									{{? }}
+									{{? bundleItem.shippingMethod }}
+									<li class="thunder--cart-item-shipping-method">
+										<span class="thunder--cart-entity-label">{{= it.m('shippingMethod') }}</span>
+										{{= bundleItem.shippingMethod.name }}
+									</li>
+									{{? }}
+									{{? bundleItem.appliedCoupon }}
+									<li class="thunder--cart-item-applied-coupon">
+										<span class="thunder--cart-entity-label">{{= it.m('appliedCoupon') }}</span>
+										{{= bundleItem.appliedCoupon.name }}
+										<span data-balloon-break data-balloon-pos="up" data-balloon="{{= it.couponDetail(bundleItem.appliedCoupon) }}">
+											<span class="thunder--question-mark"></span>
+										</span>
+									</li>
+									{{? }}
+								</ul>
+							</div>
+
+						</td>
+
+						<td class="thunder--cart-item-quantity">
+							<span class="thunder--cart-item-quantity-label hidden">
+								{{= it.m('itemQuantity') }}
+							</span>
+							<span class="thunder--cart-item-quantity-value">
+								{{= bundleItem.quantity.converted }}
+							</span>
+						</td>
+
+						<td class="thunder--cart-item-price">
+							<span class="thunder--cart-item-sale-price">
+								{{= bundleItem.variant.price.sale.converted }}
+							</span>
+							{{? bundleItem.variant.price.sale.converted !== bundleItem.variant.price.original.converted }}
+							<span class="thunder--cart-item-compare-price">
+								{{= bundleItem.variant.price.original.converted }}
+							</span>
+							{{? }}
+						</td>
+
+					</tr>
+					{{~ }}
+					{{? }}
+					{{~ }}
+				</tbody>
+				{{? it.subscription.appliedCoupon }}
+				<tbody>
+					<tr class="thunder--subscription-applied-coupon">
+						<td colspan="4">
+							<span class="thunder--cart-entity-label">{{= it.m('appliedCoupon') }}</span>
+							{{= it.subscription.appliedCoupon.name }}
+							<span data-balloon-break data-balloon-pos="up" data-balloon="{{= it.couponDetail(it.subscription.appliedCoupon) }}">
+								<span class="thunder--question-mark"></span>
+							</span>
+						</td>
+					</tr>
+				</tbody>
+				{{? }}
+			</table>
+
+		</div>
+
+	</div>
+
+	<div class="thunder--subscription-secondary-info">
+
+		<div class="thunder--subscription-customer-and-address">
+
+			<h3>{{= it.m('subscriptionCustomerInfo') }}</h3>
+
+			<div class="thunder--subscription-customer">
+
+				<h4>{{= it.m('subscriptionCustomer') }}</h4>
+
+				<table>
+					<tbody>
+						{{~ it.customerFields :field }}
+						<tr class="thunder--subscription-{{= it.kebabCase(field.translationKey) }}">
+							<th class="thunder--data-label">
+								{{= it.m(field.translationKey) }}
+							</th>
+							<td class="thunder--data-value">
+								{{= it.get(it.subscription.customer, field.key) || '' }}
+							</td>
+						</tr>
+						{{~ }}
+					</tbody>
+				</table>
+
+			</div>
+
+			<div class="thunder--subscription-shipping-address">
+
+				<h4>{{= it.m('subscriptionShippingAddress') }}</h4>
+
+				<table>
+					<tbody>
+						{{~ it.recipientFields :field }}
+						<tr class="thunder--subscription-{{= it.kebabCase(field.translationKey) }}">
+							<th class="thunder--data-label">
+								{{= it.m(field.translationKey) }}
+							</th>
+							<td class="thunder--data-value">
+								{{= it.get(it.subscription.address.shipping, field.key) || '' }}
+							</td>
+						</tr>
+						{{~ }}
+						<tr class="thunder--address-country">
+							<th class="thunder--data-label">
+								{{= it.m('addressCountry') }}
+							</th>
+							<td class="thunder--data-value">
+								{{= it.countryName(it.subscription.address.shipping.country.code, it.subscription.address.shipping.country.name) }}
+							</td>
+						</tr>
+						<tr class="thunder--address-state">
+							<th class="thunder--data-label">
+								{{= it.m('addressState') }}
+							</th>
+							<td class="thunder--data-value">
+								{{= it.get(it.subscription.address.shipping, 'state') || '' }}
+							</td>
+						</tr>
+						<tr class="thunder--address-city">
+							<th class="thunder--data-label">
+								{{= it.m('addressCity') }}
+							</th>
+							<td class="thunder--data-value">
+								{{= it.get(it.subscription.address.shipping, 'city') || '' }}
+							</td>
+						</tr>
+						<tr class="thunder--address-address1">
+							<th class="thunder--data-label">
+								{{= it.m('addressAddress1') }}
+							</th>
+							<td class="thunder--data-value">
+								{{= it.get(it.subscription.address.shipping, 'address1') || '' }}
+							</td>
+						</tr>
+						<tr class="thunder--address-address2">
+							<th class="thunder--data-label">
+								{{= it.m('addressAddress2') }}
+							</th>
+							<td class="thunder--data-value">
+								{{= it.get(it.subscription.address.shipping, 'address2') || '' }}
+							</td>
+						</tr>
+						<tr class="thunder--address-postcode">
+							<th class="thunder--data-label">
+								{{= it.m('addressPostcode') }}
+							</th>
+							<td class="thunder--data-value">
+								{{= it.get(it.subscription.address.shipping, 'postcode') || '' }}
+							</td>
+						</tr>
+					</tbody>
+				</table>
+
+			</div>
+
+		</div>
+
+		<div class="thunder--subscription-schedules">
+
+			<h3>{{= it.m('subscriptionSchedules') }}</h3>
+
+			<table class="thunder--table thunder--subscription-schedule-list">
+				<thead>
+					<tr>
+						<th>{{= it.m('scheduleOrderId') }}</th>
+						<th>{{= it.m('scheduleTime') }}</th>
+						<th>{{= it.m('scheduleTotalAmount') }}</th>
+					</tr>
+				</thead>
+				<tbody>
+					{{~ it.subscription.schedules :schedule:index }}
+					{{? index === 5 }}
+					<tr class="thunder--subscription-omitted-schedules">
+						<td colspan="3">
+							<span class="thunder--view-all-schedules">
+								... {{= it.m('viewAllSchedules') }}
+							</span>
+						</td>
+					</tr>
+					{{? }}
+					<tr class="thunder--subscription-schedule {{= index < 5 ? '' : 'hidden' }}" data-order="{{= schedule.order }}" data-status="{{= schedule.status }}">
+						<td>
+							<span class="thunder--schedule-order">
+								{{= schedule.order }}
+							</span>
+							<span class="thunder--tag thunder--schedule-status" data-status="{{= schedule.status }}">
+								{{= it.m(it.camelCase(['scheduleStatus', schedule.status])) }}
+							</span>
+						</td>
+						<td>
+							<span class="thunder--schedule-time-label hidden">
+								{{= it.m('scheduleTime') }}
+							</span>
+							<span class="thunder--schedule-time">
+								{{= schedule.time === 'now' ? it.m('scheduleNow') : schedule.time.formatted }}
+							</span>
+						</td>
+						<td>
+							<span class="thunder--schedule-total-amount-label hidden">
+								{{= it.m('scheduleTotalAmount') }}
+							</span>
+							<span class="thunder--schedule-total-amount">
+								{{= schedule.amount.converted }}
+							</span>
+						</td>
+					</tr>
+					{{~ }}
+				</tbody>
+			</table>
+
+		</div>
+
+	</div>
+
+</div>

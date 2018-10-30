@@ -1,0 +1,637 @@
+<div class="thunder--order-detail" data-order="{{= it.order._id }}">
+
+	<h2 class="{{= it.options.back ? 'thunder--with-back-button' : '' }}">
+		{{= it.m('orderDetail') }}
+	</h2>
+	{{? it.options.back }}
+	<a class="thunder--back-to-orders">
+		{{? it.options.back.component === 'order-list' }}
+		{{= it.m('backToOrders') }}
+		{{? }}
+		{{? it.options.back.component === 'subscription-detail' }}
+		{{= it.m('backToSubscription') }}
+		{{? }}
+	</a>
+	{{? }}
+
+	<div class="thunder--order-primary-info">
+
+		<div class="thunder--order-basic-info">
+
+			<h3>{{= it.m('orderBasicInfo') }}</h3>
+
+			<div class="thunder--order-status-container">
+				<span class="thunder--tag thunder--order-status" data-status="{{= it.order.status }}">
+					{{=
+						it.order.status === 'cancelled' ?
+							it.m(it.camelCase(['status', it.order.status, 'by', it.order.cancellation.by])) :
+							it.m(it.camelCase(['status', it.order.status]))
+					}}
+				</span>
+				{{? it.order.shippingStatus }}
+				<span class="thunder--tag thunder--order-shipping-status" data-status="{{= it.order.shippingStatus }}">
+					{{= it.m(it.camelCase(['shippingStatus', it.order.shippingStatus])) }}
+				</span>
+				{{? }}
+			</div>
+
+			{{? !it.order.synced}}
+			<p class="thunder--order-sync-failed">
+				{{= it.m('orderSyncFailed') }}
+			</p>
+			{{? }}
+
+			<table>
+				<tr class="thunder--order-id">
+					<th class="thunder--data-label">{{= it.m('orderId') }}</span>
+					<td class="thunder--data-value">{{= it.order._id }}</span>
+				</tr>
+				{{? it.order.subscription }}
+				<tr class="thunder--subscription-id">
+					<th class="thunder--data-label">{{= it.m('subscriptionId') }}</span>
+					<td class="thunder--data-value"><a>{{= it.order.subscription._id }}</a></span>
+				</tr>
+				{{? }}
+			</table>
+
+			<p class="thunder--order-created-at">
+				{{= it.m('orderCreatedAt', { time: it.order.createdAt.formatted }) }}
+			</p>
+
+			{{? it.order.cancellation && it.order.cancellation.reason }}
+			<div class="thunder--order-cancellation">
+				<h4>
+					{{= it.m('orderCancellation') }}
+				</h4>
+				<div class="thunder--order-cancellation-reason">
+					{{= it.order.cancellation.reason }}
+				</div>
+			</div>
+			{{? }}
+
+			{{? it.order.request }}
+			<div class="thunder--order-request">
+				<h4>
+					{{= it.m('orderRequest') }}
+				</h4>
+				<div class="thunder--order-request-body">
+					{{= it.order.request }}
+				</div>
+			</div>
+			{{? }}
+
+			{{? it.order.transactions.length }}
+			<div class="thunder--order-transaction-summary">
+				<h4>
+					{{= it.m('orderTransactionSummary') }}
+				</h4>
+
+				<table class="thunder--order-transaction-details">
+					{{~ ['paid', 'cancelled', 'refunded'] :key }}
+					<tr class="thunder--total-{{= key }}">
+						<th class="thunder--data-label">{{= it.m(it.camelCase(['orderTotal', key])) }}</span>
+						<td class="thunder--data-value">{{= it.order.total[key].converted }}</span>
+					</tr>
+					{{~ }}
+				</table>
+			</div>
+			{{? }}
+
+			{{? it.vbanks && it.vbanks.length }}
+			<div class="thunder--order-vbanks">
+				<h4>
+					{{= it.m('vbankInfo') }}
+				</h4>
+				{{~ it.vbanks :vbank }}
+				<table class="thunder--vbank-info">
+					<tbody>
+						<tr class="thunder--vbank-name">
+							<th class="thunder--data-label">{{= it.m('vbankName') }}</th>
+							<td class="thunder--data-value">{{= vbank.name }}</td>
+						</tr>
+						<tr class="thunder--vbank-number">
+							<th class="thunder--data-label">{{= it.m('vbankNumber') }}</th>
+							<td class="thunder--data-value">
+								{{= vbank.number }}{{? vbank.holder }}&nbsp;({{= vbank.holder }}){{? }}
+							</td>
+						</tr>
+						<tr class="thunder--vbank-amount">
+							<th class="thunder--data-label">{{= it.m('vbankAmount') }}</th>
+							<td class="thunder--data-value">{{= vbank.amount.converted }}</td>
+						</tr>
+						{{? vbank.expiresAt }}
+						<tr class="thunder--vbank-expires-at">
+							<th class="thunder--data-label">{{= it.m('vbankExpiresAt') }}</th>
+							<td class="thunder--data-value">{{= vbank.expiresAt.formatted }}</td>
+						</tr>
+						{{? }}
+					</tbody>
+				</table>
+				{{~ }}
+			</div>
+			{{? }}
+
+			{{? it.shouldPay }}
+			<div class="thunder--payment-container">
+
+				<h4>
+					{{= it.m('processPayment') }}
+				</h4>
+
+				<div class="thunder--payment-form-container"></div>
+
+				<button class="thunder--make-payment thunder--button-small">
+					{{= it.m('makePayment') }}
+				</button>
+
+			</div>
+			{{? }}
+
+			{{? it.order.status !== 'cancelled' }}
+			<form class="thunder--order-cancellation-form hidden">
+				<h4>
+					{{= it.m('cancellationDetail') }}
+				</h4>
+				<textarea name="reason" class="thunder--order-cancellation-reason" placeholder="{{= it.m('cancellationReason') }}"></textarea>
+				<button class="thunder--button-small">
+					{{= it.m('cancelOrder') }}
+				</button>
+			</form>
+			{{? }}
+
+			<ul class="thunder--order-actions">
+				{{? it.order.status === 'placed' }}
+				<li>
+					<span class="thunder--cancel-order">
+						{{= it.m('startCancellation') }}
+					</span>
+				</li>
+				{{? }}
+			</ul>
+
+		</div>
+
+		<div class="thunder--order-item-details">
+
+			<h3>{{= it.m('orderItemDetails') }}</h3>
+
+			<table class="thunder--table thunder--cart-items">
+				<thead>
+					<tr>
+						<th colspan="2">{{= it.m('itemInfo') }}</th>
+						<th>{{= it.m('itemQuantity') }}</th>
+						<th>{{= it.m('itemPrice') }}</th>
+					</tr>
+				</thead>
+				<tbody>
+					{{~ it.order.items :item }}
+					<tr class="thunder--cart-item" data-item="{{= item._id }}">
+
+						<td class="thunder--cart-item-thumbnail-container">
+							<img src="{{= item.product ? it.imageURL(item.product.thumbnail, 120, 120) : '' }}" class="thunder--cart-item-thumbnail">
+						</td>
+
+						<td class="thunder--cart-item-name">
+							<div class="thunder--cart-item-summary">
+								<h4 class="thunder--cart-item-name">
+									{{= item.product.name }}
+								</h4>
+								<ul>
+									{{? item.variant && item.variant.types.length > 0 }}
+									<li class="thunder--cart-item-option">
+										<span class="thunder--cart-entity-label">{{= it.m('itemOption') }}</span>
+										{{= it.variantName(item.variant) }}
+									</li>
+									{{? }}
+									{{? item.shippingMethod }}
+									<li class="thunder--cart-item-shipping-method">
+										<span class="thunder--cart-entity-label">{{= it.m('shippingMethod') }}</span>
+										{{= item.shippingMethod.name }}
+									</li>
+									{{? }}
+									{{? item.appliedCoupon }}
+									<li class="thunder--cart-item-applied-coupon">
+										<span class="thunder--cart-entity-label">{{= it.m('appliedCoupon') }}</span>
+										{{= item.appliedCoupon.name }}
+										<span data-balloon-break data-balloon-pos="up" data-balloon="{{= it.couponDetail(item.appliedCoupon) }}">
+											<span class="thunder--question-mark"></span>
+										</span>
+									</li>
+									{{? }}
+								</ul>
+							</div>
+						</td>
+
+						<td class="thunder--cart-item-quantity">
+							<span class="thunder--cart-item-quantity-label hidden">
+								{{= it.m('itemQuantity') }}
+							</span>
+							<span class="thunder--cart-item-quantity-value">
+								{{= item.quantity.converted }}
+							</span>
+						</td>
+
+						<td class="thunder--cart-item-price">
+							<span class="thunder--cart-item-sale-price">{{= item.price.sale.converted }}</span>
+							{{? item.price.sale.converted !== item.price.original.converted }}
+							<span class="thunder--cart-item-compare-price">{{= item.price.original.converted }}</span>
+							<span class="thunder--cart-item-discounted">(-{{= item.discounted.converted }})</span>
+							{{? }}
+						</td>
+
+					</tr>
+
+					{{? item.bundleItems && item.bundleItems.length > 0 }}
+					{{~ item.bundleItems :bundleItem }}
+					<tr class="thunder--cart-item thunder--cart-bundle-item" data-item="{{= item._id }}" data-bundle-item="{{= bundleItem._id }}">
+
+						<td class="thunder--cart-item-thumbnail-container"></td>
+
+						<td class="thunder--cart-item-name">
+
+							<div class="thunder--cart-item-summary">
+								<h4 class="thunder--cart-item-name">
+									{{= bundleItem.product.name }}
+								</h4>
+								<ul>
+									{{? bundleItem.variant && bundleItem.variant.types.length > 0 }}
+									<li class="thunder--cart-item-option">
+										<span class="thunder--cart-entity-label">{{= it.m('itemOption') }}</span>
+										{{= it.variantName(bundleItem.variant) }}
+									</li>
+									{{? }}
+									{{? bundleItem.shippingMethod }}
+									<li class="thunder--cart-item-shipping-method">
+										<span class="thunder--cart-entity-label">{{= it.m('shippingMethod') }}</span>
+										{{= bundleItem.shippingMethod.name }}
+									</li>
+									{{? }}
+									{{? bundleItem.appliedCoupon }}
+									<li class="thunder--cart-item-applied-coupon">
+										<span class="thunder--cart-entity-label">{{= it.m('appliedCoupon') }}</span>
+										{{= bundleItem.appliedCoupon.name }}
+										<span data-balloon-break data-balloon-pos="up" data-balloon="{{= it.couponDetail(bundleItem.appliedCoupon) }}">
+											<span class="thunder--question-mark"></span>
+										</span>
+									</li>
+									{{? }}
+								</ul>
+							</div>
+
+						</td>
+
+						<td class="thunder--cart-item-quantity">
+							<span class="thunder--cart-item-quantity-label hidden">
+								{{= it.m('itemQuantity') }}
+							</span>
+							<span class="thunder--cart-item-quantity-value">
+								{{= bundleItem.quantity.converted }}
+							</span>
+						</td>
+
+						<td class="thunder--cart-item-price">
+							<span class="thunder--cart-item-sale-price">{{= bundleItem.price.sale.converted }}</span>
+							{{? bundleItem.price.sale.converted !== bundleItem.price.original.converted }}
+							<span class="thunder--cart-item-compare-price">{{= bundleItem.price.original.converted }}</span>
+							<span class="thunder--cart-item-discounted">(-{{= bundleItem.discounted.converted }})</span>
+							{{? }}
+						</td>
+
+					</tr>
+					{{~ }}
+					{{? }}
+					{{~ }}
+				</tbody>
+				{{? it.order.appliedCoupon }}
+				<tbody>
+					<tr class="thunder--order-applied-coupon">
+						<td colspan="4">
+							<span class="thunder--cart-entity-label">{{= it.m('appliedCoupon') }}</span>
+							{{= it.order.appliedCoupon.name }}
+							<span data-balloon-break data-balloon-pos="up" data-balloon="{{= it.couponDetail(it.order.appliedCoupon) }}">
+								<span class="thunder--question-mark"></span>
+							</span>
+						</td>
+					</tr>
+				{{? }}
+				</tbody>
+				<tfoot>
+					<tr class="thunder--item-total">
+						<th class="thunder--total-label" colspan="3">
+							{{= it.m('itemTotal') }}
+						</th>
+						<td class="thunder--total-value">
+							<span class="thunder--order-items-sale-price">{{= it.order.total.items.price.sale.converted }}</span>
+							{{? it.order.total.items.price.sale.converted !== it.order.total.items.price.original.converted }}
+							<span class="thunder--order-items-compare-price">{{= it.order.total.items.price.original.converted }}</span>
+							<span class="thunder--order-items-discounted">(-{{= it.order.total.items.discounted.converted }})</span>
+							{{? }}
+						</td>
+					</tr>
+					<tr class="thunder--shipping-total">
+						<th class="thunder--total-label" colspan="3">
+							{{= it.m('shippingTotal') }}
+						</th>
+						<td class="thunder--total-value">
+							{{= it.order.total.shipping.fee.sale.converted }}
+						</td>
+					</tr>
+					<tr class="thunder--tax-total">
+						<th class="thunder--total-label" colspan="3">
+							{{= it.m('taxTotal') }} <span class="thunder--tax-inlcuded">
+								({{=
+									it.order.tax.included ?
+										it.m('taxIncluded') :
+										it.m('taxExcluded')
+								}})
+							</span>
+						</th>
+						<td class="thunder--total-value">
+							{{= it.order.total.taxed.converted }}
+						</td>
+					</tr>
+					<tr class="thunder--order-total">
+						<th class="thunder--total-label" colspan="3">
+							{{= it.m('orderTotal') }}
+						</th>
+						<td class="thunder--total-value">
+							{{= it.order.total.price.withTax.converted }}
+						</td>
+					</tr>
+				</tfoot>
+
+			</table>
+
+		</div>
+
+	</div>
+
+	<div class="thunder--order-secondary-info">
+
+		<div class="thunder--order-customer-and-address">
+
+			<h3>{{= it.m('orderCustomerInfo') }}</h3>
+
+			<div class="thunder--order-customer">
+
+				<h4>{{= it.m('orderCustomer') }}</h4>
+
+				<table>
+					<tbody>
+						{{~ it.customerFields :field }}
+						<tr class="thunder--order-{{= it.kebabCase(field.translationKey) }}">
+							<th class="thunder--data-label">
+								{{= it.m(field.translationKey) }}
+							</th>
+							<td class="thunder--data-value">
+								{{= it.get(it.order.customer, field.key) || '' }}
+							</td>
+						</tr>
+						{{~ }}
+					</tbody>
+				</table>
+
+			</div>
+
+			<div class="thunder--order-shipping-address">
+
+				<h4>{{= it.m('orderShippingAddress') }}</h4>
+
+				<table>
+					<tbody>
+						{{~ it.recipientFields :field }}
+						<tr class="thunder--order-{{= it.kebabCase(field.translationKey) }}">
+							<th class="thunder--data-label">
+								{{= it.m(field.translationKey) }}
+							</th>
+							<td class="thunder--data-value">
+								{{= it.get(it.order.address.shipping, field.key) || '' }}
+							</td>
+						</tr>
+						{{~ }}
+						<tr class="thunder--address-country">
+							<th class="thunder--data-label">
+								{{= it.m('addressCountry') }}
+							</th>
+							<td class="thunder--data-value">
+								{{= it.countryName(it.order.address.shipping.country.code, it.order.address.shipping.country.name) }}
+							</td>
+						</tr>
+						<tr class="thunder--address-state">
+							<th class="thunder--data-label">
+								{{= it.m('addressState') }}
+							</th>
+							<td class="thunder--data-value">
+								{{= it.get(it.order.address.shipping, 'state') || '' }}
+							</td>
+						</tr>
+						<tr class="thunder--address-city">
+							<th class="thunder--data-label">
+								{{= it.m('addressCity') }}
+							</th>
+							<td class="thunder--data-value">
+								{{= it.get(it.order.address.shipping, 'city') || '' }}
+							</td>
+						</tr>
+						<tr class="thunder--address-address1">
+							<th class="thunder--data-label">
+								{{= it.m('addressAddress1') }}
+							</th>
+							<td class="thunder--data-value">
+								{{= it.get(it.order.address.shipping, 'address1') || '' }}
+							</td>
+						</tr>
+						<tr class="thunder--address-address2">
+							<th class="thunder--data-label">
+								{{= it.m('addressAddress2') }}
+							</th>
+							<td class="thunder--data-value">
+								{{= it.get(it.order.address.shipping, 'address2') || '' }}
+							</td>
+						</tr>
+						<tr class="thunder--address-postcode">
+							<th class="thunder--data-label">
+								{{= it.m('addressPostcode') }}
+							</th>
+							<td class="thunder--data-value">
+								{{= it.get(it.order.address.shipping, 'postcode') || '' }}
+							</td>
+						</tr>
+					</tbody>
+				</table>
+
+			</div>
+
+		</div>
+
+		{{?
+			it.order.status !== 'placed' &&
+			it.order.status !== 'cancelled'
+		}}
+		<div class="thunder--order-refunds">
+
+			<h3>{{= it.m('orderRefunds') }}</h3>
+
+			<ul class="thunder--refund-actions">
+				<li>
+					<button class="thunder--button-tiny thunder--request-refund">
+						{{= it.m('requestRefund') }}
+					</button>
+				</li>
+			</ul>
+
+			{{? !it.order.refunds.length }}
+			<p class="thunder--no-refunds">
+				{{= it.m('noRefunds') }}
+			</p>
+			{{? }}
+
+			{{? it.order.refunds.length }}
+			<table class="thunder--table thunder--order-refund-list">
+
+				<thead>
+					<tr>
+						<th>{{= it.m('refundStatus') }}</th>
+						<th>{{= it.m('refundItems') }}</th>
+						<th>{{= it.m('refundTotal') }}</th>
+					</tr>
+				</thead>
+
+				<tbody>
+					{{~ it.order.refunds :refund }}
+					<tr class="thunder--order-refund" data-refund="{{= refund._id }}">
+						<td>
+							<span class="thunder--tag thunder--refund-status" data-status="{{= refund.status }}">
+								{{=
+									refund.status === 'cancelled' ?
+										it.m(it.camelCase(['refundStatus', refund.status, 'by', refund.cancellation.by])) :
+										it.m(it.camelCase(['refundStatus', refund.status]))
+								}}
+							</span>
+						</td>
+						<td>
+							<ul class="thunder--refund-items">
+								{{~ refund.items :item }}
+								<li>
+									<span class="thunder--refund-item-name">{{= item.item.product.name }}</span>
+									<span class="thunder--refund-item-quantity">{{= item.quantity.converted }}</span>
+								</li>
+								{{~ }}
+							</ul>
+							{{?
+								refund.status === 'requested' ||
+								refund.status === 'cancelled'
+							}}
+							<div class="thunder--refund-cancellation">
+								{{? refund.status === 'requested' }}
+								<a class="thunder--cancel-refund">{{= it.m('cancelRefund') }}</a>
+								<form class="thunder--refund-cancellation-form hidden">
+									<textarea name="reason" class="thunder--refund-cancellation-reason" placeholder="{{= it.m('cancellationReason') }}"></textarea>
+									<button class="thunder--button-tiny">
+										{{= it.m('cancelRefund') }}
+									</button>
+								</form>
+								{{? }}
+								{{? refund.status === 'cancelled' && refund.cancellation.reason }}
+								<span class="thunder--refund-cancellation-reason" data-balloon-length="large" data-balloon-pos="up-left" data-balloon="“{{= it.stripHTML(refund.cancellation.reason) }}”">
+									{{= it.m('refundCancellationReason') }}
+									<span class="thunder--question-mark"></span>
+								</span>
+								{{? }}
+							</div>
+							{{? }}
+						</td>
+						<td>
+							<span class="thunder--refund-total-label hidden">
+								{{= it.m('refundTotal') }}
+							</span>
+							<span class="thunder--refund-total" data-balloon-length="large" data-balloon-pos="up-left" data-balloon="{{= it.refundTotalDetail(refund.total) }}">
+								{{= refund.total.price.withTax.converted }}
+								<span class="thunder--question-mark"></span>
+							</span>
+						</td>
+					</tr>
+					{{~ }}
+				</tbody>
+
+			</table>
+			{{? }}
+
+		</div>
+		{{? }}
+
+		{{?
+			it.order.status !== 'placed' &&
+			it.order.status !== 'cancelled' &&
+			it.order.hasTangibleItem
+		}}
+		<div class="thunder--order-fulfillments">
+
+			<h3>{{= it.m('orderFulfillments') }}</h3>
+
+			<ul class="thunder--fulfillment-actions">
+				<li>
+					{{? it.order.receivedAt }}
+					<button class="thunder--button-tiny thunder--mark-order-as-not-received">
+						{{= it.m('markAsNotReceived') }}
+					</button>
+					{{? }}
+					{{? !it.order.receivedAt }}
+					<button class="thunder--button-tiny thunder--mark-order-as-received">
+						{{= it.m('markAsReceived') }}
+					</button>
+					{{? }}
+				</li>
+			</ul>
+
+			{{? !it.order.fulfillments.length }}
+			<p class="thunder--no-fulfillments">
+				{{= it.m('noFulfillments') }}
+			</p>
+			{{? }}
+
+			{{? it.order.fulfillments.length }}
+			<table class="thunder--table thunder--order-fulfillment-list">
+
+				<thead>
+					<tr>
+						<th>{{= it.m('fulfillmentStatus') }}</th>
+						<th>{{= it.m('fulfillmentItems') }}</th>
+					</tr>
+				</thead>
+
+				<tbody>
+					{{~ it.order.fulfillments :fulfillment }}
+					<tr class="thunder--order-fulfillment" data-fulfillment="{{= fulfillment._id }}">
+						<td>
+							<span class="thunder--tag thunder--fulfillment-status" data-status="{{= fulfillment.status }}">
+								{{= it.m(it.camelCase(['fulfillmentStatus', fulfillment.status])) }}
+							</span>
+						</td>
+						<td>
+							<ul class="thunder--fulfillment-items">
+								{{~ fulfillment.items :item }}
+								<li>
+									<span class="thunder--fulfillment-item-name">{{= item.item.product.name }}</span>
+									<span class="thunder--fulfillment-item-quantity">{{= item.quantity.converted }}</span>
+								</li>
+								{{~ }}
+							</ul>
+
+							<div class="thunder--fulfillment-tracker">
+								{{= it.fulfillmentTracker(fulfillment) }}
+							</div>
+						</td>
+					</tr>
+					{{~ }}
+				</tbody>
+
+			</table>
+			{{? }}
+
+		</div>
+		{{? }}
+
+	</div>
+
+</div>

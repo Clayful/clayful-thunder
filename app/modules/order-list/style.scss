@@ -1,0 +1,100 @@
+.thunder--order-list {
+
+	h2 {
+		margin: 0 0 12px 0;
+		font-size: 24px;
+	}
+
+	.thunder--orders {
+
+		.thunder--order {
+			td {
+				&:nth-child(3) {
+					max-width: 280px;
+				}
+				&:nth-child(4) {
+					min-width: 80px;
+				}
+			}
+		}
+
+		.thunder--order-id {
+			display: block;
+			margin-bottom: 8px;
+			font-size: 13px;
+			cursor: pointer;
+		}
+
+		.thunder--order-status {
+			&[data-status="cancelled"],
+			&[data-status="over-paid"],
+			&[data-status="over-refunded"] {
+				border-color: $color-danger;
+				color: $color-danger;
+			}
+			&[data-status="paid"],
+			&[data-status="refunded"],
+			&[data-status="partially-refunded"] {
+				border-color: $color-success;
+				color: $color-success;
+			}
+		}
+
+		.thunder--order-shipping-status {
+			&[data-status="shipped"],
+			&[data-status="arrived"],
+			&[data-status="received"] {
+				border-color: $color-success;
+				color: $color-success;
+			}
+		}
+
+		.thunder--order-thumbnail {
+			display: inline;
+			img {
+				width: 60px;
+				height: auto;
+				vertical-align: top;
+				cursor: pointer;
+			}
+		}
+
+		.thunder--order-subscription {
+			display: block;
+			font-size: 13px;
+			color: #888;
+		}
+
+		.thunder--order-first-item {
+			cursor: pointer;
+		}
+
+		.thunder--order-rest-items {
+			cursor: pointer;
+			display: block;
+			font-size: 13px;
+			color: #888;
+		}
+
+		.thunder--order-total-label {
+			&:after {
+				content: ':';
+				margin-right: 6px;
+			}
+		}
+
+		.thunder--order-created-at-label {
+			&:after {
+				content: ':';
+				margin-right: 6px;
+			}
+		}
+
+	}
+
+	.thunder--order-list-pagination {
+		margin-top: 14px;
+		text-align: right;
+	}
+
+}

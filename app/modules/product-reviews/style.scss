@@ -1,0 +1,77 @@
+.thunder--product-reviews {
+
+	.thunder--product-reviews-header {
+		margin-bottom: 12px;
+		padding-bottom: 12px;
+		border-bottom: #ddd 1px solid;
+
+		h2 {
+			display: inline-block;
+			margin: 0;
+			font-size: 18px;
+		}
+
+		.thunder--product-has-n-reviews {
+			display: inline-block;
+			margin: 0 0 0 8px;
+			font-size: 14px;
+		}
+
+		.thunder--product-rating {
+			margin: 2px 0 0 0;
+			font-size: 13px;
+			line-height: 1;
+			.thunder--review-stars {
+				img {
+					width: 16px;
+					height: auto;
+				}
+			}
+			.thunder--product-rating-value {
+				margin-left: 4px;
+				color: #666;
+			}
+		}
+	}
+
+	.thunder--product-has-no-review {
+		font-size: 15px;
+	}
+
+	.thunder--review-writer-actions {
+		text-align: right;
+	}
+
+	.thunder--review-writer-container {
+		display: none;
+	}
+
+	.thunder--product-review-list-pagination {
+		text-align: right;
+	}
+
+	.thunder--review-comments-container {
+
+		&:not(.hidden) + .thunder--product-review-wrapper {
+			margin-top: 24px;
+			padding-top: 24px;
+			border-top: #ddd 1px solid;
+		}
+
+	}
+
+	.thunder--product-review-list {
+
+		.thunder--product-review-wrapper:last-child {
+
+			& + .thunder--review-comments-container {
+
+				border-bottom: #ddd 1px solid;
+
+			}
+
+		}
+
+	}
+
+}

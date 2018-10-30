@@ -1,0 +1,25 @@
+@include responsive(mobile) {
+
+	.thunder--customer-review {
+
+		.thunder--product-review {
+
+			.thunder--product-review-actions {
+
+				.thunder--product-review-helped {
+
+					.thunder--customers-find-helpful {
+						margin-bottom: 0;
+					}
+
+				}
+			}
+		}
+
+		.thunder--helped-vote {
+			display: none;
+		}
+
+	}
+
+}

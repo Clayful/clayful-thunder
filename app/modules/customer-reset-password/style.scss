@@ -1,0 +1,29 @@
+.thunder--reset-password-form-wrapper {
+
+	max-width: 280px;
+	margin: 0 auto;
+
+	h2 {
+		margin: 0 0 12px 0;
+		font-size: 24px;
+	}
+
+	.thunder--reset-password-form {
+
+		& > div {
+			margin-bottom: 12px;
+		}
+
+		.thunder--form-actions {
+			.thunder--button {
+				width: 100%;
+			}
+		}
+
+	}
+
+	.thunder--form-useful-actions {
+		text-align: right;
+	}
+
+}

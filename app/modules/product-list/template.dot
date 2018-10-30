@@ -1,0 +1,56 @@
+<div class="thunder--product-list-wrapper">
+
+	<div class="thunder--product-list thunder--columns-{{= it.options.columns }}">
+
+		{{~ it.products :product:index }}
+
+		<div class="thunder--product" data-product="{{= product._id }}" data-mh="{{= it.id }}">
+
+			<div class="thunder--product-thumbnail-wrapper">
+				<img src="{{= it.imageURL(product.thumbnail, it.options.imageWidth, it.options.imageHeight) }}">
+			</div>
+
+			<div class="thunder--product-info">
+
+				<h3 class="thunder--product-name">
+					{{= product.name }}
+				</h3>
+
+				{{? it.options.showRating }}
+				<p class="thunder--product-rating" data-rating="{{= product.rating.average.raw }}" data-rating-count="{{= product.rating.count.raw }}">
+					{{= it.ui['review-stars'](product.rating.average.raw) }}
+					<span class="thunder--product-rating-count">
+						({{= product.rating.count.converted }})
+					</span>
+				</p>
+				{{? }}
+
+				<p class="thunder--product-sale-price">
+					{{= product.price.sale.converted }}
+				</p>
+
+				{{? it.options.showComparePrice && (product.price.sale.converted !== product.price.original.converted) }}
+				<p class="thunder--product-compare-price">
+					{{= product.price.original.converted }}
+				</p>
+				{{? }}
+
+				{{? it.options.showSummary }}
+				<p class="thunder--product-summary">
+					{{= product.summary }}
+				</p>
+				{{? }}
+
+			</div>
+
+		</div>
+
+		{{~ }}
+
+	</div>
+
+	{{? it.options.usePagination }}
+	<div class="thunder--product-list-pagination"></div>
+	{{? }}
+
+</div>

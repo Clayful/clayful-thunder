@@ -1,0 +1,406 @@
+.thunder--order-detail {
+
+	h2 {
+		&.thunder--with-back-button {
+			margin-bottom: 0;
+		}
+	}
+
+	.thunder--back-to-orders {
+		@extend a;
+		@include go-back-icon;
+		display: inline-block;
+		margin-bottom: 4px;
+		font-size: 14px;
+	}
+
+	h3 {
+		padding-bottom: 8px;
+		border-bottom: #ddd 1px solid;
+	}
+
+	.thunder--data-label {
+		padding: 2px 8px 2px 0;
+		font-weight: normal;
+		text-align: left;
+		&:after {
+			content: ':';
+		}
+	}
+
+	.thunder--data-value {
+		padding: 2px 0;
+		text-decoration: underline;
+	}
+
+	.thunder--order-primary-info {
+
+		@include clearfix;
+
+		& > div {
+			margin-bottom: 18px;
+		}
+
+		.thunder--order-basic-info {
+
+			float: right;
+			width: 38%;
+
+			h4 {
+				font-size: 15px;
+				margin: 12px 0 8px 0;
+			}
+
+			table {
+				border-spacing: 0;
+				margin: 12px 0;
+				font-size: 14px;
+			}
+
+			.thunder--order-status {
+
+				&[data-status="cancelled"],
+				&[data-status="over-paid"],
+				&[data-status="over-refunded"] {
+					border-color: $color-danger;
+					color: $color-danger;
+				}
+				&[data-status="paid"],
+				&[data-status="refunded"],
+				&[data-status="partially-refunded"] {
+					border-color: $color-success;
+					color: $color-success;
+				}
+
+			}
+
+			.thunder--order-shipping-status {
+
+				&[data-status="shipped"],
+				&[data-status="arrived"],
+				&[data-status="received"] {
+					border-color: $color-success;
+					color: $color-success;
+				}
+
+			}
+
+			.thunder--order-id {
+				margin-top: 8px;
+			}
+
+			.thunder--order-created-at {
+				margin: 0;
+				padding: 0;
+				font-size: 14px;
+			}
+
+			.thunder--order-sync-failed {
+				font-size: 14px;
+				color: $color-danger;
+				&:before {
+					content: '🚨';
+					margin-right: 4px;
+				}
+			}
+
+			.thunder--order-cancellation {
+
+				.thunder--order-cancellation-reason {
+					font-size: 14px;
+					&:before { content: '“' };
+					&:after { content: '”' };
+				}
+
+			}
+
+			.thunder--order-request {
+
+				.thunder--order-request-body {
+					font-size: 14px;
+					&:before { content: '“' };
+					&:after { content: '”' };
+				}
+
+			}
+
+			.thunder--order-cancellation-form {
+				margin-top: 14px;
+
+				textarea {
+					width: 100%;
+					margin-bottom: 8px;
+					padding: 4px;
+					border-radius: 4px;
+					border: #ccc 1px solid;
+				}
+			}
+
+			.thunder--order-actions {
+				margin: 8px 0;
+				text-align: right;
+				font-size: 14px;
+				li {
+					list-style: none;
+					span {
+						@extend a;
+					}
+				}
+			}
+
+			.thunder--order-transaction-details {
+				margin-top: 0;
+			}
+
+		}
+
+		.thunder--order-item-details {
+
+			float: left;
+			margin-right: 3%;
+			width: 59%;
+
+			.thunder--cart-items {
+
+				tr:not(.thunder--order-applied-coupon) {
+					td:last-child {
+						padding-left: 12px;
+					}
+				}
+
+				.thunder--cart-item-quantity-value {
+					font-size: 14px;
+					&:before {
+						content: '×';
+						margin-right: 4px;
+						color: #777;
+					}
+				}
+
+			}
+
+			.thunder--order-applied-coupon {
+				font-size: 14px;
+				td {
+					border-top: #eaeaea 1px solid;
+				}
+			}
+
+			.thunder--total-label,
+			.thunder--total-value {
+				font-size: 14px;
+				padding: 2px 0;
+			}
+
+			.thunder--total-label {
+				text-align: right;
+			}
+
+			.thunder--order-items-sale-price {
+				display: block;
+			}
+			.thunder--order-items-compare-price {
+				display: block;
+				text-decoration: line-through;
+				color: #888;
+			}
+			.thunder--order-items-discounted {
+				display: block;
+				color: $color-danger;
+				font-size: 12px;
+			}
+			.thunder--shipping-total {
+				th, td {
+					padding-bottom: 8px;
+				}
+			}
+			.thunder--tax-total {
+				th, td {
+					padding: 8px 0;
+					border-top: #eaeaea 1px solid;
+					border-bottom: #eaeaea 1px solid;
+				}
+			}
+			.thunder--order-total {
+				th, td {
+					padding-top: 8px;
+				}
+			}
+			.thunder--tax-inlcuded {
+				display: block;
+				font-size: 12px;
+				font-weight: normal;
+				color: #aaa;
+			}
+
+			tfoot {
+				tr:first-child {
+					th,td {
+						padding-top: 12px;
+						border-top: #ddd 1px solid;
+					}
+				}
+			}
+
+		}
+
+	}
+
+	.thunder--order-secondary-info {
+
+		@include clearfix;
+
+		& > div {
+			margin-bottom: 18px;
+		}
+
+		.thunder--order-refunds,
+		.thunder--order-fulfillments {
+			float: left;
+			margin-right: 3%;
+			width: 59%;
+		}
+
+		.thunder--order-refund-list,
+		.thunder--order-fulfillment-list {
+			ul {
+				margin: 0;
+				padding: 0;
+				li {
+					list-style: inside square;
+				}
+			}
+		}
+
+		.thunder--no-refunds,
+		.thunder--no-fulfillments {
+			font-size: 15px;
+		}
+
+		.thunder--order-refunds {
+
+			.thunder--refund-actions {
+				margin: 8px 0;
+				text-align: right;
+				font-size: 14px;
+				li {
+					list-style: none;
+				}
+			}
+
+			.thunder--order-refund-list {
+
+				font-size: 14px;
+
+				.thunder--refund-status {
+
+					&[data-status="accepted"] {
+						border-color: $color-success;
+						color: $color-success;
+					}
+					&[data-status="cancelled"] {
+						border-color: $color-danger;
+						color: $color-danger;
+					}
+
+				}
+
+				.thunder--refund-item-quantity:before {
+					content: '×';
+					margin-left: 12px;
+					margin-right: 4px;
+					color: #777;
+				}
+
+				.thunder--refund-cancellation {
+					margin-top: 8px;
+					font-size: 13px;
+
+					.thunder--refund-cancellation-form {
+						margin-top: 14px;
+						textarea {
+							width: 100%;
+							margin-bottom: 8px;
+							padding: 4px;
+							border-radius: 4px;
+							border: #ccc 1px solid;
+						}
+					}
+
+					span.thunder--refund-cancellation-reason {
+						@extend a;
+						font-size: 13px;
+					}
+				}
+
+				.thunder--refund-total-label {
+					&:after {
+						margin-right: 6px;
+						content: ':';
+					}
+				}
+
+			}
+
+		}
+
+		.thunder--order-fulfillments {
+
+			.thunder--fulfillment-actions {
+				margin: 8px 0;
+				text-align: right;
+				font-size: 14px;
+				li {
+					list-style: none;
+				}
+			}
+
+			.thunder--order-fulfillment-list {
+
+				font-size: 14px;
+
+				.thunder--fulfillment-status {
+					&[data-status="shipped"],
+					&[data-status="arrived"] {
+						border-color: $color-success;
+						color: $color-success;
+					}
+				}
+
+				.thunder--fulfillment-item-quantity:before {
+					content: '×';
+					margin-left: 12px;
+					margin-right: 4px;
+					color: #777;
+				}
+
+				.thunder--fulfillment-tracker {
+					margin-top: 8px;
+					text-align: left;
+					font-size: 13px;
+				}
+
+			}
+
+		}
+
+		.thunder--order-customer-and-address {
+
+			float: right;
+			width: 38%;
+
+			h4 {
+				font-size: 15px;
+				margin: 12px 0 8px 0;
+			}
+
+			table {
+				border-spacing: 0;
+				font-size: 14px;
+			}
+
+		}
+
+	}
+
+}
