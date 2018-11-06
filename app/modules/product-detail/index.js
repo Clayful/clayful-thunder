@@ -18,7 +18,7 @@ module.exports = Thunder => {
 			Thunder.options.productReviewRating
 		),
 
-		onByNow: function($container, context, item) {
+		onBuyNow: function($container, context, item) {
 			return Thunder.render($container, 'cart', { items: [item._id] });
 		},
 		onItemAdd: function($container, context) {
@@ -172,7 +172,7 @@ module.exports = Thunder => {
 		$addToCart.on('click', () => addToCart());
 
 		$buyNow.on('click', () => addToCart(item => Thunder.execute(
-			context.options.onByNow,
+			context.options.onBuyNow,
 			$container,
 			context,
 			item
