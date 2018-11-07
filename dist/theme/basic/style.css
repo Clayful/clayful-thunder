@@ -589,6 +589,7 @@ button[data-balloon] {
 
 .thunder--contents .thunder--quantity-wrapper {
   display: inline-block;
+  min-width: 106px;
   margin-top: 6px; }
   .thunder--contents .thunder--quantity-wrapper .thunder--quantity-action {
     position: relative;
@@ -3730,15 +3731,19 @@ button[data-balloon] {
     .thunder--contents .thunder--product-detail .thunder--product-info .thunder--product-discount-percentage {
       font-size: 13px;
       color: #888; }
-    .thunder--contents .thunder--product-detail .thunder--product-info .thunder--product-option .thunder--product-variant {
-      display: inline-block;
-      margin-right: 3%;
-      width: 67%; }
-    .thunder--contents .thunder--product-detail .thunder--product-info .thunder--product-option .thunder--item-quantity {
-      display: inline-block;
-      width: 30%; }
-    .thunder--contents .thunder--product-detail .thunder--product-info .thunder--item-quantity {
+    .thunder--contents .thunder--product-detail .thunder--product-info .thunder--product-option {
       margin-top: 14px; }
+      .thunder--contents .thunder--product-detail .thunder--product-info .thunder--product-option:after {
+        content: "";
+        display: table;
+        clear: both; }
+      .thunder--contents .thunder--product-detail .thunder--product-info .thunder--product-option .thunder--product-variant {
+        float: left;
+        margin-right: 3%;
+        width: 67%; }
+      .thunder--contents .thunder--product-detail .thunder--product-info .thunder--product-option .thunder--item-quantity {
+        float: left;
+        width: 30%; }
     .thunder--contents .thunder--product-detail .thunder--product-info .thunder--shipping-method {
       margin-top: 14px;
       padding-top: 12px;
@@ -4252,6 +4257,7 @@ button[data-balloon] {
   bottom: 0;
   left: 0;
   right: 0;
+  z-index: 9998;
   background-color: rgba(0, 0, 0, 0.15); }
   #thunder--overlay-background.hidden {
     display: none; }
@@ -4260,7 +4266,7 @@ button[data-balloon] {
   overflow: auto;
   overflow-x: hidden;
   position: fixed;
-  z-index: 10;
+  z-index: 9999;
   margin: auto;
   background-color: #fff;
   border: #dedede 1px solid;
@@ -4310,7 +4316,7 @@ button[data-balloon] {
   position: fixed;
   top: 3%;
   right: 20%;
-  z-index: 10;
+  z-index: 9999;
   padding-right: 32px; }
   #thunder--overlay-header:after {
     content: "";
