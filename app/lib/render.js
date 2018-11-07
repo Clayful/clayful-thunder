@@ -1,3 +1,4 @@
+const mergeWith = require('lodash.mergeWith');
 const omit = require('lodash.omit');
 const Pikaday = require('pikaday');
 
@@ -43,8 +44,7 @@ module.exports = function(selector, componentName, options, callback) {
 	container.html(this.uis['component-spinner']());
 
 	// Copy and extend default options with runtime options
-	$.extend(
-		true,
+	mergeWith(
 		context,
 		{   // Global context
 			isAuthenticated: !!Thunder.authenticated(), // Customer is authenticated?
@@ -57,7 +57,12 @@ module.exports = function(selector, componentName, options, callback) {
 		{ options: component.options() },
 		{ options: component.default },
 		{ options: omit(container.data(), ['component', 'context']) }, // Declarative options
-		{ options: options } // Explicit options
+		{ options: options }, // Explicit options
+		(ov, sv) => {
+			if (Array.isArray(ov) && Array.isArray(sv)) {
+				return sv;
+			}
+		}
 	);
 
 	if (component.validate) {
