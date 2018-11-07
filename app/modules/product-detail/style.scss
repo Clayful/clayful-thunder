@@ -146,25 +146,23 @@
 			@include clearfix;
 
 			margin-top: 14px;
+		}
 
-			.thunder--product-variant {
-				float: left;
-				margin-right: 3%;
-				width: 67%
-			}
+		.thunder--product-variant {
+			float: left;
+			margin-right: 3%;
+			width: 67%
+		}
 
-			.thunder--item-quantity {
-				float: left;
-				width: 30%;
-			}
+		.thunder--item-quantity {
+			float: left;
+			width: 30%;
 		}
 
 		.thunder--shipping-method {
-
 			margin-top: 14px;
 			padding-top: 12px;
 			border-top: #eee 1px solid;
-
 		}
 
 		.thunder--product-bundles {
@@ -185,18 +183,8 @@
 				width: 27%;
 			}
 
-			.thunder--quantity-wrapper {
-				margin-left: 3%;
-			}
-
 			.thunder--product-bundle-item {
-				select {
-					width: 67%
-				}
-				input[type="number"] {
-					margin-left: 3%;
-					width: 27%;
-				}
+				@include clearfix;
 			}
 
 		}

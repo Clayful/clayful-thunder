@@ -21,26 +21,27 @@
 
 				margin-top: 14px;
 
-				.thunder--product-variant {
-					width: 100%
-				}
+			}
 
-				.thunder--item-quantity {
-					width: 100%;
-					margin-top: 0;
-					label {
-						display: none;
-					}
-					input[type="number"] {
-						width: 15%;
-					}
-				}
+			.thunder--product-variant {
+				width: 100%
+			}
 
-				.thunder--quantity-wrapper {
-					width: 100%;
-					margin-left: 0;
-					text-align: right;
+			.thunder--item-quantity {
+				width: 100%;
+				margin-top: 0;
+				label {
+					display: none;
 				}
+				input[type="number"] {
+					width: 15%;
+				}
+			}
+
+			.thunder--quantity-wrapper {
+				width: 100%;
+				margin-left: 0;
+				text-align: right;
 			}
 
 			.thunder--product-bundles {
@@ -55,18 +56,6 @@
 
 				.thunder--product-bundle-item {
 					margin-bottom: 4px;
-					select {
-						width: 100%
-					}
-					input[type="number"] {
-						width: 15%;
-					}
-
-					.thunder--quantity-wrapper {
-						width: 100%;
-						margin-left: 0;
-						text-align: right;
-					}
 				}
 
 			}

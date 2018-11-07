@@ -92,24 +92,28 @@
 
 				{{~ it.product.bundles :bundle }}
 				<div class="thunder--product-bundle-item">
-					<select>
-						<option value="" selected>
-							{{= bundle.name }}{{? bundle.required }} ({{= it.m('requiredBundle') }}){{? }}
-						</option>
-						{{~ bundle.items :item }}
-						<option value="{{= item.product._id }}.{{= item.variant._id }}" {{= it.isUnavailableVariant(item.product, item.variant) ? 'disabled' : '' }}>
-							{{= it.productName(item.product, item.variant) }}
-							&nbsp;/&nbsp;
-							{{= item.variant.price.sale.converted }}
-							{{=
-								it.isUnavailableVariant(item.product, item.variant) ?
-									' (' + it.m(it.isUnavailableVariant(item.product, item.variant)) + ')' :
-									''
-							}}
-						</option>
-						{{~ }}
-					</select>
-					<input type="number" value="0" min="0" class="thunder--bundle-item-quantity thunder--quantity" />
+					<div class="thunder--product-variant">
+						<select>
+							<option value="" selected>
+								{{= bundle.name }}{{? bundle.required }} ({{= it.m('requiredBundle') }}){{? }}
+							</option>
+							{{~ bundle.items :item }}
+							<option value="{{= item.product._id }}.{{= item.variant._id }}" {{= it.isUnavailableVariant(item.product, item.variant) ? 'disabled' : '' }}>
+								{{= it.productName(item.product, item.variant) }}
+								&nbsp;/&nbsp;
+								{{= item.variant.price.sale.converted }}
+								{{=
+									it.isUnavailableVariant(item.product, item.variant) ?
+										' (' + it.m(it.isUnavailableVariant(item.product, item.variant)) + ')' :
+										''
+								}}
+							</option>
+							{{~ }}
+						</select>
+					</div>
+					<div class="thunder--item-quantity">
+						<input type="number" value="0" min="0" class="thunder--bundle-item-quantity thunder--quantity" />
+					</div>
 				</div>
 				{{~ }}
 
