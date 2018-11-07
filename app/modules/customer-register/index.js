@@ -18,7 +18,7 @@ module.exports = Thunder => {
 
 		fields:          Thunder.options.customerRegistrationFields,
 		birthdateFormat: Thunder.options.dateInputFormat,
-		socialApps:      Thunder.options.socialApps.join(','),
+		socialApps:      Thunder.options.socialApps,
 
 		onRegister: function($container, context, customer) {
 

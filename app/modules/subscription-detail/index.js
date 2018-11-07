@@ -44,12 +44,16 @@ module.exports = Thunder => {
 			'name.full':  'fullName',
 		};
 
-		context.customerFields = context.options.customerFields.map(key => ({
+		context.customerFields = Thunder.util.parseArrayString(
+			context.options.customerFields
+		).map(key => ({
 			key: key,
 			translationKey: camelCase(['customer', translationKeys[key] || key]),
 		}));
 
-		context.recipientFields = context.options.recipientFields.map(key => ({
+		context.recipientFields = Thunder.util.parseArrayString(
+			context.options.recipientFields
+		).map(key => ({
 			key: key,
 			translationKey: camelCase(['address', translationKeys[key] || key]),
 		}));

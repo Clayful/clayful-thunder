@@ -31,6 +31,8 @@ module.exports = Thunder => {
 
 	implementation.pre = function(context, callback) {
 
+		context.options.productActions = Thunder.util.parseArrayString(context.options.productActions);
+
 		const { product } = context.options;
 
 		context.isUnavailableProduct = product => {

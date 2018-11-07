@@ -6,7 +6,7 @@ module.exports = Thunder => {
 
 	implementation.options = () => ({
 
-		socialApps: Thunder.options.socialApps.join(','),
+		socialApps: Thunder.options.socialApps,
 
 		onLogin: function($container, context) {
 
