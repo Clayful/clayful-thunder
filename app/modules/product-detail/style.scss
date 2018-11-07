@@ -143,22 +143,20 @@
 
 		.thunder--product-option {
 
+			@include clearfix;
+
+			margin-top: 14px;
+
 			.thunder--product-variant {
-				display: inline-block;
+				float: left;
 				margin-right: 3%;
 				width: 67%
 			}
 
 			.thunder--item-quantity {
-				display: inline-block;
+				float: left;
 				width: 30%;
 			}
-		}
-
-		.thunder--item-quantity {
-
-			margin-top: 14px;
-
 		}
 
 		.thunder--shipping-method {
