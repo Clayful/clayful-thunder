@@ -112,21 +112,7 @@ const Thunder = window.Thunder = function(options) {
 			// 'naver',
 			// 'kakao',
 		],
-		header:    false, /* {
-			items: [
-				'customer',        // Register, Login | My Profile
-				'search-purchase', // Search Order
-				'cart',            // Cart
-			],
-			actions: {
-				'customer-dashboard': ['open'],
-				'customer-register':  ['open'],
-				'customer-login':     ['open'],
-				'order-list':         ['open'],
-				'search-purchase':    ['open'],
-				cart:                 ['open'],
-			}
-		} */
+		header: false,
 		recaptcha: {
 			sitekey: null,
 			onload:  'thunderRecaptcha',
@@ -158,6 +144,24 @@ const Thunder = window.Thunder = function(options) {
 
 	if (options.plugins) {
 		$.extend(Thunder.plugins, options.plugins);
+	}
+
+	if (options.header === true) {
+		options.header = {
+			items: [
+				'customer',        // Register, Login | My Profile
+				'search-purchase', // Search Order
+				'cart',            // Cart
+			],
+			actions: {
+				'customer-dashboard': ['open'],
+				'customer-register':  ['open'],
+				'customer-login':     ['open'],
+				'order-list':         ['open'],
+				'search-purchase':    ['open'],
+				cart:                 ['open'],
+			}
+		};
 	}
 
 	if (options.messages) {
