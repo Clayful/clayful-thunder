@@ -54,5 +54,11 @@
     "lodash.set": "^4.3.2",
     "node-polyglot": "^2.2.2",
     "pikaday": "^1.7.0"
+  },
+  "browserify": {
+    "transform": ["browserify-shim"]
+  },
+  "browserify-shim": {
+    "jquery": "global:jQuery"
   }
 }

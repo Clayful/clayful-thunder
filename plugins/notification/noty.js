@@ -27,4 +27,4 @@ const implementation = (options = {}) => {
 
 };
 
-module.exports = window.ThunderNotificationNoty = implementation;
+window.ThunderNotificationNoty = implementation;

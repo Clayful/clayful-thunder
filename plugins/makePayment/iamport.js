@@ -215,4 +215,4 @@ implementation.handleRedirect = callback => {
 
 };
 
-module.exports = window.ThunderMakePaymentIamport = implementation;
+window.ThunderMakePaymentIamport = implementation;

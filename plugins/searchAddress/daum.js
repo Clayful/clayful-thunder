@@ -19,4 +19,4 @@ const implementation = () => {
 
 };
 
-module.exports = window.ThunderSearchAddressDaum = implementation;
+window.ThunderSearchAddressDaum = implementation;

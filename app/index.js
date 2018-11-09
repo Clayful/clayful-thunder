@@ -3,12 +3,14 @@ require('core-js/fn/string/from-code-point.js');
 require('core-js/fn/array/find.js');
 require('core-js/fn/array/is-array.js');
 require('imagesloaded');
+require('jquery-form')(window, $);
+require('jquery-match-height');
 
 const Polyglot = require('node-polyglot');
 const jstz = require('jstimezonedetect');
 const mergeWith = require('lodash.mergeWith');
 
-const Thunder = window.Thunder = function(options) {
+const Thunder = function(options) {
 
 	const language = window.navigator.userLanguage ||
 					window.navigator.language ||
@@ -399,4 +401,4 @@ function getterSetter(field, child) {
 
 }
 
-module.exports = Thunder;
+window.Thunder = Thunder;

@@ -23,7 +23,7 @@ const sequence     = require('gulp-sequence');
 const clean        = require('gulp-clean');
 
 const app       = './app';
-const locales   = Path.join(app, 'locales/*.js');
+const locales   = 'locales/*.js';
 const style     = Path.join(app, 'style.scss');
 const styles    = Path.join(app, '**/*.scss');
 const templates = Path.join(app, 'modules/*/*.dot');
@@ -37,6 +37,9 @@ gulp.task('thunder', () => {
 				sourceMap: false
 			}))
 			.transform(babelify, {})
+			.transform({
+				global: true
+			}, 'browserify-shim')
 			.bundle()
 			.on('error', function(err) {
 				console.log(err.message);
@@ -44,8 +47,6 @@ gulp.task('thunder', () => {
 			})
 			.pipe(source('thunder.js'))
 			.pipe(buffer())
-			.pipe(gap.prependFile('node_modules/jquery-form/dist/jquery.form.min.js'))
-			.pipe(gap.prependFile('node_modules/jquery-match-height/dist/jquery.matchHeight-min.js'))
 			.pipe(gulp.dest('dist'))
 			.pipe(uglify())
 			.pipe(rename({
