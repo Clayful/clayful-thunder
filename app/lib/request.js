@@ -44,7 +44,9 @@ module.exports = function(Thunder) {
 
 	};
 
-	request.defaultHeaders = {};
+	request.defaultHeaders = {
+		'Clayful-SDK': 'clayful-thunder'
+	};
 
 	request.setDefaultHeader = (key, value) => {
 		request.defaultHeaders[key] = value;
