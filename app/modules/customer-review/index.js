@@ -7,7 +7,15 @@ module.exports = Thunder => {
 	};
 
 	// All options are exactly same as `product-review` component
-	implementation.options = productReview(Thunder).options;
+	implementation.options = () => $.extend(
+		productReview(Thunder).options(),
+		{
+			useBodyExcerpt: false,
+			useFlag:        false,
+			showProduct:    true,
+			showComments:   true,
+		}
+	);
 
 	implementation.pre = function(context, callback) {
 
@@ -22,16 +30,7 @@ module.exports = Thunder => {
 
 		Thunder.util.bindBackButton($backToReviews, context);
 
-		Thunder.render($reviewContainer, 'product-review', $.extend(
-			{},
-			context.options,
-			{
-				useBodyExcerpt: false,
-				useFlag:        false,
-				showProduct:    true,
-				showComments:   true,
-			}
-		));
+		Thunder.render($reviewContainer, 'product-review', context.options);
 
 	};
 

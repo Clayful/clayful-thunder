@@ -1,25 +1,12 @@
-const kebabCase = require('lodash.kebabCase');
-
 module.exports = function() {
 
 	if (!this.options.header) return '';
 
 	const templates = [];
-	const { items, actions } = this.options.header;
+	const { items } = this.options.header;
 
-	const toAttributes = (component, directives) => {
-
-		const [primary, ...rest] = directives;
-
-		return [
-			`data-thunder-${primary}="${component}"`,
-			...rest.map(({ option, value }) => {
-				return `data-thunder-${kebabCase(option)}="${value}"`;
-			})
-		].join(' ');
-	};
 	const menuItem = (component, message) => {
-		return `<li><a ${toAttributes(component, actions[component])}>${message}</a></li>`;
+		return `<li><a data-component="${component}">${message}</a></li>`;
 	};
 
 	items.forEach(type => {

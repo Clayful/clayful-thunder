@@ -167,9 +167,7 @@
 
 	</div>
 
-	{{? it.options.useFollowingNav }}
 	<div class="thunder--following-nav-container"></div>
-	{{? }}
 
 	{{? it.options.descriptionStyle === 'detailed' }}
 	<div class="thunder--product-detail-trunk">

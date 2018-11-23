@@ -1,6 +1,6 @@
 const set = require('lodash.set');
 
-module.exports = function($container, menuItems = []) {
+module.exports = function($container, follow, menuItems = []) {
 
 	const id = Math.random().toString().slice(2);
 
@@ -14,7 +14,7 @@ module.exports = function($container, menuItems = []) {
 
 	$container
 		.addClass('thunder--following-nav-container')
-		.addClass('sticky')
+		.addClass(follow ? 'sticky' : '')
 		.html(`<ul class="thunder--following-nav">${items}</ul>`);
 
 	$container.on('click', '[data-scroll-to]', function(event) {

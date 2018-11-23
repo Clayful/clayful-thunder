@@ -1,6 +1,6 @@
 {
   "name": "clayful-thunder",
-  "version": "0.0.2",
+  "version": "1.0.0",
   "description": "Embeddable eCommerce built on top of Clayful APIs",
   "main": "index.js",
   "scripts": {
@@ -40,6 +40,7 @@
     "watchify": "^3.11.0"
   },
   "dependencies": {
+    "babel-polyfill": "^6.26.0",
     "balloon-css": "^0.5.0",
     "core-js": "^2.5.7",
     "imagesloaded": "^4.1.4",
@@ -56,7 +57,9 @@
     "pikaday": "^1.7.0"
   },
   "browserify": {
-    "transform": ["browserify-shim"]
+    "transform": [
+      "browserify-shim"
+    ]
   },
   "browserify-shim": {
     "jquery": "global:jQuery"

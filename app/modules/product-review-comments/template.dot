@@ -7,7 +7,7 @@
 	{{? }}
 
 	<div class="thunder--comment-writer-actions">
-		<button class="thunder--write-comment thunder--helped-vote thunder--button-tiny skeleton">
+		<button class="thunder--write-comment thunder--button-tiny skeleton">
 			{{= it.m('writeComment') }}
 		</button>
 	</div>

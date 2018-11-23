@@ -20,7 +20,7 @@ module.exports = Thunder => {
 		review:          null,         // Review ID
 		page:            1,            // Which page of comments?
 		limit:           10,           // How many comments at once?
-		sort:            '-createdAt', // Default sort value
+		sort:            'createdAt',  // Default sort value
 		filter:          null,         // Extra query filter
 		useBodyExcerpt:  140,          // Length of a body excerpt || false
 		useFlag:         true,         // Use flag?
@@ -47,7 +47,7 @@ module.exports = Thunder => {
 
 		const defaultQuery = $.extend({
 			review: context.options.review,
-		}, context.options.filter ? context.options.filter : {});
+		}, Thunder.util.parseQueryString(context.options.filter));
 
 		return $.when(
 			fetchComments(),

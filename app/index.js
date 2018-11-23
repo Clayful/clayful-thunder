@@ -1,7 +1,4 @@
-require('core-js/fn/string/repeat.js');
-require('core-js/fn/string/from-code-point.js');
-require('core-js/fn/array/find.js');
-require('core-js/fn/array/is-array.js');
+require('babel-polyfill');
 require('imagesloaded');
 require('jquery-form')(window, $);
 require('jquery-match-height');
@@ -17,6 +14,14 @@ const Thunder = function(options) {
 					null;
 
 	const timezone = jstz.determine().name();
+
+	const overrideArray = (ov, sv) => {
+
+		if (Array.isArray(ov) && Array.isArray(sv)) {
+			return sv;
+		}
+
+	};
 
 	options = mergeWith({
 		client:        null,
@@ -123,9 +128,9 @@ const Thunder = function(options) {
 				'customer-login',
 				'customer-reset-password',
 				'customer-verification',
-				'customer-update',
-				'customer-update-credential',
-				'customer-update-address',
+				// 'customer-update',
+				// 'customer-update-credential',
+				// 'customer-update-address',
 				'product-review-writer',
 				'product-review-comments',
 				'checkout',
@@ -136,34 +141,36 @@ const Thunder = function(options) {
 		},
 		plugins:  {},
 		messages: {},
-	}, options, (ov, sv) => {
-
-		if (Array.isArray(ov) && Array.isArray(sv)) {
-			return sv;
-		}
-
-	});
+	}, options, overrideArray);
 
 	if (options.plugins) {
 		$.extend(Thunder.plugins, options.plugins);
 	}
 
-	if (options.header === true) {
-		options.header = {
+	if (options.header) {
+
+		const defaultHeaderOptions = {
 			items: [
 				'customer',        // Register, Login | My Profile
 				'search-purchase', // Search Order
 				'cart',            // Cart
 			],
 			actions: {
-				'customer-dashboard': ['open'],
-				'customer-register':  ['open'],
-				'customer-login':     ['open'],
-				'order-list':         ['open'],
-				'search-purchase':    ['open'],
-				cart:                 ['open'],
+				'customer-dashboard': () => Thunder.open('customer-dashboard'),
+				'customer-register':  () => Thunder.open('customer-register'),
+				'customer-login':     () => Thunder.open('customer-login'),
+				'order-list':         () => Thunder.open('order-list'),
+				'search-purchase':    () => Thunder.open('search-purchase'),
+				cart:                 () => Thunder.open('cart'),
 			}
 		};
+
+		if (options.header === true) {
+			options.header = defaultHeaderOptions;
+		} else {
+			options.header = mergeWith(defaultHeaderOptions, options.header, overrideArray);
+		}
+
 	}
 
 	if (options.messages) {
@@ -216,7 +223,7 @@ const Thunder = function(options) {
 // Translation dependency
 Thunder.polyglot = new Polyglot();
 
-// Event listeners
+// TODO: Event listeners
 Thunder.listeners = {
 	render: [],
 	open:   [],
@@ -290,6 +297,7 @@ Thunder.plugins = {
 // Utility methods
 Thunder.util = {
 	log:                 require('./util/log').bind(Thunder),
+	debounce:            require('./util/debounce').bind(Thunder),
 	ui:                  require('./util/ui').bind(Thunder),
 	stripHTML:           require('./util/stripHTML').bind(Thunder),
 	excerpt:             require('./util/excerpt').bind(Thunder),
@@ -304,6 +312,7 @@ Thunder.util = {
 	variantName:         require('./util/variantName').bind(Thunder),
 	orderShippingStatus: require('./util/orderShippingStatus').bind(Thunder),
 	formToJSON:          require('./util/formToJSON').bind(Thunder),
+	parseQueryString:    require('./util/parseQueryString').bind(Thunder),
 	parseArrayString:    require('./util/parseArrayString').bind(Thunder),
 	urlQuery:            require('./util/urlQuery').bind(Thunder),
 	requestErrorHandler: require('./util/requestErrorHandler').bind(Thunder),

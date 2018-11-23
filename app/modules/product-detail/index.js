@@ -98,28 +98,19 @@ module.exports = Thunder => {
 		const $container = $(this);
 		const $followingNav = $(this).find('.thunder--following-nav-container');
 
-		if (context.options.useReviews) {
-
-			if (context.options.useFollowingNav) {
-				// If reviews are not in use, there will be only one menu item for now.
-				// So simply do not use following navigation in this case.
-				Thunder.util.followingNavigation($followingNav, [
-					{
-						name: context.m('productInfo'),
-						$el:  $container.find('.thunder--product-detail')
-					},
-					{
-						name: [
-							context.m('productReviews'),
-							`<span class="thunder--product-total-comments">(${context.product.totalReview.converted})</span>`,
-						].join(' '),
-						$el:  $container.find('.thunder--product-reviews-wrapper')
-					},
-				]);
-
-			}
-
-		}
+		Thunder.util.followingNavigation($followingNav, context.options.useFollowingNav, [
+			{
+				name: context.m('productInfo'),
+				$el:  $container.find('.thunder--product-detail')
+			},
+			context.options.useReviews ? {
+				name: [
+					context.m('productReviews'),
+					`<span class="thunder--product-total-comments">(${context.product.totalReview.converted})</span>`,
+				].join(' '),
+				$el:  $container.find('.thunder--product-reviews-wrapper')
+			} : null,
+		].filter(v => v));
 
 	};
 

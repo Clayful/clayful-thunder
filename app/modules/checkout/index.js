@@ -273,6 +273,12 @@ module.exports = Thunder => {
 				searchAddressPlugin: Thunder.plugins.searchAddress
 			});
 
+			const debouncedApplySubscriptionDetail = Thunder.util.debounce(
+				applySubscriptionDetail,
+				100,
+				true
+			);
+
 			const subscriptionHandler = SubscriptionHandler({
 				form:              $(this).find('.thunder--subscription-details'),
 				labels:            {
@@ -281,8 +287,8 @@ module.exports = Thunder => {
 				},
 				subscriptionPlans: context.subscriptionPlans,
 				timezone:          () => Thunder.options.timezone,
-				onPlanChange:      () => applySubscriptionDetail(),
-				onStartsAtChange:  () => applySubscriptionDetail()
+				onPlanChange:      () => debouncedApplySubscriptionDetail(),
+				onStartsAtChange:  () => debouncedApplySubscriptionDetail()
 			});
 
 			Thunder.util.bindBackButton($backToCart, context);

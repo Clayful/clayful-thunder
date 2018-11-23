@@ -12,7 +12,14 @@ module.exports = Thunder => {
 	implementation.options = () => $.extend(
 		productReviewInstance.options(),
 		{
-			comment: null, // Comment ID
+			comment:      null, // Comment ID
+			showProduct:  true,
+			showComments: {
+				filter:         null,
+				useBodyExcerpt: false,
+				useFlag:        false,
+				usePagination:  false,
+			},
 		}
 	);
 
@@ -29,19 +36,11 @@ module.exports = Thunder => {
 
 		Thunder.util.bindBackButton($backToComments, context);
 
-		Thunder.render($reviewContainer, 'product-review', $.extend(
-			{},
-			context.options,
-			{
-				showProduct:  true,
-				showComments: {
-					filter:         { ids: context.options.comment },
-					useBodyExcerpt: false,
-					useFlag:        false,
-					usePagination:  false,
-				},
-			}
-		));
+		if (context.options.showComments) {
+			context.options.showComments.filter = { ids: context.options.comment };
+		}
+
+		Thunder.render($reviewContainer, 'product-review', context.options);
 
 	};
 

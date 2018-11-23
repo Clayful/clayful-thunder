@@ -6,6 +6,10 @@ module.exports = function($uploadForm, successCallback, errorCallback) {
 
 	return $file.on('change', () => {
 
+		if (!$file.val()) {
+			return $label.html(originalLabel);
+		}
+
 		$label.html(this.ui('button-spinner'));
 
 		$uploadForm.ajaxSubmit({

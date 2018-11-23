@@ -11,8 +11,13 @@ module.exports = function($container) {
 
 		$(this).wrap($wrapper);
 
-		const $dec = $(`<span class="thunder--quantity-action" data-type="dec">-</span>`);
-		const $inc = $(`<span class="thunder--quantity-action" data-type="inc">+</span>`);
+		const $dec = $(`<span class="thunder--quantity-action" data-type="dec">
+			<span class="thunder--quantity-action-bar"></span>
+		</span>`);
+		const $inc = $(`<span class="thunder--quantity-action" data-type="inc">
+			<span class="thunder--quantity-action-bar"></span>
+			<span class="thunder--quantity-action-bar"></span>
+		</span>`);
 
 		$dec.insertBefore($(this));
 		$inc.insertAfter($(this));

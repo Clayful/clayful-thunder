@@ -20,7 +20,7 @@ module.exports = Thunder => {
 		usePagination:    true,  // Use pagination?
 
 		onViewProduct: function($container, context, productId) {
-			return Thunder.render($container, 'product-detail', {
+			return Thunder.open('product-detail', {
 				product: productId
 			});
 		}
@@ -30,19 +30,9 @@ module.exports = Thunder => {
 
 		const options = context.options;
 
-		const query = {
+		const query = $.extend({
 			bundled: false // Only display root products
-		};
-
-		$.each((options.filter || '').split('&'), function(i, s) {
-
-			if (!s) return;
-
-			const keyValue = s.split('=');
-
-			query[keyValue[0]] = keyValue.slice(1).join('=');
-
-		});
+		}, Thunder.util.parseQueryString(options.filter));
 
 		const listQuery = $.extend({
 			fields: [

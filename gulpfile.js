@@ -36,7 +36,7 @@ gulp.task('thunder', () => {
 				debug:     true,
 				sourceMap: false
 			}))
-			.transform(babelify, {})
+			.transform(babelify, require('./babel.config.js')())
 			.transform({
 				global: true
 			}, 'browserify-shim')
