@@ -147,6 +147,20 @@ const Thunder = function(options) {
 		$.extend(Thunder.plugins, options.plugins);
 	}
 
+	if (options.paymentMethods) {
+
+		Object.keys(options.paymentMethods).forEach(type => {
+
+			const paymentMethods = options.paymentMethods[type];
+
+			if (paymentMethods.length > 0) return;
+
+			delete options.paymentMethods[type];
+
+		});
+
+	}
+
 	if (options.header) {
 
 		const defaultHeaderOptions = {
