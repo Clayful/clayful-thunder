@@ -230,6 +230,8 @@ const Thunder = function(options) {
 	Thunder.preference(options);
 	Thunder.initialize();
 
+	Thunder.listeners.init.forEach(callback => callback());
+
 	return Thunder;
 
 };
@@ -239,6 +241,7 @@ Thunder.polyglot = new Polyglot();
 
 // TODO: Event listeners
 Thunder.listeners = {
+	init:   [],
 	render: [],
 	open:   [],
 	close:  [],

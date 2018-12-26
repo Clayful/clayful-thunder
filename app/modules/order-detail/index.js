@@ -121,7 +121,7 @@ module.exports = Thunder => {
 
 			// Set payment details.
 			const thunderPaymentMethodMap =
-				Thunder.options.paymentMethods.order
+				(Thunder.options.paymentMethods.order || [])
 					.reduce((o, p) => set(o, p.id, p), {});
 
 			// Filter viable payment methods where..

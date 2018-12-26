@@ -6,8 +6,10 @@ module.exports = Thunder => {
 	const supportedComponents = () => [
 		'customer-update',
 		'customer-update-address',
-		...Object.keys(Thunder.options.paymentMethods)
-			.map(type => `${type}-list`),
+		'order-list',
+		Thunder.options.paymentMethods.subscription ?
+			'subscription-list' :
+			null,
 		'customer-coupons',
 		Thunder.options.productReview ?
 			'customer-reviews' :

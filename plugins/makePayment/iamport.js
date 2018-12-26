@@ -50,11 +50,25 @@ const implementation = (options = {}) => {
 			address.address2
 		].filter(v => v).join(' ').trim(),
 		// Mobile payment redirection handler.
-		redirectionCallback = () => {}
+		redirectionCallback = (err, data) => {
+
+			if (err) {
+
+				const message = Thunder.polyglot.t('checkout.paymentFailed');
+
+				Thunder.notify('error', `${ message } [${ err.code }]`);
+
+				return Thunder.open(`${ err.type }-detail`, { [err.type]: err.subject });
+			}
+
+			return Thunder.open('checkout-success', data);
+		}
 	} = options;
 
-	// Handle mobile redirections automatically
-	implementation.handleRedirect(redirectionCallback);
+	Thunder.listeners.init.push(() => {
+		// Handle mobile redirections automatically
+		implementation.handleRedirect(redirectionCallback);
+	});
 
 	return (data = {}, callback) => {
 

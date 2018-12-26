@@ -32,12 +32,12 @@
 
 	<ul class="thunder--form-useful-actions">
 		<li>
-			{{? it.options.type === 'subscription' && it.showLinks.subscription }}
+			{{? it.options.type === 'subscription' && it.showLinks.order }}
 			<a class="thunder--go-to-search-purchase" data-type="order">
 				{{= it.m('goToSearchOrder') }}
 			</a>
 			{{? }}
-			{{? it.options.type === 'order' && it.showLinks.order }}
+			{{? it.options.type === 'order' && it.showLinks.subscription }}
 			<a class="thunder--go-to-search-purchase" data-type="subscription">
 				{{= it.m('goToSearchSubscription') }}
 			</a>

@@ -30,15 +30,10 @@ module.exports = Thunder => {
 			translationKey: translationKeys[field] || field,
 		}));
 
-		context.showLinks = Object.keys(Thunder.options.paymentMethods).reduce((o, scope) => {
-
-			const paymentMethods = Thunder.options.paymentMethods[scope];
-
-			o[scope] = paymentMethods && paymentMethods.length;
-
-			return o;
-
-		}, {});
+		context.showLinks = {
+			order: true,
+			subscription: !!Thunder.options.paymentMethods.subscription
+		};
 
 		return callback(null, context);
 

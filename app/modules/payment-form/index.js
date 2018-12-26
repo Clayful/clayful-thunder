@@ -20,7 +20,7 @@ module.exports = Thunder => {
 		} = context.options;
 
 		const paymentMethodFilter = context.options.paymentMethods;
-		const defaultPaymentMethods = Thunder.options.paymentMethods[type];
+		const defaultPaymentMethods = Thunder.options.paymentMethods[type] || [];
 
 		context.paymentMethods =
 			context.options.paymentMethods ?
