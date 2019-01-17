@@ -5,14 +5,15 @@ module.exports = Thunder => {
 	};
 
 	implementation.options = () => ({
-		page:             1,     // Which page of products?
-		limit:            24,    // How many products at once?
-		columns:          4,     // How many columns? (css supports for 1-12)
-		filter:           '',    // Extra filters. e.g., brand=abcd
-		imageWidth:       240,   // Image width
-		imageHeight:      240,   // Image height
-		showSummary:      true,  // Show `product.summary`
-		showRating:       (      // Show `product.rating`
+		page:        1,            // Which page of products?
+		limit:       24,           // How many products at once?
+		sort:        '-createdAt', // Default sort order
+		columns:     4,            // How many columns? (css supports for 1-12)
+		filter:      '',           // Extra filters. e.g., brand=abcd
+		imageWidth:  240,          // Image width
+		imageHeight: 240,          // Image height
+		showSummary: true,         // Show `product.summary`
+		showRating:  (             // Show `product.rating`
 			Thunder.options.productReview &&
 			Thunder.options.productReviewRating
 		),
@@ -46,6 +47,7 @@ module.exports = Thunder => {
 			].join(','),
 			page:   options.page,   // Page option
 			limit:  options.limit,  // Limit option
+			sort:   options.sort,   // Sort option
 		}, query);
 
 		const countQuery = $.extend({
