@@ -16,7 +16,7 @@ module.exports = query => {
 
 		const [key, ...values] = segment.split('=');
 
-		return set(o, [key], values.join('='));
+		return set(o, [key], decodeURIComponent(values.join('=')));
 
 	}, {});
 
