@@ -89,6 +89,8 @@ module.exports = function(selector, componentName, options, callback) {
 
 		container.html(component.template(context));
 
+		Thunder.trigger('componentRender', container, componentName, container, context);
+
 		Thunder.util.quantityInput(container);
 
 		// Bind before automatic binding
@@ -148,6 +150,8 @@ module.exports = function(selector, componentName, options, callback) {
 		Thunder.util.bindSocialApps(container);
 
 		const interfaces = component.init.call(container, context) || {};
+
+		Thunder.trigger('componentInit', container, componentName, container, context);
 
 		return callback && callback.call($(this), err, { interfaces, context });
 

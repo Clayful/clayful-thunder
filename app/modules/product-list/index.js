@@ -8,6 +8,7 @@ module.exports = Thunder => {
 		page:        1,            // Which page of products?
 		limit:       24,           // How many products at once?
 		sort:        '-createdAt', // Default sort order
+		fields:      '',           // Additional fields
 		columns:     4,            // How many columns? (css supports for 1-12)
 		filter:      '',           // Extra filters. e.g., brand=abcd
 		imageWidth:  240,          // Image width
@@ -44,7 +45,9 @@ module.exports = Thunder => {
 				'price',
 				'discount',
 				'rating',
-			].join(','),
+			]
+			.concat(Thunder.util.parseArrayString(options.fields))
+			.join(','),
 			page:   options.page,   // Page option
 			limit:  options.limit,  // Limit option
 			sort:   options.sort,   // Sort option

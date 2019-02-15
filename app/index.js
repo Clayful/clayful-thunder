@@ -139,12 +139,21 @@ const Thunder = function(options) {
 			],
 			queue: []
 		},
-		plugins:  {},
-		messages: {},
+		plugins:   {},
+		listeners: {},
+		messages:  {},
 	}, options, overrideArray);
 
 	if (options.plugins) {
 		$.extend(Thunder.plugins, options.plugins);
+	}
+
+	if (options.listeners) {
+		Object.keys(options.listeners).forEach(eventName => {
+			Thunder.listeners[eventName] =
+				Thunder.listeners[eventName]
+					.concat(options.listeners[eventName]);
+		});
 	}
 
 	if (options.paymentMethods) {
@@ -230,7 +239,7 @@ const Thunder = function(options) {
 	Thunder.preference(options);
 	Thunder.initialize();
 
-	Thunder.listeners.init.forEach(callback => callback());
+	Thunder.trigger('init');
 
 	return Thunder;
 
@@ -241,10 +250,9 @@ Thunder.polyglot = new Polyglot();
 
 // TODO: Event listeners
 Thunder.listeners = {
-	init:   [],
-	render: [],
-	open:   [],
-	close:  [],
+	init:            [],
+	componentRender: [],
+	componentInit:   [],
 };
 
 // Custom methods
@@ -375,6 +383,7 @@ $.extend(Thunder, {
 	setMessages:   require('./lib/setMessages').bind(Thunder), // Sets translation messages
 	on:            require('./lib/on').bind(Thunder),         // Registers event listeners
 	off:           require('./lib/off').bind(Thunder),        // Unregisters event listeners
+	trigger:       require('./lib/trigger').bind(Thunder),    // Trigger registered event listeners
 	method:        getterSetter('methods'),                   // Method getter/setter
 	component:     getterSetter('components'),                // Component getter/setter
 	template:      getterSetter('components', 'template'),    // Custom template getter/setter
