@@ -1147,7 +1147,7 @@ button[data-balloon] {
     -webkit-appearance: none;
     border-radius: 4px;
     background-clip: padding-box;
-    background: #dddddd url("../images/button.png?1298351022") repeat-x;
+    background: #dddddd;
     background-image: linear-gradient(#ffffff, #dddddd);
     border: 1px solid;
     border-color: #dddddd #bbbbbb #999999;
@@ -1483,56 +1483,8 @@ button[data-balloon] {
   .thunder--contents optgroup::-moz-focus-inner {
     border: 0;
     padding: 0; }
-  .thunder--contents .ie6_button,
-  .thunder--contents * html button,
-  .thunder--contents * html a.button,
-  .thunder--contents * html .thunder--checkout .button.thunder--back-to-cart,
-  .thunder--contents .thunder--checkout * html .button.thunder--back-to-cart,
-  .thunder--contents * html .thunder--order-detail .button.thunder--back-to-orders,
-  .thunder--contents .thunder--order-detail * html .button.thunder--back-to-orders,
-  .thunder--contents * html .thunder--order-detail .thunder--order-primary-info .thunder--order-basic-info .thunder--order-actions li span.button,
-  .thunder--contents .thunder--order-detail .thunder--order-primary-info .thunder--order-basic-info .thunder--order-actions li * html span.button,
-  .thunder--contents * html .thunder--order-detail .thunder--order-secondary-info .thunder--order-refunds .thunder--order-refund-list .thunder--refund-cancellation span.button.thunder--refund-cancellation-reason,
-  .thunder--contents .thunder--order-detail .thunder--order-secondary-info .thunder--order-refunds .thunder--order-refund-list .thunder--refund-cancellation * html span.button.thunder--refund-cancellation-reason,
-  .thunder--contents * html .thunder--order-request-refund .button.thunder--back-to-order,
-  .thunder--contents .thunder--order-request-refund * html .button.thunder--back-to-order,
-  .thunder--contents * html .thunder--subscription-detail .button.thunder--back-to-subscriptions,
-  .thunder--contents .thunder--subscription-detail * html .button.thunder--back-to-subscriptions,
-  .thunder--contents * html .thunder--subscription-detail .thunder--subscription-primary-info .thunder--subscription-basic-info .thunder--subscription-actions li span.button,
-  .thunder--contents .thunder--subscription-detail .thunder--subscription-primary-info .thunder--subscription-basic-info .thunder--subscription-actions li * html span.button,
-  .thunder--contents * html .thunder--subscription-detail .thunder--subscription-secondary-info .thunder--subscription-schedules .thunder--subscription-schedule-list tbody tr[data-status="done"] .button.thunder--schedule-order,
-  .thunder--contents .thunder--subscription-detail .thunder--subscription-secondary-info .thunder--subscription-schedules .thunder--subscription-schedule-list tbody tr[data-status="done"] * html .button.thunder--schedule-order,
-  .thunder--contents * html .thunder--subscription-detail .thunder--subscription-secondary-info .thunder--subscription-schedules .thunder--subscription-schedule-list .thunder--subscription-omitted-schedules .button.thunder--view-all-schedules,
-  .thunder--contents .thunder--subscription-detail .thunder--subscription-secondary-info .thunder--subscription-schedules .thunder--subscription-schedule-list .thunder--subscription-omitted-schedules * html .button.thunder--view-all-schedules,
-  .thunder--contents * html .thunder--credential-form-wrapper .button.thunder--update-customer,
-  .thunder--contents .thunder--credential-form-wrapper * html .button.thunder--update-customer,
-  .thunder--contents * html .thunder--customer-update-form-wrapper .button.thunder--back-to-checkout,
-  .thunder--contents .thunder--customer-update-form-wrapper * html .button.thunder--back-to-checkout,
-  .thunder--contents * html .thunder--customer-update-form-wrapper .button.thunder--change-user-id,
-  .thunder--contents .thunder--customer-update-form-wrapper * html .button.thunder--change-user-id,
-  .thunder--contents * html .thunder--customer-update-form-wrapper .button.thunder--change-email,
-  .thunder--contents .thunder--customer-update-form-wrapper * html .button.thunder--change-email,
-  .thunder--contents * html .thunder--customer-update-form-wrapper .button.thunder--change-password,
-  .thunder--contents .thunder--customer-update-form-wrapper * html .button.thunder--change-password,
-  .thunder--contents * html .thunder--customer-update-form-wrapper .thunder--customer-avatar-form label.button,
-  .thunder--contents .thunder--customer-update-form-wrapper .thunder--customer-avatar-form * html label.button,
-  .thunder--contents * html .thunder--customer-review .button.thunder--back-to-reviews,
-  .thunder--contents .thunder--customer-review * html .button.thunder--back-to-reviews,
-  .thunder--contents * html .thunder--customer-review-comments .thunder--customer-review-comment .button.thunder--view-comment,
-  .thunder--contents .thunder--customer-review-comments .thunder--customer-review-comment * html .button.thunder--view-comment,
-  .thunder--contents * html .thunder--customer-review-comment .button.thunder--back-to-comments,
-  .thunder--contents .thunder--customer-review-comment * html .button.thunder--back-to-comments,
-  .thunder--contents * html .thunder--product-review .button.thunder--read-more,
-  .thunder--contents .thunder--product-review * html .button.thunder--read-more,
-  .thunder--contents * html .thunder--product-review .thunder--edit-review-image-form label.button,
-  .thunder--contents .thunder--product-review .thunder--edit-review-image-form * html label.button,
-  .thunder--contents * html .thunder--product-review .thunder--product-review-actions .thunder--product-review-total-comments .button.thunder--show-product-review-comment,
-  .thunder--contents .thunder--product-review .thunder--product-review-actions .thunder--product-review-total-comments * html .button.thunder--show-product-review-comment,
-  .thunder--contents * html .thunder--review-writer .thunder--review-image-form label.button,
-  .thunder--contents .thunder--review-writer .thunder--review-image-form * html label.button,
-  .thunder--contents * html .thunder--product-review-comments .thunder--review-comment .button.thunder--read-more,
-  .thunder--contents .thunder--product-review-comments .thunder--review-comment * html .button.thunder--read-more {
-    background: #dddddd url("../images/button.png?1298351022") repeat-x;
+  .thunder--contents .ie6_button {
+    background: #dddddd;
     border: 1px solid;
     border-color: #dddddd #bbbbbb #999999;
     cursor: pointer;
@@ -1543,63 +1495,7 @@ button[data-balloon] {
     overflow: visible;
     vertical-align: top;
     width: auto; }
-  
-  .thunder--contents * html a.button,
-  .thunder--contents * html .thunder--checkout .button.thunder--back-to-cart,
-  .thunder--contents .thunder--checkout * html .button.thunder--back-to-cart,
-  .thunder--contents * html .thunder--order-detail .button.thunder--back-to-orders,
-  .thunder--contents .thunder--order-detail * html .button.thunder--back-to-orders,
-  .thunder--contents * html .thunder--order-detail .thunder--order-primary-info .thunder--order-basic-info .thunder--order-actions li span.button,
-  .thunder--contents .thunder--order-detail .thunder--order-primary-info .thunder--order-basic-info .thunder--order-actions li * html span.button,
-  .thunder--contents * html .thunder--order-detail .thunder--order-secondary-info .thunder--order-refunds .thunder--order-refund-list .thunder--refund-cancellation span.button.thunder--refund-cancellation-reason,
-  .thunder--contents .thunder--order-detail .thunder--order-secondary-info .thunder--order-refunds .thunder--order-refund-list .thunder--refund-cancellation * html span.button.thunder--refund-cancellation-reason,
-  .thunder--contents * html .thunder--order-request-refund .button.thunder--back-to-order,
-  .thunder--contents .thunder--order-request-refund * html .button.thunder--back-to-order,
-  .thunder--contents * html .thunder--subscription-detail .button.thunder--back-to-subscriptions,
-  .thunder--contents .thunder--subscription-detail * html .button.thunder--back-to-subscriptions,
-  .thunder--contents * html .thunder--subscription-detail .thunder--subscription-primary-info .thunder--subscription-basic-info .thunder--subscription-actions li span.button,
-  .thunder--contents .thunder--subscription-detail .thunder--subscription-primary-info .thunder--subscription-basic-info .thunder--subscription-actions li * html span.button,
-  .thunder--contents * html .thunder--subscription-detail .thunder--subscription-secondary-info .thunder--subscription-schedules .thunder--subscription-schedule-list tbody tr[data-status="done"] .button.thunder--schedule-order,
-  .thunder--contents .thunder--subscription-detail .thunder--subscription-secondary-info .thunder--subscription-schedules .thunder--subscription-schedule-list tbody tr[data-status="done"] * html .button.thunder--schedule-order,
-  .thunder--contents * html .thunder--subscription-detail .thunder--subscription-secondary-info .thunder--subscription-schedules .thunder--subscription-schedule-list .thunder--subscription-omitted-schedules .button.thunder--view-all-schedules,
-  .thunder--contents .thunder--subscription-detail .thunder--subscription-secondary-info .thunder--subscription-schedules .thunder--subscription-schedule-list .thunder--subscription-omitted-schedules * html .button.thunder--view-all-schedules,
-  .thunder--contents * html .thunder--credential-form-wrapper .button.thunder--update-customer,
-  .thunder--contents .thunder--credential-form-wrapper * html .button.thunder--update-customer,
-  .thunder--contents * html .thunder--customer-update-form-wrapper .button.thunder--back-to-checkout,
-  .thunder--contents .thunder--customer-update-form-wrapper * html .button.thunder--back-to-checkout,
-  .thunder--contents * html .thunder--customer-update-form-wrapper .button.thunder--change-user-id,
-  .thunder--contents .thunder--customer-update-form-wrapper * html .button.thunder--change-user-id,
-  .thunder--contents * html .thunder--customer-update-form-wrapper .button.thunder--change-email,
-  .thunder--contents .thunder--customer-update-form-wrapper * html .button.thunder--change-email,
-  .thunder--contents * html .thunder--customer-update-form-wrapper .button.thunder--change-password,
-  .thunder--contents .thunder--customer-update-form-wrapper * html .button.thunder--change-password,
-  .thunder--contents * html .thunder--customer-update-form-wrapper .thunder--customer-avatar-form label.button,
-  .thunder--contents .thunder--customer-update-form-wrapper .thunder--customer-avatar-form * html label.button,
-  .thunder--contents * html .thunder--customer-review .button.thunder--back-to-reviews,
-  .thunder--contents .thunder--customer-review * html .button.thunder--back-to-reviews,
-  .thunder--contents * html .thunder--customer-review-comments .thunder--customer-review-comment .button.thunder--view-comment,
-  .thunder--contents .thunder--customer-review-comments .thunder--customer-review-comment * html .button.thunder--view-comment,
-  .thunder--contents * html .thunder--customer-review-comment .button.thunder--back-to-comments,
-  .thunder--contents .thunder--customer-review-comment * html .button.thunder--back-to-comments,
-  .thunder--contents * html .thunder--product-review .button.thunder--read-more,
-  .thunder--contents .thunder--product-review * html .button.thunder--read-more,
-  .thunder--contents * html .thunder--product-review .thunder--edit-review-image-form label.button,
-  .thunder--contents .thunder--product-review .thunder--edit-review-image-form * html label.button,
-  .thunder--contents * html .thunder--product-review .thunder--product-review-actions .thunder--product-review-total-comments .button.thunder--show-product-review-comment,
-  .thunder--contents .thunder--product-review .thunder--product-review-actions .thunder--product-review-total-comments * html .button.thunder--show-product-review-comment,
-  .thunder--contents * html .thunder--review-writer .thunder--review-image-form label.button,
-  .thunder--contents .thunder--review-writer .thunder--review-image-form * html label.button,
-  .thunder--contents * html .thunder--product-review-comments .thunder--review-comment .button.thunder--read-more,
-  .thunder--contents .thunder--product-review-comments .thunder--review-comment * html .button.thunder--read-more {
-    position: relative;
-    top: 3px;
-    padding-bottom: 2px; }
-  .thunder--contents * html button {
-    padding-top: 1px;
-    padding-bottom: 1px; }
-  .thunder--contents .ie6_input,
-  .thunder--contents * html textarea,
-  .thunder--contents * html select {
+  .thunder--contents .ie6_input {
     background: white;
     border: 1px solid;
     border-color: #848484 #c1c1c1 #e1e1e1;
@@ -1608,8 +1504,6 @@ button[data-balloon] {
     font-size: 13px;
     font-family: Arial, sans-serif;
     vertical-align: top; }
-  .thunder--contents * html select {
-    margin-top: 1px; }
   .thunder--contents .placeholder_text,
   .thunder--contents .ie6_input_disabled,
   .thunder--contents .ie6_button_disabled {
