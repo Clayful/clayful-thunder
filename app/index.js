@@ -36,6 +36,11 @@ const Thunder = function(options) {
 			order:    '__tot__',
 		},
 		dateInputFormat: 'YYYY-MM-DD',
+		legal: {
+			registrationTerms: {
+				link: null
+			}
+		},
 		productActions:  [
 			'add-to-cart',
 			'buy-now'
@@ -212,6 +217,7 @@ const Thunder = function(options) {
 		timezone:                   options.timezone,                            // Content time zone
 		authStorage:                options.authStorage,                         // Auth token storage
 		dateInputFormat:            options.dateInputFormat,                     // Date input format
+		legal:                      options.legal,                               // Legal information
 		productActions:             options.productActions,                      // Supported product options
 		productReview:              options.productReview,
 		productReviewRating:        options.productReviewRating,

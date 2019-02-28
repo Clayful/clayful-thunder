@@ -6,6 +6,16 @@
 
 	<form class="thunder--register-form thunder--form">
 
+		{{? it.options.termsLink }}
+		<div class="thunder--registration-terms">
+			<label for="thunder--registration-terms-agreement">
+				<input type="checkbox" id="thunder--registration-terms-agreement">
+				{{= it.m('agreeWithTerms') }}
+			</label>
+			<a href="{{= it.options.termsLink }}" target="_blank" class="thunder--view-registration-terms">{{= it.m('viewTerms') }}</a>
+		</div>
+		{{? }}
+
 		{{~ it.fields :field }}
 
 			<div class="thunder--customer-{{= it.kebabCase(field.key) }}">

@@ -3175,6 +3175,16 @@ button[data-balloon] {
     .thunder--contents .thunder--register-form-wrapper .thunder--register-form .thunder--customer-birthdate input[name="birthMonth"],
     .thunder--contents .thunder--register-form-wrapper .thunder--register-form .thunder--customer-birthdate input[name="birthDate"] {
       width: 36px; }
+    .thunder--contents .thunder--register-form-wrapper .thunder--register-form .thunder--registration-terms {
+      margin-bottom: 18px;
+      padding-bottom: 18px;
+      border-bottom: #eaeaea 1px solid; }
+      .thunder--contents .thunder--register-form-wrapper .thunder--register-form .thunder--registration-terms label {
+        margin-bottom: 0; }
+      .thunder--contents .thunder--register-form-wrapper .thunder--register-form .thunder--registration-terms input[type="checkbox"] {
+        margin-right: 4px; }
+      .thunder--contents .thunder--register-form-wrapper .thunder--register-form .thunder--registration-terms .thunder--view-registration-terms {
+        font-size: 14px; }
     .thunder--contents .thunder--register-form-wrapper .thunder--register-form .thunder--form-actions .thunder--button {
       width: 100%; }
   .thunder--contents .thunder--reset-password-form-wrapper {
@@ -4108,6 +4118,8 @@ button[data-balloon] {
   .thunder--contents input[type="text"],
   .thunder--contents input[type="number"] {
     border: #cacaca 1px solid; }
+  .thunder--contents [readonly] {
+    pointer-events: none; }
   .thunder--contents .thunder--component-spinner-wrapper {
     margin: 48px 0;
     width: 100%;

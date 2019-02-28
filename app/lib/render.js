@@ -147,8 +147,6 @@ module.exports = function(selector, componentName, options, callback) {
 
 		});
 
-		Thunder.util.bindSocialApps(container);
-
 		const interfaces = component.init.call(container, context) || {};
 
 		Thunder.trigger('componentInit', container, componentName, container, context);

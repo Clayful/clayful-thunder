@@ -37,6 +37,14 @@ module.exports = Thunder => {
 
 	implementation.init = function(context) {
 
+		const $container = $(this);
+		const $form = $(this).find('.thunder--login-form');
+		const $button = $form.find('.thunder--login-customer');
+		const $goToResetPassword = $(this).find('.thunder--go-to-reset-password');
+		const buttonSpinner = Thunder.util.makeAsyncButton($button);
+
+		Thunder.util.bindSocialApps($container);
+
 		const socialData = Thunder.util.handleSocialLogin();
 
 		if (socialData) {
@@ -48,12 +56,6 @@ module.exports = Thunder => {
 				socialData
 			);
 		}
-
-		const $container = $(this);
-		const $form = $(this).find('.thunder--login-form');
-		const $button = $form.find('.thunder--login-customer');
-		const $goToResetPassword = $(this).find('.thunder--go-to-reset-password');
-		const buttonSpinner = Thunder.util.makeAsyncButton($button);
 
 		$goToResetPassword.on('click', () => {
 			return Thunder.render($container, 'customer-reset-password', {

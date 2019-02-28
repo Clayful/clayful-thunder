@@ -17,6 +17,7 @@ module.exports = Thunder => {
 	implementation.options = () => ({
 
 		fields:          Thunder.options.customerRegistrationFields,
+		termsLink:       Thunder.options.legal.registrationTerms.link,
 		birthdateFormat: Thunder.options.dateInputFormat,
 		socialApps:      Thunder.options.socialApps,
 
@@ -82,6 +83,28 @@ module.exports = Thunder => {
 
 	implementation.init = function(context) {
 
+		const $container = $(this);
+		const $form = $(this).find('.thunder--register-form');
+		const $terms = $(this).find('#thunder--registration-terms-agreement');
+		const $button = $form.find('.thunder--register-customer');
+		const buttonSpinner = Thunder.util.makeAsyncButton($button, { bind: false });
+
+		const areTermsAgreed = () => {
+
+			const agreed = (
+				!$terms.length ||
+				$terms.is(':checked')
+			);
+
+			if (!agreed) {
+				Thunder.notify('error', context.m('termsAgreementRequired'));
+			}
+
+			return agreed;
+		};
+
+		Thunder.util.bindSocialApps($container, areTermsAgreed);
+
 		const socialData = Thunder.util.handleSocialLogin();
 
 		if (socialData) {
@@ -93,11 +116,6 @@ module.exports = Thunder => {
 				socialData
 			);
 		}
-
-		const $container = $(this);
-		const $form = $(this).find('.thunder--register-form');
-		const $button = $form.find('.thunder--register-customer');
-		const buttonSpinner = Thunder.util.makeAsyncButton($button, { bind: false });
 
 		Thunder.util.makeRecaptcha({
 			componentName: implementation.name,
@@ -189,7 +207,7 @@ module.exports = Thunder => {
 
 			}
 
-			return true;
+			return areTermsAgreed();
 
 		}
 

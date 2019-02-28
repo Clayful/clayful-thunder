@@ -1,10 +1,14 @@
-module.exports = function($container) {
+module.exports = function($container, validate = (() => true)) {
 
 	const Thunder = this;
 
 	const $socialButton = $container.find('[data-social-app]');
 
 	$socialButton.on('click', function() {
+
+		if (!validate()) {
+			return;
+		}
 
 		const vendor = $(this).data('socialApp');
 

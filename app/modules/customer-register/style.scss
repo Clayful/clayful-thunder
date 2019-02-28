@@ -32,6 +32,21 @@
 
 		}
 
+		.thunder--registration-terms {
+			margin-bottom: 18px;
+			padding-bottom: 18px;
+			border-bottom: #eaeaea 1px solid;
+			label {
+				margin-bottom: 0;
+			}
+			input[type="checkbox"] {
+				margin-right: 4px;
+			}
+			.thunder--view-registration-terms {
+				font-size: 14px;
+			}
+		}
+
 		.thunder--form-actions {
 			.thunder--button {
 				width: 100%;
