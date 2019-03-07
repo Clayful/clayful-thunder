@@ -3592,7 +3592,8 @@ button[data-balloon] {
         max-width: 480px;
         width: 100%;
         line-height: 1;
-        height: auto; }
+        height: auto;
+        background-color: #fff; }
         .thunder--contents .thunder--product-detail .thunder--product-catalogs .thunder--product-catalog-current .thunder--product-catalog-detail.active {
           z-index: 2;
           display: block; }

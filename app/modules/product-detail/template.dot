@@ -6,8 +6,7 @@
 
 			<div class="thunder--product-catalog-current">
 				{{~ it.product.catalogs :catalog:index }}
-					<div class="thunder--product-catalog-detail"
-						data-catalog-image="{{= it.get(catalog, 'image._id', '') }}">
+					<div class="thunder--product-catalog-detail" data-mh data-catalog-image="{{= it.get(catalog, 'image._id', '') }}">
 						<img src="{{= it.imageURL(catalog.image, 480, 480) }}">
 						{{? catalog.title }}
 						<p>{{= catalog.title }}</p>
