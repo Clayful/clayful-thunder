@@ -310,7 +310,7 @@
 				<div class="thunder--subscription-starts-at">
 
 					<label for="subscriptionStartsAt"></label>
-					<input type="text" name="subscriptionStartsAt" placeholder="{{= it.m('selectSubscriptionStartsAt') }}" readonly data-pickaday>
+					<input type="text" name="subscriptionStartsAt" placeholder="{{= it.m('selectSubscriptionStartsAt') }}" data-pickaday>
 					<p class="thunder--input-tip first-order-is-immediate">
 						{{= it.m('firstOrderIsImmediate') }}
 					</p>
