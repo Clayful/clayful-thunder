@@ -12,14 +12,14 @@ module.exports = Thunder => {
 
 			Thunder.notify('success', context.m('loginSuccess'));
 
-			location.replace(Thunder.options.root);
+			Thunder.plugins.redirect(Thunder.options.root);
 		},
 
 		onSocialLogin: function($container, context, data) {
 
 			Thunder.notify('success', context.m('loginSuccess'));
 
-			location.replace(Thunder.options.root);
+			Thunder.plugins.redirect(Thunder.options.root);
 		}
 
 	});

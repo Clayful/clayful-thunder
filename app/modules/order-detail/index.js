@@ -12,6 +12,17 @@ module.exports = Thunder => {
 		updateTransactions: true, // Update transactions before getting an order
 		customerFields:     Thunder.options.customerOrderFields.map(field => field.split(':')[0]),
 		recipientFields:    Thunder.options.recipientFields.map(field => field.split(':')[0]),
+
+		onRequestRefund:    function($container, context, order) {
+			return Thunder.render($container, 'order-request-refund', {
+				order: order._id,
+				back:  {
+					$container: $container,
+					component:  implementation.name,
+					options:    context.options
+				}
+			});
+		}
 	});
 
 	implementation.pre = function(context, callback) {
@@ -370,14 +381,12 @@ module.exports = Thunder => {
 		}
 
 		function requestRefund() {
-			return Thunder.render($container, 'order-request-refund', {
-				order: order._id,
-				back:  {
-					$container: $container,
-					component:  implementation.name,
-					options:    context.options
-				}
-			});
+			Thunder.execute(
+				context.options.onRequestRefund,
+				$container,
+				context,
+				order
+			);
 		}
 
 		function startRefundCancellation(event) {

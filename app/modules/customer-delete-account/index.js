@@ -6,13 +6,13 @@ module.exports = Thunder => {
 
 	implementation.options = () => ({
 
-		confirmOnDelete: true, // Whether to confirm before deleting
+		confirmOnDelete: Thunder.options.confirmation.customerDelete, // Whether to confirm before deleting
 
 		onDelete: function($container, context) {
 
 			Thunder.notify('success', context.m('deleteSuccess'));
 
-			location.replace(Thunder.options.root);
+			Thunder.plugins.redirect(Thunder.options.root);
 		}
 
 	});

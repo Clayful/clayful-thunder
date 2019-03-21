@@ -41,6 +41,12 @@ const Thunder = function(options) {
 				link: null
 			}
 		},
+		confirmation: {
+			customerDelete:      true,
+			couponDelete:        false,
+			reviewDelete:        false,
+			reviewCommentDelete: false,
+		},
 		productActions:  [
 			'add-to-cart',
 			'buy-now'
@@ -218,6 +224,7 @@ const Thunder = function(options) {
 		authStorage:                options.authStorage,                         // Auth token storage
 		dateInputFormat:            options.dateInputFormat,                     // Date input format
 		legal:                      options.legal,                               // Legal information
+		confirmation:               options.confirmation,                        // Confirmation settings
 		productActions:             options.productActions,                      // Supported product options
 		productReview:              options.productReview,
 		productReviewRating:        options.productReviewRating,
@@ -318,6 +325,7 @@ Thunder.uis = {
 Thunder.plugins = {
 	searchAddress:     null,
 	makePayment:       null,
+	redirect:          require('./plugins/redirect'),
 	notification:      require('./plugins/notification'),
 	confirmation:      require('./plugins/confirmation'),
 	pagination:        require('./plugins/pagination'),

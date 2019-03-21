@@ -3,9 +3,11 @@
 	<h2 class="thunder--with-back-button">
 		{{= it.m('orderRequestRefund') }}
 	</h2>
+	{{? it.options.back }}
 	<a class="thunder--back-to-order">
 		{{= it.m('backToOrder') }}
 	</a>
+	{{? }}
 
 	{{? !it.order.hasRefundableItem }}
 	<p class="thunder--order-has-no-refundable-item">

@@ -26,6 +26,7 @@ module.exports = Thunder => {
 		useFlag:         true,         // Use flag?
 		usePagination:   true,         // Use Pagination?
 		hasNoComments:   false,        // Has no comments? (when it's already known)
+		confirmOnDelete: Thunder.options.confirmation.reviewCommentDelete, // Whether to confirm before deleting a review comment
 
 		onUnauthenticatedWriteComment: function($container, context) {
 			return Thunder.notify('info', context.m('loginRequired'));
@@ -102,6 +103,7 @@ module.exports = Thunder => {
 
 		const $container = $(this);
 		const $writeComment = $(this).find('.thunder--write-comment');
+		const $hasNoComments = $(this).find('.thunder--review-has-no-comments');
 		const $commentWriterContainer = $(this).find('.thunder--comment-writer-container');
 		const $commentBody = $commentWriterContainer.find('textarea');
 		const $postComment = $commentWriterContainer.find('.thunder--post-comment');
@@ -215,6 +217,8 @@ module.exports = Thunder => {
 				cancelComment();
 
 				resetState();
+
+				$hasNoComments.remove();
 
 				return Thunder.notify('success', context.m('commentPostSuccess'));
 
@@ -355,23 +359,36 @@ module.exports = Thunder => {
 
 			if (event) event.preventDefault();
 
-			const $comment = $(this).parents('[data-review-comment]');
-			const commentId = $comment.data('reviewComment');
+			const removeComment = () => {
 
-			const errors = {
-				default: context.m('deleteFailed'),
+				const $comment = $(this).parents('[data-review-comment]');
+				const commentId = $comment.data('reviewComment');
+
+				const errors = {
+					default: context.m('deleteFailed'),
+				};
+
+				return Thunder.request({
+					method: 'DELETE',
+					url:    `/v1/me/products/reviews/comments/${commentId}`,
+				}).then(() => {
+					$comment.addClass('hidden').hide();
+					return Thunder.notify('success', context.m('deleteSuccess'));
+				}, err => Thunder.util.requestErrorHandler(
+					err.responseJSON,
+					errors
+				));
+
 			};
 
-			return Thunder.request({
-				method: 'DELETE',
-				url:    `/v1/me/products/reviews/comments/${commentId}`,
-			}).then(() => {
-				$comment.addClass('hidden').hide();
-				return Thunder.notify('success', context.m('deleteSuccess'));
-			}, err => Thunder.util.requestErrorHandler(
-				err.responseJSON,
-				errors
-			));
+			if (!context.options.confirmOnDelete) {
+				return removeComment();
+			}
+
+			return Thunder.plugins.confirmation(
+				context.m('deleteConfirm'),
+				() => removeComment()
+			);
 
 		}
 

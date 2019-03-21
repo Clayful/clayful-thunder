@@ -37,7 +37,7 @@ module.exports = Thunder => {
 
 			Thunder.notify('success', context.m('registerSuccess'));
 
-			location.replace(Thunder.options.root);
+			Thunder.plugins.redirect(Thunder.options.root);
 		}
 
 	});

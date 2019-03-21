@@ -9,6 +9,17 @@ module.exports = Thunder => {
 	implementation.options = () => ({
 		order:            '', // Order ID to refund
 		reasonCategories: Thunder.options.refundReasonCategories,
+
+		onRequestRefundSuccess: function($container, context) {
+
+			Thunder.notify('success', context.m('requestRefundSuccess'));
+
+			const back = context.options.back;
+
+			if (!back) return;
+
+			return Thunder.render(back.$container, back.component, back.options);
+		}
 	});
 
 	implementation.pre = function(context, callback) {
@@ -424,15 +435,13 @@ module.exports = Thunder => {
 				recaptcha: token,
 			}).then(() => {
 
-				Thunder.notify('success', context.m('requestRefundSuccess'));
+				resetState();
 
-				const back = context.options.back;
-
-				if (!back) {
-					return resetState();
-				}
-
-				return Thunder.render(back.$container, back.component, back.options);
+				Thunder.execute(
+					context.options.onRequestRefundSuccess,
+					$container,
+					context
+				);
 
 			}, err => Thunder.util.requestErrorHandler(
 				err.responseJSON,

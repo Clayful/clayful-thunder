@@ -5,9 +5,10 @@ module.exports = Thunder => {
 	};
 
 	implementation.options = () => ({
-		page:          1,
-		limit:         24,
-		usePagination: true,
+		page:            1,
+		limit:           24,
+		usePagination:   true,
+		confirmOnDelete: Thunder.options.confirmation.couponDelete, // Whether to confirm before deleting a coupon
 
 		onDelete: function($container, context) {
 
@@ -83,37 +84,50 @@ module.exports = Thunder => {
 
 		function deleteCoupon() {
 
-			const spinner = Thunder.util.makeAsyncButton($(this), { bind: false });
+			const removeCoupon = () => {
 
-			spinner.run();
+				const spinner = Thunder.util.makeAsyncButton($(this), { bind: false });
 
-			const couponId = $(this).data('coupon');
-			const $coupon = $container.find(`[data-coupon="${couponId}"]`);
+				spinner.run();
 
-			const errors = {
-				default: context.m('couponDeleteFailed')
+				const couponId = $(this).data('coupon');
+				const $coupon = $container.find(`[data-coupon="${couponId}"]`);
+
+				const errors = {
+					default: context.m('couponDeleteFailed')
+				};
+
+				Thunder.request({
+					method: 'DELETE',
+					url:    `/v1/me/coupons/${couponId}`
+				}).then(() => {
+
+					spinner.done();
+					$coupon.remove();
+					$container.find('[data-mh]').matchHeight();
+
+					return Thunder.execute(
+						context.options.onDelete,
+						$container,
+						context
+					);
+
+				}, err => Thunder.util.requestErrorHandler(
+					err.responseJSON,
+					errors,
+					err => spinner.done()
+				));
+
 			};
 
-			Thunder.request({
-				method: 'DELETE',
-				url:    `/v1/me/coupons/${couponId}`
-			}).then(() => {
+			if (!context.options.confirmOnDelete) {
+				return removeCoupon();
+			}
 
-				spinner.done();
-				$coupon.remove();
-				$container.find('[data-mh]').matchHeight();
-
-				return Thunder.execute(
-					context.options.onDelete,
-					$container,
-					context
-				);
-
-			}, err => Thunder.util.requestErrorHandler(
-				err.responseJSON,
-				errors,
-				err => spinner.done()
-			));
+			return Thunder.plugins.confirmation(
+				context.m('deleteConfirm'),
+				() => removeCoupon()
+			);
 
 		}
 

@@ -144,7 +144,7 @@ module.exports = Thunder => {
 		const $shippingMethodSelector = $(this).find('.thunder--shipping-method select');
 		const $itemQuantityInput = $(this).find('.thunder--item-quantity input');
 		const $bundleItems = $(this).find('.thunder--product-bundle-item');
-		const $bundleItemSelectors = $(this).find('select');
+		const $bundleItemSelectors = $bundleItems.find('select');
 		const $addToCart = $(this).find('.thunder--add-to-cart');
 		const $buyNow = $(this).find('.thunder--buy-now');
 		const $goToCart = $(this).find('.thunder--go-to-cart');
@@ -156,7 +156,7 @@ module.exports = Thunder => {
 		$bundleItemSelectors.on('change', function() {
 
 			const value = $(this).val();
-			const $quantity = $(this).parent().find('input[type="number"]');
+			const $quantity = $(this).closest('.thunder--product-bundle-item').find('input[type="number"]');
 
 			$quantity.val(value ? 1 : 0);
 

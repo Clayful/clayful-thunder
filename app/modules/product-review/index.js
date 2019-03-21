@@ -31,6 +31,7 @@ module.exports = Thunder => {
 		useHelpVote:       true,                                 // Use helpful votes?
 		useFlag:           true,                                 // Use flag?
 		useComments:       Thunder.options.productReviewComment, // Use review comments?
+		confirmOnDelete:   Thunder.options.confirmation.reviewDelete, // Whether to confirm before deleting a review
 		showProduct:       false,                                // Show product detail?
 		// Load & Show comments from the beginning?
 		// (If it's an object, it will be passed as an option to `product-review-comments` component)
@@ -317,31 +318,45 @@ module.exports = Thunder => {
 
 			event.preventDefault();
 
-			const review = context.review;
+			const removeReview = () => {
 
-			deleteReviewImages(review);
+				const review = context.review;
 
-			const errors = {
-				default: context.m('deleteFailed')
+				deleteReviewImages(review);
+
+				const errors = {
+					default: context.m('deleteFailed')
+				};
+
+				return Thunder.request({
+					method: 'DELETE',
+					url:    `/v1/me/products/reviews/${review._id}`,
+				}).then(() => {
+
+					// Hide the review
+					$container.addClass('hidden').hide();
+
+					// Hide comments of the review
+					$container.next('.thunder--review-comments-container').addClass('hidden').hide();
+
+					return Thunder.notify('success', context.m('deleteSuccess'));
+
+				}, err => Thunder.util.requestErrorHandler(
+					err.responseJSON,
+					errors
+				));
+
 			};
 
-			return Thunder.request({
-				method: 'DELETE',
-				url:    `/v1/me/products/reviews/${review._id}`,
-			}).then(() => {
+			if (!context.options.confirmOnDelete) {
+				return removeReview();
+			}
 
-				// Hide the review
-				$container.addClass('hidden').hide();
+			return Thunder.plugins.confirmation(
+				context.m('deleteConfirm'),
+				() => removeReview()
+			);
 
-				// Hide comments of the review
-				$container.next('.thunder--review-comments-container').addClass('hidden').hide();
-
-				return Thunder.notify('success', context.m('deleteSuccess'));
-
-			}, err => Thunder.util.requestErrorHandler(
-				err.responseJSON,
-				errors
-			));
 		}
 
 		function deleteReviewImages(review) {
