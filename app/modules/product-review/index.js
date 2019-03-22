@@ -36,6 +36,12 @@ module.exports = Thunder => {
 		// Load & Show comments from the beginning?
 		// (If it's an object, it will be passed as an option to `product-review-comments` component)
 		showComments:      false,
+
+		onDelete: function($container, context) {
+
+			return Thunder.notify('success', context.m('deleteSuccess'));
+
+		}
 	});
 
 	implementation.pre = function(context, callback) {
@@ -339,7 +345,11 @@ module.exports = Thunder => {
 					// Hide comments of the review
 					$container.next('.thunder--review-comments-container').addClass('hidden').hide();
 
-					return Thunder.notify('success', context.m('deleteSuccess'));
+					return Thunder.execute(
+						context.options.onDelete,
+						$container,
+						context
+					);
 
 				}, err => Thunder.util.requestErrorHandler(
 					err.responseJSON,

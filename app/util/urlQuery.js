@@ -1,3 +1,5 @@
+const parseQueryString = require('./parseQueryString.js');
+
 module.exports = function() {
 
 	// Since SPA(Single Page App) might use hashbang(/#/?hello=world) in its url,
@@ -9,9 +11,6 @@ module.exports = function() {
 
 	if (!search) return {};
 
-	return JSON.parse(
-		'{"' + search.replace(/&/g, '","').replace(/=/g, '":"') + '"}',
-		(key, value) => key === '' ? value : decodeURIComponent(value)
-	);
+	return parseQueryString(search);
 
 };

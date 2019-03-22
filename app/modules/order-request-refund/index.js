@@ -10,7 +10,7 @@ module.exports = Thunder => {
 		order:            '', // Order ID to refund
 		reasonCategories: Thunder.options.refundReasonCategories,
 
-		onRequestRefundSuccess: function($container, context) {
+		onRequestRefundSuccess: function($container, context, refund) {
 
 			Thunder.notify('success', context.m('requestRefundSuccess'));
 
@@ -433,14 +433,15 @@ module.exports = Thunder => {
 				url:       `/v1/me/orders/${order._id}/refunds`,
 				data:      detail,
 				recaptcha: token,
-			}).then(() => {
+			}).then(refund => {
 
 				resetState();
 
 				Thunder.execute(
 					context.options.onRequestRefundSuccess,
 					$container,
-					context
+					context,
+					refund
 				);
 
 			}, err => Thunder.util.requestErrorHandler(
