@@ -97,7 +97,6 @@
 						</td>
 
 					</tr>
-					{{~ }}
 
 					{{? item.bundleItems && item.bundleItems.length > 0 }}
 					{{~ item.bundleItems :bundleItem }}
@@ -151,6 +150,8 @@
 					</tr>
 					{{~ }}
 					{{? }}
+
+					{{~ }}
 				</tbody>
 
 				{{? it.cart.appliedCoupon || it.cart.applicableCoupons.length > 0 }}
