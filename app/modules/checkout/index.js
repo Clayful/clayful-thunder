@@ -26,6 +26,10 @@ module.exports = Thunder => {
 		recipientFields:   Thunder.options.recipientFields,
 		addressDisabled:   Thunder.options.addressDisabled,
 		subscriptionPlans: Thunder.options.subscriptionPlans,
+		termsLink:         Thunder.options.legal.orderTerms.link,
+		termsText:         Thunder.options.legal.orderTerms.text,
+		privacyLink:       Thunder.options.legal.orderPrivacy.link,
+		privacyText:       Thunder.options.legal.orderPrivacy.text,
 		onCheckoutSuccess: function($container, context, checkoutDetail) {
 
 			const { order, subscription } = checkoutDetail;
@@ -56,8 +60,17 @@ module.exports = Thunder => {
 			items,
 			customerFields,
 			recipientFields,
-			subscriptionPlans
+			subscriptionPlans,
+			termsLink,
+			termsText,
+			privacyLink,
+			privacyText,
 		} = context.options;
+
+		context.agreements = [
+			(termsLink || termsText) ? 'terms' : null,
+			(privacyLink || privacyText) ? 'privacy' : null,
+		].filter(v => v);
 
 		const $container = $(this);
 
@@ -229,6 +242,22 @@ module.exports = Thunder => {
 			const $totalDetails = $(this).find('.thunder--total-details');
 			const $proceedCheckout = $(this).find('.thunder--proceed-checkout');
 			const processCheckoutSpinner = Thunder.util.makeAsyncButton($proceedCheckout, { bind: false });
+
+			const areTermsAgreed = Thunder.util.bindAgreements({
+				$terms: $(this).find('[data-agreement-scope]'),
+				agreements: {
+					terms:   {
+						text:  context.options.termsText,
+						link:  context.options.termsLink,
+						error: context.m('termsAgreementRequired')
+					},
+					privacy: {
+						text:  context.options.privacyText,
+						link:  context.options.privacyLink,
+						error: context.m('privacyAgreementRequired')
+					},
+				}
+			});
 
 			const couponHandler = CouponHandler({
 				form:    $(this).find('.thunder--cart-items'),
@@ -422,6 +451,12 @@ module.exports = Thunder => {
 			}
 
 			function validateCheckoutData() {
+
+				const agreed = areTermsAgreed();
+
+				if (!agreed) {
+					return false;
+				}
 
 				const options = buildCartOptions('checkout');
 

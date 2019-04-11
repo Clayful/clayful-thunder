@@ -17,9 +17,12 @@ module.exports = Thunder => {
 	implementation.options = () => ({
 
 		fields:          Thunder.options.customerRegistrationFields,
-		termsLink:       Thunder.options.legal.registrationTerms.link,
 		birthdateFormat: Thunder.options.dateInputFormat,
 		socialApps:      Thunder.options.socialApps,
+		termsLink:       Thunder.options.legal.registrationTerms.link,
+		termsText:       Thunder.options.legal.registrationTerms.text,
+		privacyLink:     Thunder.options.legal.registrationPrivacy.link,
+		privacyText:     Thunder.options.legal.registrationPrivacy.text,
 
 		onRegister: function($container, context, customer) {
 
@@ -43,6 +46,18 @@ module.exports = Thunder => {
 	});
 
 	implementation.pre = function(context, callback) {
+
+		const {
+			termsLink,
+			termsText,
+			privacyLink,
+			privacyText,
+		} = context.options;
+
+		context.agreements = [
+			(termsLink || termsText) ? 'terms' : null,
+			(privacyLink || privacyText) ? 'privacy' : null,
+		].filter(v => v);
 
 		const birthOptions = {
 			YYYY: { key: 'birthYear', translationKey: 'year', tester: /^\d{4}$/ },
@@ -85,23 +100,24 @@ module.exports = Thunder => {
 
 		const $container = $(this);
 		const $form = $(this).find('.thunder--register-form');
-		const $terms = $(this).find('#thunder--registration-terms-agreement');
 		const $button = $form.find('.thunder--register-customer');
 		const buttonSpinner = Thunder.util.makeAsyncButton($button, { bind: false });
 
-		const areTermsAgreed = () => {
-
-			const agreed = (
-				!$terms.length ||
-				$terms.is(':checked')
-			);
-
-			if (!agreed) {
-				Thunder.notify('error', context.m('termsAgreementRequired'));
+		const areTermsAgreed = Thunder.util.bindAgreements({
+			$terms: $(this).find('[data-agreement-scope]'),
+			agreements: {
+				terms:   {
+					text:  context.options.termsText,
+					link:  context.options.termsLink,
+					error: context.m('termsAgreementRequired')
+				},
+				privacy: {
+					text:  context.options.privacyText,
+					link:  context.options.privacyLink,
+					error: context.m('privacyAgreementRequired')
+				},
 			}
-
-			return agreed;
-		};
+		});
 
 		Thunder.util.bindSocialApps($container, areTermsAgreed);
 

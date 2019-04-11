@@ -77,6 +77,13 @@
 		line-height: 1.6;
 	}
 
+	label {
+		input[type="checkbox"] {
+			position: relative;
+			top: 2px;
+		}
+	}
+
 	.first {
 		margin-left: 0 !important;
 	}
@@ -277,6 +284,98 @@
 
 #thunder--overlay-body {
 	clear: both;
+}
+
+.thunder--text-box-overlay {
+	overflow: auto;
+	overflow-x: hidden;
+	position: fixed;
+	z-index: 10000;
+	margin: auto;
+	background-color: #fff;
+	border: #eaeaea 1px solid;
+	border-radius: 4px;
+	font-size: 14px; // base font size
+	box-shadow: #000 0px 0px 36px -28px;
+
+	padding: 48px 3% 48px 3%;
+	top: 14%;
+	bottom: 14%;
+	left: 30%;
+	right: 30%;
+
+	@include responsive(laptop) {
+		padding: 48px 3% 48px 3%;
+		left: 24%;
+		right: 24%;
+	}
+
+	@include responsive(big-tablet) {
+		padding: 48px 3% 48px 3%;
+		top: 14%;
+		bottom: 14%;
+		left: 13%;
+		right: 13%;
+	}
+
+	@include responsive(tablet) {
+		padding: 48px 3% 48px 3%;
+		top: 14%;
+		bottom: 14%;
+		left: 13%;
+		right: 13%;
+	}
+
+	@include responsive(mobile) {
+		padding: 48px 6% 48px 6%;
+		top: 8px;
+		bottom: 8px;
+		left: 8px;
+		right: 8px;
+	}
+
+	.thunder--text-box-overlay-header {
+		position: fixed;
+		z-index: 10001;
+		top: 14%;
+		left: 30%;
+		right: 30%;
+		padding: 4px 4% 4px 4%;
+		text-align: right;
+		@include responsive(laptop) {
+			left: 24%;
+			right: 24%;
+			padding: 4px 4% 4px 4%;
+		}
+		@include responsive(big-tablet) {
+			top: 14%;
+			left: 13%;
+			right: 13%;
+			padding: 4px 4% 4px 4%;
+		}
+		@include responsive(tablet) {
+			top: 14%;
+			left: 13%;
+			right: 13%;
+			padding: 4px 4% 4px 4%;
+		}
+		@include responsive(mobile) {
+			top: 8px;
+			left: 8px;
+			right: 8px;
+			padding: 0 20px 0 20px;
+		}
+		.thunder--text-box-overlay-close {
+			font-size: 32px;
+			color: #a9a9a9;
+			cursor: pointer;
+			&:hover {
+				color: #222;
+			}
+		}
+
+	}
+
 }
 
 .thunder--social-app-actions {

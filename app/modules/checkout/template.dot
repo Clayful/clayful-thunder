@@ -430,6 +430,32 @@
 
 		</div>
 
+		{{? it.agreements.length }}
+		<div class="thunder--checkout-agreements">
+
+			{{~ it.agreements :scope }}
+			<div class="thunder--checkout-{{= scope }}" data-agreement-scope="{{= scope }}">
+				<label for="thunder--checkout-{{= scope }}-agreement">
+					<input type="checkbox" required id="thunder--checkout-{{= scope }}-agreement">
+					{{= it.m(it.camelCase('agreeWith_' + scope)) }}
+				</label>
+				<a class="thunder--view-checkout-{{= scope }}" {{= it.options[scope + 'Link'] ? 'href="' + it.options[scope + 'Link'] + '" target="_blank"' : '' }}>
+					{{= it.m(it.camelCase('view_' + scope)) }}
+				</a>
+			</div>
+			{{~ }}
+			{{? it.agreements.length >= 2 }}
+			<div class="thunder--checkout-all" data-agreement-scope="all">
+				<label for="thunder--checkout-all-agreement">
+					<input type="checkbox" id="thunder--checkout-all-agreement">
+					{{= it.m('agreeWithAll') }}
+				</label>
+			</div>
+			{{? }}
+
+		</div>
+		{{? }}
+
 		<button class="thunder--proceed-checkout thunder--button">
 			{{=
 				it.options.type === 'order' ?

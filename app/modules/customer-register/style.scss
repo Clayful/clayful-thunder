@@ -32,18 +32,38 @@
 
 		}
 
-		.thunder--registration-terms {
-			margin-bottom: 18px;
-			padding-bottom: 18px;
-			border-bottom: #eaeaea 1px solid;
+		[data-agreement-scope] {
+			margin-bottom: 10px;
 			label {
 				margin-bottom: 0;
+				font-size: 13px;
+				color: #424242;
+				cursor: pointer;
+				&:after {
+					content: '';
+					display: block;
+					margin-top: -2px;
+				}
 			}
 			input[type="checkbox"] {
 				margin-right: 4px;
 			}
-			.thunder--view-registration-terms {
-				font-size: 14px;
+			a {
+				font-size: 12px;
+			}
+			&[data-agreement-scope="all"] {
+				margin-top: 18px;
+				padding-top: 18px;
+				border-top: #eaeaea 1px solid;
+				label {
+					font-weight: bold;
+					color: #2c2c2c;
+				}
+			}
+			& + :not([data-agreement-scope]) {
+				margin-top: 18px;
+				padding-top: 18px;
+				border-top: #eaeaea 1px solid;
 			}
 		}
 

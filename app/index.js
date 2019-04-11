@@ -37,9 +37,10 @@ const Thunder = function(options) {
 		},
 		dateInputFormat: 'YYYY-MM-DD',
 		legal: {
-			registrationTerms: {
-				link: null
-			}
+			registrationTerms:   { link: null, text: null },
+			registrationPrivacy: { link: null, text: null },
+			orderTerms:          { link: null, text: null },
+			orderPrivacy:        { link: null, text: null },
 		},
 		confirmation: {
 			customerDelete:      true,
@@ -319,6 +320,7 @@ Thunder.uis = {
 	'hallow-star':        require('./ui/hallow-star').bind(Thunder),
 	'review-stars':       require('./ui/review-stars').bind(Thunder),
 	'review-star-rating': require('./ui/review-star-rating').bind(Thunder),
+	'text-box-overlay':   require('./ui/text-box-overlay').bind(Thunder),
 };
 
 // Plugins (address search, payment, ...)
@@ -357,6 +359,7 @@ Thunder.util = {
 	requestErrorHandler: require('./util/requestErrorHandler').bind(Thunder),
 	userIdOrEmail:       require('./util/userIdOrEmail').bind(Thunder),
 	makeAsyncButton:     require('./util/makeAsyncButton').bind(Thunder),
+	bindAgreements:      require('./util/bindAgreements').bind(Thunder),
 	makeRecaptcha:       require('./util/makeRecaptcha').bind(Thunder),
 	unsetRecaptcha:      require('./util/unsetRecaptcha').bind(Thunder),
 	bindSocialApps:      require('./util/bindSocialApps').bind(Thunder),

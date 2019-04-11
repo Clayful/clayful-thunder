@@ -6,13 +6,23 @@
 
 	<form class="thunder--register-form thunder--form">
 
-		{{? it.options.termsLink }}
-		<div class="thunder--registration-terms">
-			<label for="thunder--registration-terms-agreement">
-				<input type="checkbox" id="thunder--registration-terms-agreement">
-				{{= it.m('agreeWithTerms') }}
+		{{~ it.agreements :scope }}
+		<div class="thunder--registration-{{= scope }}" data-agreement-scope="{{= scope }}">
+			<label for="thunder--registration-{{= scope }}-agreement">
+				<input type="checkbox" required id="thunder--registration-{{= scope }}-agreement">
+				{{= it.m(it.camelCase('agreeWith_' + scope)) }}
 			</label>
-			<a href="{{= it.options.termsLink }}" target="_blank" class="thunder--view-registration-terms">{{= it.m('viewTerms') }}</a>
+			<a class="thunder--view-registration-{{= scope }}" {{= it.options[scope + 'Link'] ? 'href="' + it.options[scope + 'Link'] + '" target="_blank"' : '' }}>
+				{{= it.m(it.camelCase('view_' + scope)) }}
+			</a>
+		</div>
+		{{~ }}
+		{{? it.agreements.length >= 2 }}
+		<div class="thunder--registration-all" data-agreement-scope="all">
+			<label for="thunder--registration-all-agreement">
+				<input type="checkbox" id="thunder--registration-all-agreement">
+				{{= it.m('agreeWithAll') }}
+			</label>
 		</div>
 		{{? }}
 
