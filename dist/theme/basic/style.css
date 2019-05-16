@@ -1825,6 +1825,9 @@ button[data-balloon] {
         width: 49%; }
       .thunder--contents .thunder--checkout .thunder--checkout-process .thunder--address .thunder--address-city {
         margin-left: 2%; }
+      .thunder--contents .thunder--checkout .thunder--checkout-process .thunder--address .thunder--save-primary-address label {
+        display: inline;
+        margin-left: 4px; }
       .thunder--contents .thunder--checkout .thunder--checkout-process .thunder--address .thunder--action-address {
         margin-top: 14px;
         text-align: right; }

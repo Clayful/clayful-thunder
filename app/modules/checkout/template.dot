@@ -276,6 +276,15 @@
 					<input type="text" name="address.postcode" placeholder="{{= it.m('addressPostcode') }}" {{= it.disabled('postcode') }} required>
 				</div>
 
+				{{? it.isAuthenticated && !it.customer.address.primary }}
+				<div class="thunder--save-primary-address">
+					<input type="checkbox" checked id="thunder--save-primary-address-agreement">
+					<label for="thunder--save-primary-address-agreement">
+						{{= it.m('saveAsPrimaryAddress') }}
+					</label>
+				</div>
+				{{? }}
+
 				<div class="thunder--action-address">
 					{{? it.useSearchAddress }}
 					<button class="thunder--search-address">{{= it.m('searchAddress') }}</button>

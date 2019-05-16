@@ -236,6 +236,7 @@ module.exports = Thunder => {
 			const $cartItems = $(this).find('.thunder--cart-items table');
 			const $goToUpdateCustomer = $(this).find('.thunder--go-to-update-customer');
 			const $sameForRecipient = $(this).find('[name="sameForRecipient"]');
+			const $saveAsPrimaryAddress = $(this).find('#thunder--save-primary-address-agreement');
 			const $searchAddress = $(this).find('.thunder--search-address');
 			const $applyAddress = $(this).find('.thunder--apply-address');
 			const $orderRequest = $(this).find('[name="request"]');
@@ -566,6 +567,15 @@ module.exports = Thunder => {
 
 				const authByOrderOrSubscription = {
 					run: ({ order: o, subscription: s }) => {
+
+						if ($saveAsPrimaryAddress.is(':checked')) {
+							// Update the primary address (Fire & Forget)
+							Thunder.request({
+								method: 'PUT',
+								url:    `/v1/me`,
+								data:   options.data.address.shipping
+							});
+						}
 
 						order = o;
 						subscription = s || null;
