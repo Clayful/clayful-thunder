@@ -594,7 +594,9 @@
 			cardOwnerRequired:           '생년월일 또는 사업자등록번호를 입력해주세요.',
 		},
 		'checkout-success': {
+			copyIdButton:           '복사',
 			orderSuccess:           '성공적으로 주문되었습니다!',
+			orderSuccessBody:       '주문해 주셔서 감사합니다.',
 			orderInfo:              '주문 정보',
 			orderId:                '주문 번호',
 			orderedAt:              '주문 일시',
@@ -881,6 +883,10 @@
 			scheduleTotalAmount:         '주문 금액',
 			scheduleNow:                 '즉시 주문',
 			viewAllSchedules:            '모든 일정 보기',
+		},
+		copyText: {
+			copySuccess:            '성공적으로 복사되었습니다.',
+			copyfailed:             '복사에 실패하였습니다.',
 		}
 	};
 

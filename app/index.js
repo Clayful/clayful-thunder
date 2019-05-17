@@ -367,6 +367,7 @@ Thunder.util = {
 	bindRecaptcha:       require('./util/bindRecaptcha').bind(Thunder),
 	useRecaptcha:        require('./util/useRecaptcha').bind(Thunder),
 	imageUploader:       require('./util/imageUploader').bind(Thunder),
+	copyToClipboard:     require('./util/copyToClipboard').bind(Thunder),
 	bindBackButton:      require('./util/bindBackButton').bind(Thunder),
 	followingNavigation: require('./util/followingNavigation').bind(Thunder),
 	quantityInput:       require('./util/quantityInput').bind(Thunder),

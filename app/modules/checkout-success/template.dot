@@ -1,14 +1,17 @@
 <div class="thunder--checkout-success">
 
 	<h2>{{= it.m(it.options.type + 'Success') }}</h2>
-
+	<p>{{= it.m(it.options.type + 'SuccessBody') }}</p>
 	<h3>{{= it.m(it.options.type + 'Info') }}</h3>
 
 	<table class="thunder--{{= it.options.type }}-info">
 		<tbody>
 			<tr>
 				<td>{{= it.m(it.options.type + 'Id') }}</td>
-				<td>{{= it.subject._id }}</td>
+				<td>
+					<span class="copy-to-id">{{= it.subject._id }}</span>
+					<span class="copy-to-id-button">{{= it.m('copyIdButton') }}</span>
+				</td>
 			</tr>
 			<tr>
 				<td>{{= it.options.type === 'order' ? it.m('orderedAt') : it.m('subscribedAt') }}</td>

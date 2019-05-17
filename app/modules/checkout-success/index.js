@@ -47,12 +47,18 @@ module.exports = Thunder => {
 
 		const $container = $(this);
 		const $viewMoreDetails = $(this).find('.thunder--view-more-details');
+		const $copyToId = $(this).find('.copy-to-id');
+		const $copyToIdButton = $(this).find('.copy-to-id-button');
 
 		$viewMoreDetails.on('click', () => Thunder.execute(
 			context.options.onViewDetails,
 			$container,
 			context
 		));
+
+		$copyToIdButton.on('click', () => {
+			Thunder.util.copyToClipboard($copyToId);
+		});
 
 	};
 

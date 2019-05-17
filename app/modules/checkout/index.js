@@ -570,10 +570,16 @@ module.exports = Thunder => {
 
 						if ($saveAsPrimaryAddress.is(':checked')) {
 							// Update the primary address (Fire & Forget)
+							const options = buildCartOptions('checkout');
+
 							Thunder.request({
 								method: 'PUT',
 								url:    `/v1/me`,
-								data:   options.data.address.shipping
+								data:   {
+									address: {
+										primary: options.data.address.shipping
+									}
+								}
 							});
 						}
 
