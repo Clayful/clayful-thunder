@@ -1,16 +1,64 @@
 <div class="thunder--checkout-success">
 
 	<h2>{{= it.m(it.options.type + 'Success') }}</h2>
-	<p>{{= it.m(it.options.type + 'SuccessBody') }}</p>
-	<h3>{{= it.m(it.options.type + 'Info') }}</h3>
 
+	<p>{{= it.m(it.options.type + 'SuccessBody') }}</p>
+
+	{{? it.subject.transactions && it.subject.transactions.length }}
+
+	{{~ it.subject.transactions :value:index }}
+
+	{{? value.vbanks.length }}
+	<div>
+		<h3>{{= it.m('vbankInfo') }}</h3>
+		<table>
+			<div>
+				{{~ value.vbanks :vbank:index2 }}
+				<tr>
+					<td>{{= it.m('vbankName') }}</td>
+					<td>
+						<span class="thunder--vbank-name">{{= vbank.name }}</span>
+					</td>
+				</tr>
+				<tr>
+					<td>{{= it.m('vbankAccount') }}</td>
+					<td>
+						<span class="thunder--vbank-account">{{= vbank.number }}{{? vbank.holder }}&nbsp;&nbsp;{{= vbank.holder }}{{? }}</span>
+					</td>
+				</tr>
+				<tr>
+					<td>{{= it.m('vbankAmount') }}</td>
+					<td>
+						<span class="thunder--vbank-amount">{{= vbank.amount.converted }}</span>
+					</td>
+				</tr>
+				{{? vbank.expiresAt }}
+				<tr>
+					<td>{{= it.m('vbankExpiresAt') }}</td>
+					<td>
+						<span class="thunder--vbank-expires-at">{{= vbank.expiresAt.formatted }}</span>
+					</td>
+				</tr>
+				{{? }}
+
+				{{~ }}
+			</tbody>
+		</table>
+	</div>
+	{{? }}
+
+	{{~ }}
+
+	{{? }}
+
+	<h3>{{= it.m(it.options.type + 'Info') }}</h3>
 	<table class="thunder--{{= it.options.type }}-info">
 		<tbody>
 			<tr>
 				<td>{{= it.m(it.options.type + 'Id') }}</td>
 				<td>
-					<span class="copy-to-id">{{= it.subject._id }}</span>
-					<span class="copy-to-id-button">{{= it.m('copyIdButton') }}</span>
+					<span class="thunder--copy-to-id">{{= it.subject._id }}</span>
+					<span class="thunder--copy-to-id-button">{{= it.m('copyIdButton') }}</span>
 				</td>
 			</tr>
 			<tr>
