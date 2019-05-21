@@ -70,8 +70,6 @@ module.exports = Thunder => {
 			context
 		));
 
-		console.log('context', context);
-
 		$copyToIdButton.on('click', () => {
 			Thunder.util.copyToClipboard($copyToId);
 		});
