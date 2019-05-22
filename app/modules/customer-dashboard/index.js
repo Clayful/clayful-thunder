@@ -27,7 +27,7 @@ module.exports = Thunder => {
 	};
 
 	implementation.options = () => $.extend({
-
+		showLogout: Thunder.options.customerLogout,
 		nav:   supportedComponents(),    // Navigation components
 		focus: supportedComponents()[0], // Initial component to be focused
 
@@ -66,6 +66,7 @@ module.exports = Thunder => {
 		const $container = $(this);
 		const $menu = $(this).find(`[data-component]`);
 		const $viewContainer = $(this).find('.thunder--customer-dashboard-view');
+		const $logout = $(this).find('.thunder--logout');
 
 		viewComponent(context.options.focus);
 
@@ -85,6 +86,12 @@ module.exports = Thunder => {
 				$viewContainer
 			);
 		}
+
+		$logout.off();
+		$logout.on('click', () => {
+			Thunder.logout();
+			Thunder.close();
+		});
 
 	};
 

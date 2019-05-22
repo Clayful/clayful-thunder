@@ -52,6 +52,7 @@ const Thunder = function(options) {
 			'add-to-cart',
 			'buy-now'
 		],
+		productLabels:        false,
 		productReview:        true,
 		productReviewRating:  true,
 		productReviewComment: true,
@@ -62,6 +63,7 @@ const Thunder = function(options) {
 		refundReasonCategories: [],
 		subscriptionPlans:      [],
 		customerAvatar:         true,
+		customerLogout:         true,
 		customerIdentity:       [
 			'name.full',
 			'alias',
@@ -233,6 +235,7 @@ const Thunder = function(options) {
 		paymentMethods:             options.paymentMethods,                      // Supported payment methods
 		refundReasonCategories:     options.refundReasonCategories,              // Refund reason categories
 		subscriptionPlans:          options.subscriptionPlans,                   // Supported subscription plan ids
+		customerLogout:             options.customerLogout,
 		customerAvatar:             options.customerAvatar,                      // Use customer avatar for `customer-update`, `product-reviews`?
 		customerIdentity:           options.customerIdentity,                    // Customer identity fields
 		customerRegistrationFields: options.customerRegistrationFields,          // Customer registration fields
@@ -244,6 +247,7 @@ const Thunder = function(options) {
 		socialApps:                 options.socialApps,                          // Supported social apps for customer accounts
 		header:                     options.header,                              // Header navigation menu items
 		recaptcha:                  options.recaptcha,                           // Google reCAPTCHA options
+		productLabels:              options.productLabels
 	};
 
 	// Expose Thunder.Cart after configurations

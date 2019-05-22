@@ -20,7 +20,7 @@ module.exports = Thunder => {
 		),
 		showComparePrice: true,  // Show `product.price.original`
 		usePagination:    true,  // Use pagination?
-
+		showLabels:       Thunder.options.productLabels,
 		onViewProduct: function($container, context, productId) {
 			return Thunder.open('product-detail', {
 				product: productId
@@ -45,6 +45,9 @@ module.exports = Thunder => {
 				'price',
 				'discount',
 				'rating',
+				'available',
+				'variants.available',
+				'variants.quantity'
 			]
 			.concat(Thunder.util.parseArrayString(options.fields))
 			.join(','),
@@ -77,6 +80,15 @@ module.exports = Thunder => {
 			context.products = products[0];
 			context.count = count ? count[0].count : null;
 
+			if (options.showLabels) {
+				context.products = context.products.map(product => {
+					product.isNotAvailable = !product.available || product.variants.every(v => !v.available);
+					product.isSoldout = product.variants.every(v => v.quantity && v.quantity.raw === 0);
+					product.isDiscount = product.discount.type;
+					return product;
+				});
+			}
+
 			return callback(null, context);
 
 		}, err => Thunder.util.requestErrorHandler(
@@ -84,7 +96,6 @@ module.exports = Thunder => {
 			errors,
 			callback
 		));
-
 	};
 
 	implementation.init = function(context) {

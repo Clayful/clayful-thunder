@@ -45,7 +45,6 @@ module.exports = Thunder => {
 		));
 
 		function fetchReviews() {
-
 			return Thunder.request({
 				method: 'GET',
 				url: '/v1/products/reviews/published',

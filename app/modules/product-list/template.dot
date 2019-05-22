@@ -5,11 +5,9 @@
 		{{~ it.products :product:index }}
 
 		<div class="thunder--product" data-product="{{= product._id }}" data-mh="{{= it.id }}">
-
 			<div class="thunder--product-thumbnail-wrapper">
 				<img src="{{= it.imageURL(product.thumbnail, it.options.imageWidth, it.options.imageHeight) }}">
 			</div>
-
 			<div class="thunder--product-info">
 
 				<h3 class="thunder--product-name">
@@ -43,6 +41,17 @@
 
 			</div>
 
+			<div class="label">
+				{{? product.isNotAvailable }}
+					<div class="thunder--not-available">{{= it.m('unAvailable') }}</div>
+				{{? }}
+				{{? !product.isNotAvailable && product.isSoldout }}
+					<div class="thunder--soldout">{{= it.m('soldout') }}</div>
+				{{? }}
+				{{? !product.isNotAvailable && !product.isSoldout && product.isDiscount }}
+					<div class="thunder--discount">{{= it.m('discount') }}</div>
+				{{? }}
+			</div>
 		</div>
 
 		{{~ }}

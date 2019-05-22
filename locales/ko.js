@@ -152,6 +152,7 @@
 			customerReviews:        '내 후기',
 			customerReviewComments: '내 후기 댓글',
 			customerDeleteAccount:  '계정 삭제',
+			customerLogout:         '로그아웃'
 		},
 		'customer-update': {
 			customerInfo:        '고객 기본 정보',
@@ -327,7 +328,10 @@
 			backToComments:        '목록으로 돌아가기',
 		},
 		'product-list': {
-			productListFailed: '상품 목록을 읽어오는데 실패했습니다.'
+			productListFailed: '상품 목록을 읽어오는데 실패했습니다.',
+			unAvailable:       'UNAVAILABLE',
+			soldout:           'SOLDOUT',
+			discount:          'SALE'
 		},
 		'product-detail': {
 			quantity:                          '수량',
