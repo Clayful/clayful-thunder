@@ -1,1 +1,0 @@
-window.Thunder.components["customer-dashboard"].template=function(a){var d='<div class="thunder--customer-dashboard"><ul class="thunder--customer-dashboard-nav">',r=a.nav;if(r)for(var e,n=-1,t=r.length-1;n<t;)e=r[n+=1],d+='<li data-component="'+e.key+'">'+a.m(e.translationKey)+"</li>";return d+='</ul><div class="thunder--customer-dashboard-view"></div></div>'};
