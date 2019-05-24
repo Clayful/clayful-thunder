@@ -6,6 +6,9 @@ module.exports = function() {
 
 	this.overlay.body.html('');
 
+	// show body scroll
+	$('html, body').removeAttr('style');
+
 	return this;
 
 };

@@ -11,6 +11,10 @@ module.exports = function(componentName, options, callback = () => {}) {
 		this.overlay.background.removeClass('hidden');
 		this.overlay.container.removeClass('hidden');
 	}
+	// hide body scroll
+	$('html, body').css({
+		'overflow-y': 'hidden',
+	});
 
 	// Mark current view
 	$.extend(true, options, {
