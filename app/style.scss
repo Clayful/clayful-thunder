@@ -10,6 +10,10 @@
 	cursor: pointer;
 }
 
+.thunder--overflow-fix {
+	overflow-y: hidden !important;
+}
+
 .thunder--contents {
 
 	@import './custom-normalize.scss';

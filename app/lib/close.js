@@ -7,7 +7,7 @@ module.exports = function() {
 	this.overlay.body.html('');
 
 	// show body scroll
-	$('html, body').removeAttr('style');
+	$('html, body').removeClass('thunder--overflow-fix');
 
 	return this;
 

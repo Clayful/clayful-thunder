@@ -12,9 +12,7 @@ module.exports = function(componentName, options, callback = () => {}) {
 		this.overlay.container.removeClass('hidden');
 	}
 	// hide body scroll
-	$('html, body').css({
-		'overflow-y': 'hidden',
-	});
+	$('html, body').addClass('thunder--overflow-fix');
 
 	// Mark current view
 	$.extend(true, options, {
