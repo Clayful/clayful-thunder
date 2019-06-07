@@ -903,7 +903,8 @@
 
 	if (typeof window !== 'undefined') {
 		window.Thunder.setMessages(messages);
-	} else if (typeof module !== 'undefined' &&
+	}
+	if (typeof module !== 'undefined' &&
 		typeof module.exports !== 'undefined') {
 		module.exports = messages;
 	}
