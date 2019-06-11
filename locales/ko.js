@@ -30,6 +30,8 @@
 			fridayShort:    '금',
 			saturday:       '토요일',
 			saturdayShort:  '토',
+			copySucceeded:  '성공적으로 복사되었습니다.',
+			copyFailed:     '복사에 실패하였습니다.',
 		},
 		'header-navigation': {
 			login:       '로그인',
@@ -894,10 +896,6 @@
 			scheduleNow:                 '즉시 주문',
 			viewAllSchedules:            '모든 일정 보기',
 		},
-		copyText: {
-			copySuccess:            '성공적으로 복사되었습니다.',
-			copyfailed:             '복사에 실패하였습니다.',
-		}
 	};
 
 
