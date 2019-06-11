@@ -64,11 +64,11 @@ const Thunder = function(options) {
 			order:        [],
 			subscription: []
 		},
-		refundReasonCategories: [],
-		subscriptionPlans:      [],
-		customerAvatar:         true,
-		customerLogout:         true,
-		customerIdentity:       [
+		refundReasonCategories:  [],
+		subscriptionPlans:       [],
+		customerAvatar:          true,
+		customerDashboardLogout: false,
+		customerIdentity:        [
 			'name.full',
 			'alias',
 			'userId'
@@ -241,7 +241,7 @@ const Thunder = function(options) {
 		refundReasonCategories:     options.refundReasonCategories,              // Refund reason categories
 		subscriptionPlans:          options.subscriptionPlans,                   // Supported subscription plan ids
 		customerAvatar:             options.customerAvatar,                      // Use customer avatar for `customer-update`, `product-reviews`?
-		customerLogout:             options.customerLogout,
+		customerDashboardLogout:    options.customerDashboardLogout,             // Show Logout button in `customer-dashboard`?
 		customerIdentity:           options.customerIdentity,                    // Customer identity fields
 		customerRegistrationFields: options.customerRegistrationFields,          // Customer registration fields
 		customerUpdateFields:       options.customerUpdateFields,                // Customer update fields

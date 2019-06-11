@@ -27,9 +27,9 @@ module.exports = Thunder => {
 	};
 
 	implementation.options = () => $.extend({
-		showLogout: Thunder.options.customerLogout,
 		nav:   supportedComponents(),    // Navigation components
 		focus: supportedComponents()[0], // Initial component to be focused
+		showLogout: Thunder.options.customerDashboardLogout,
 
 	}, supportedComponents().reduce((o, component) => {
 
@@ -66,6 +66,7 @@ module.exports = Thunder => {
 		const $container = $(this);
 		const $menu = $(this).find(`[data-component]`);
 		const $viewContainer = $(this).find('.thunder--customer-dashboard-view');
+		const $logoutWrap = $(this).find('.thunder--logout-wrap');
 		const $logout = $(this).find('.thunder--logout');
 
 		viewComponent(context.options.focus);
@@ -75,6 +76,8 @@ module.exports = Thunder => {
 		});
 
 		function viewComponent(component) {
+
+			$logoutWrap[component === 'customer-update' ? 'removeClass' : 'addClass']('hidden');
 
 			$menu.removeClass('active');
 			$container.find(`[data-component="${component}"]`).addClass('active');
@@ -87,7 +90,6 @@ module.exports = Thunder => {
 			);
 		}
 
-		$logout.off();
 		$logout.on('click', () => {
 			Thunder.logout();
 			Thunder.close();

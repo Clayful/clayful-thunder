@@ -1,10 +1,3 @@
-{{? it.options.showLogout }}
-<div class="thunder--logout-wrap">
-	<div class="thunder--logout">
-		<a>{{= it.m('customerLogout') }}</a>
-	</div>
-</div>
-{{? }}
 <div class="thunder--customer-dashboard">
 
 	<ul class="thunder--customer-dashboard-nav">
@@ -12,6 +5,14 @@
 		<li data-component="{{= item.key }}">{{= it.m(item.translationKey) }}</li>
 		{{~ }}
 	</ul>
+
+	{{? it.options.showLogout }}
+	<div class="thunder--logout-wrap hidden">
+		<div class="thunder--logout">
+			<a>{{= it.m('customerLogout') }}</a>
+		</div>
+	</div>
+	{{? }}
 
 	<div class="thunder--customer-dashboard-view"></div>
 
