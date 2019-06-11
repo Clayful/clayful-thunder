@@ -146,7 +146,7 @@
 
 		}
 
-		.thunder--address {
+		.thunder--address, .thunder--shipping-info {
 
 			@include clearfix;
 			float: left;
@@ -163,6 +163,22 @@
 					color: #555;
 				}
 
+			}
+
+			.thunder--shipping-address-wrap {
+				width: 100%;
+				& > h2 {
+					display: inline-block;
+					margin-right: 14px;
+					text-align: left;
+					width: 72%;
+				}
+				div.thunder--action-address {
+					display: inline-block;
+					width: auto;
+					float: none;
+					text-align: right;
+				}
 			}
 
 			.thunder--address-state,
@@ -185,10 +201,6 @@
 				margin-top: 14px;
 				text-align: right;
 
-				button:last-child {
-					margin-left: 12px;
-				}
-
 				.thunder--search-address,
 				.thunder--apply-address {
 					padding: 4px 8px;
@@ -206,6 +218,14 @@
 
 			}
 
+		}
+
+		.thunder--shipping-info {
+			margin-bottom: 0;
+		}
+
+		.thunder--address {
+			margin-top: 0;
 		}
 
 		.thunder--subscription-details {

@@ -296,9 +296,17 @@ module.exports = Thunder => {
 					{ field: 'address1', required: true },
 					{ field: 'address2', required: false },
 					{ field: 'postcode', required: true },
-				].map(detail => $.extend(detail, {
-					$input: $(this).find(`.thunder--address [name="address.${detail.field}"]`)
-				})),
+				].map(detail => {
+					let address = $.extend(detail, {
+						$input: $(this).find(`.thunder--address [name="address.${detail.field}"]`)
+					});
+
+					if (!address.$input.length) {
+						address.$input = $(this).find(`.thunder--shipping-info [name="address.${detail.field}"]`);
+					}
+
+					return address;
+				}),
 				translationKeys:     translationKeys,
 				searchAddressPlugin: Thunder.plugins.searchAddress
 			});
@@ -362,7 +370,6 @@ module.exports = Thunder => {
 			}));
 
 			function copyToRecipient() {
-
 				return $(this).is(':checked') ?
 						addressHandler.setAddress(customerHandler.getCustomer()) :
 						addressHandler.reset('recipient');
