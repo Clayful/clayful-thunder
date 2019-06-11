@@ -329,9 +329,9 @@
 		},
 		'product-list': {
 			productListFailed: '상품 목록을 읽어오는데 실패했습니다.',
-			unAvailable:       'UNAVAILABLE',
-			soldout:           'SOLDOUT',
-			discount:          'SALE'
+			labelUnavailable:  'UNAVAILABLE',
+			labelSoldOut:      'SOLD OUT',
+			labelDiscounted:   'SALE',
 		},
 		'product-detail': {
 			quantity:                          '수량',

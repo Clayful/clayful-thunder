@@ -41,17 +41,13 @@
 
 			</div>
 
-			<div class="label">
-				{{? product.isNotAvailable }}
-					<div class="thunder--not-available">{{= it.m('unAvailable') }}</div>
-				{{? }}
-				{{? !product.isNotAvailable && product.isSoldout }}
-					<div class="thunder--soldout">{{= it.m('soldout') }}</div>
-				{{? }}
-				{{? !product.isNotAvailable && !product.isSoldout && product.isDiscount }}
-					<div class="thunder--discount">{{= it.m('discount') }}</div>
-				{{? }}
+			{{? product.label }}
+			<div class="thunder--product-label">
+				<div class="thunder--product-label-{{= product.label }}">
+					{{= it.m(it.camelCase(['label', product.label])) }}
+				</div>
 			</div>
+			{{? }}
 		</div>
 
 		{{~ }}

@@ -52,7 +52,11 @@ const Thunder = function(options) {
 			'add-to-cart',
 			'buy-now'
 		],
-		productLabels:        false,
+		productLabels:        [
+			// 'unavailable',
+			// 'sold-out',
+			// 'discounted'
+		],
 		productReview:        true,
 		productReviewRating:  true,
 		productReviewComment: true,
@@ -229,14 +233,15 @@ const Thunder = function(options) {
 		legal:                      options.legal,                               // Legal information
 		confirmation:               options.confirmation,                        // Confirmation settings
 		productActions:             options.productActions,                      // Supported product options
+		productLabels:              options.productLabels,                       // Product labels to display
 		productReview:              options.productReview,
 		productReviewRating:        options.productReviewRating,
 		productReviewComment:       options.productReviewComment,
 		paymentMethods:             options.paymentMethods,                      // Supported payment methods
 		refundReasonCategories:     options.refundReasonCategories,              // Refund reason categories
 		subscriptionPlans:          options.subscriptionPlans,                   // Supported subscription plan ids
-		customerLogout:             options.customerLogout,
 		customerAvatar:             options.customerAvatar,                      // Use customer avatar for `customer-update`, `product-reviews`?
+		customerLogout:             options.customerLogout,
 		customerIdentity:           options.customerIdentity,                    // Customer identity fields
 		customerRegistrationFields: options.customerRegistrationFields,          // Customer registration fields
 		customerUpdateFields:       options.customerUpdateFields,                // Customer update fields
@@ -247,7 +252,6 @@ const Thunder = function(options) {
 		socialApps:                 options.socialApps,                          // Supported social apps for customer accounts
 		header:                     options.header,                              // Header navigation menu items
 		recaptcha:                  options.recaptcha,                           // Google reCAPTCHA options
-		productLabels:              options.productLabels
 	};
 
 	// Expose Thunder.Cart after configurations
