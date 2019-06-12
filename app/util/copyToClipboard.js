@@ -16,9 +16,9 @@ module.exports = function(elem) {
 
 		try {
 			result = document.execCommand('copy');
-			Thunder.notify('success', Thunder.polyglot.t('general.copySucceeded'));
+			this.notify('success', this.polyglot.t('general.copySucceeded'));
 		} catch (err) {
-			Thunder.notify('error', Thunder.polyglot.t('general.copyFailed'));
+			this.notify('error', this.polyglot.t('general.copyFailed'));
 		}
 
 		$temp.remove();

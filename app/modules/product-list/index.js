@@ -1,5 +1,3 @@
-const camelCase = require('lodash.camelcase');
-
 module.exports = Thunder => {
 
 	const implementation = {
@@ -70,14 +68,14 @@ module.exports = Thunder => {
 			return {
 				label: label,
 				check: ({
-					'unavailable': product => (
+					unavailable: product => (
 						!product.available ||
 						product.variants.every(v => !v.available)
 					),
 					'sold-out': product => product.variants.every(v => {
 						return v.quantity && v.quantity.raw === 0;
 					}),
-					'discounted': product => !!product.discount.type,
+					discounted: product => !!product.discount.type,
 				})[label]
 			};
 		}, {});

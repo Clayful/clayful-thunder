@@ -1,7 +1,5 @@
 module.exports = function(componentName, options, callback = () => {}) {
 
-	const Thunder = this;
-
 	options = options || {};
 
 	callback = typeof options === 'function' ? options : callback;
