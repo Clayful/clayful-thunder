@@ -11,6 +11,7 @@ module.exports = Thunder => {
 		fields:      '',           // Additional fields
 		columns:     4,            // How many columns? (css supports for 1-12)
 		filter:      '',           // Extra filters. e.g., brand=abcd
+		labels:      Thunder.options.productLabels, // Product labels (unavailable, sold-out, discounted)
 		imageWidth:  240,          // Image width
 		imageHeight: 240,          // Image height
 		showSummary: true,         // Show `product.summary`
@@ -20,7 +21,6 @@ module.exports = Thunder => {
 		),
 		showComparePrice: true,  // Show `product.price.original`
 		usePagination:    true,  // Use pagination?
-		showLabels:       Thunder.options.productLabels,
 		onViewProduct: function($container, context, productId) {
 			return Thunder.open('product-detail', {
 				product: productId
@@ -64,6 +64,22 @@ module.exports = Thunder => {
 			default: context.m('productListFailed')
 		};
 
+		const labels = Thunder.util.parseArrayString(options.labels).map(label => {
+			return {
+				label: label,
+				check: ({
+					unavailable: product => (
+						!product.available ||
+						product.variants.every(v => !v.available)
+					),
+					'sold-out': product => product.variants.every(v => {
+						return v.quantity && v.quantity.raw === 0;
+					}),
+					discounted: product => !!product.discount.type,
+				})[label]
+			};
+		}, {});
+
 		return $.when(...[
 			Thunder.request({
 				method: 'GET',
@@ -77,17 +93,16 @@ module.exports = Thunder => {
 			}) : null
 		]).then((products, count) => {
 
-			context.products = products[0];
 			context.count = count ? count[0].count : null;
+			context.products = products[0].map(product => {
 
-			if (options.showLabels) {
-				context.products = context.products.map(product => {
-					product.isNotAvailable = !product.available || product.variants.every(v => !v.available);
-					product.isSoldout = product.variants.every(v => v.quantity && v.quantity.raw === 0);
-					product.isDiscount = product.discount.type;
-					return product;
-				});
-			}
+				product.label = (
+					labels.find(({ check }) => check(product)) ||
+					{ label: null }
+				).label;
+
+				return product;
+			});
 
 			return callback(null, context);
 

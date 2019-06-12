@@ -31,30 +31,25 @@ module.exports = Thunder => {
 		};
 
 		// Get an order or a subscription
-		if (type === 'order') {
-			return Thunder.request({
+		return type === 'order' ?
+			Thunder.request({
 				method: 'PUT',
 				url:    `/v1/me/${type}s/${subject}/transactions`
-			}).then(() => {
-				Thunder.request({
-					method: 'GET',
-					url:    `/v1/me/${type}s/${subject}`
-				}).then(subject => {
-					return callback(null, set(context, 'subject', subject));
-				});
-			});
-		}
+			}).then(() => getSubject()) :
+			getSubject();
 
-		return Thunder.request({
-			method: 'GET',
-			url:    `/v1/me/${type}s/${subject}`
-		}).then(subject => {
-			return callback(null, set(context, 'subject', subject));
-		}, err => Thunder.util.requestErrorHandler(
-			err.responseJSON,
-			errors,
-			callback
-		));
+		function getSubject() {
+			return Thunder.request({
+				method: 'GET',
+				url:    `/v1/me/${type}s/${subject}`
+			}).then(subject => {
+				return callback(null, set(context, 'subject', subject));
+			}, err => Thunder.util.requestErrorHandler(
+				err.responseJSON,
+				errors,
+				callback
+			));
+		}
 	};
 
 	implementation.init = function(context) {

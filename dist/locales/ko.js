@@ -517,7 +517,6 @@
 			customerMobileRequired:       '무선 연락처을 입력해야합니다.',
 			customerPhoneRequired:        '유선 연락처을 입력해야합니다.',
 			setShippingAddress:           '배송 주소',
-			shippingInfo:                 '수취자 정보',
 			addressFirstName:             '수취자 이름',
 			addressLastName:              '수취자 성',
 			addressFullName:              '수취자명',

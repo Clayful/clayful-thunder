@@ -35,24 +35,25 @@
 		.thunder--product-summary {
 			cursor: pointer;
 		}
-		div.label {
+		div.thunder--product-label {
 			position: absolute;
 			top: 0;
 			left: 0;
 			line-height: 100%;
 			text-align: center;
 			pointer-events: none;
-			div {
+			& > div {
 				padding: 0 4px;
 				font-weight: 700;
 				font-size: 13px;
 				display: inline-block;
 			}
-			div.thunder--discount {
-				background-color: #f569a4;
+			div.thunder--product-label-discounted {
+				background-color: $color-primary;
 				color: #ffffff;
 			}
-			div.thunder--not-available, div.thunder--soldout {
+			div.thunder--product-label-unavailable,
+			div.thunder--product-label-sold-out {
 				background-color: #d0d0d0;
 				color: #444444;
 			}
