@@ -62,38 +62,34 @@ module.exports = (options = {}) => {
 
 	container.html($pagination);
 
-	$pagination.find('[data-page]').on('click', function(e) {
-
-		const $positionTarget = $($(e.currentTarget).parents('.thunder--contents')[0]);
-		const $isOverlayTarget = $($(e.currentTarget).parents('.thunder--contents')[1]);
-
-		let $scrollTarget = $('html, body');
-		let offset = -60;
-
-		// 오버레이 창인 경우
-		if ($isOverlayTarget.context && $isOverlayTarget.context.id === 'thunder--overlay-body') {
-			$scrollTarget = $('#thunder--overlay');
-
-			offset += $positionTarget.offset().top
-			- $scrollTarget.offset().top
-			+ $scrollTarget.scrollTop();
-
-			setTimeout(() => {
-				$scrollTarget.animate({ scrollTop: offset }, '500');
-			}, 300);
-
-		} else {
-			offset += $positionTarget.offset().top;
-			setTimeout(() => {
-				$scrollTarget.animate({ scrollTop: offset }, '500');
-			}, 300);
-		}
+	$pagination.find('[data-page]').on('click', function() {
 
 		const page = $(this).data('page');
 
 		if (currentPage === page) return;
 
-		return onPageChange({ page });
+		const $overlay = $(this).parents('#thunder--overlay');
+
+		const isOverlay = !!$overlay.length;
+
+		const $scrollTarget = isOverlay ? $overlay.eq(0) : $('html, body');
+		const $positionTarget = $(this).parents('.thunder--contents').eq(0);
+
+		const offset = -60;
+
+		onPageChange({ page });
+
+		// 오버레이 창인 경우
+		setTimeout(() => $scrollTarget.animate({
+			scrollTop: isOverlay ? (
+				$positionTarget.offset().top
+					- $scrollTarget.offset().top
+					+ $scrollTarget.scrollTop()
+					+ offset
+			) : (
+				$positionTarget.offset().top + offset
+			)
+		}, 400), 300);
 
 	});
 
