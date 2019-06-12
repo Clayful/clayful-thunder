@@ -2,12 +2,34 @@
 
 	<h2>{{= it.m(it.options.type + 'Success') }}</h2>
 
-	<p>{{= it.m(it.options.type + 'SuccessBody') }}</p>
+	<div class="thunder--checkout-success-message">{{= it.m(it.options.type + 'SuccessBody') }}</div>
+
+	<h3>{{= it.m(it.options.type + 'Info') }}</h3>
+
+	<table class="thunder--{{= it.options.type }}-info">
+		<tbody>
+			<tr>
+				<td>{{= it.m(it.options.type + 'Id') }}</td>
+				<td>
+					<span class="thunder--copy-to-id">{{= it.subject._id }}</span>
+					<span class="thunder--copy-to-id-button">{{= it.m('copyIdButton') }}</span>
+				</td>
+			</tr>
+			{{? it.options.type === 'order' }}
+			<tr>
+				<td>{{= it.m('orderTotalAmount') }}</td>
+				<td>{{= it.subject.total.amount.converted }}</td>
+			</tr>
+			{{? }}
+			<tr>
+				<td>{{= it.options.type === 'order' ? it.m('orderedAt') : it.m('subscribedAt') }}</td>
+				<td>{{= it.subject.createdAt.formatted }}</td>
+			</tr>
+		</tbody>
+	</table>
 
 	{{? it.subject.transactions && it.subject.transactions.length }}
-
 	{{~ it.subject.transactions :value:index }}
-
 	{{? value.vbanks.length }}
 	<div>
 		<h3>{{= it.m('vbankInfo') }}</h3>
@@ -23,15 +45,17 @@
 				<tr>
 					<td>{{= it.m('vbankAccount') }}</td>
 					<td>
-						<span class="thunder--vbank-account">{{= vbank.number }}{{? vbank.holder }}&nbsp;&nbsp;{{= vbank.holder }}{{? }}</span>
+						<span class="thunder--vbank-account">{{= vbank.number }}</span>
 					</td>
 				</tr>
+				{{? vbank.holder }}
 				<tr>
-					<td>{{= it.m('vbankAmount') }}</td>
+					<td>{{= it.m('vbankHolder') }}</td>
 					<td>
-						<span class="thunder--vbank-amount">{{= vbank.amount.converted }}</span>
+						<span class="thunder--vbank-holder">{{= vbank.holder }}</span>
 					</td>
 				</tr>
+				{{? }}
 				{{? vbank.expiresAt }}
 				<tr>
 					<td>{{= it.m('vbankExpiresAt') }}</td>
@@ -46,27 +70,8 @@
 		</table>
 	</div>
 	{{? }}
-
 	{{~ }}
-
 	{{? }}
-
-	<h3>{{= it.m(it.options.type + 'Info') }}</h3>
-	<table class="thunder--{{= it.options.type }}-info">
-		<tbody>
-			<tr>
-				<td>{{= it.m(it.options.type + 'Id') }}</td>
-				<td>
-					<span class="thunder--copy-to-id">{{= it.subject._id }}</span>
-					<span class="thunder--copy-to-id-button">{{= it.m('copyIdButton') }}</span>
-				</td>
-			</tr>
-			<tr>
-				<td>{{= it.options.type === 'order' ? it.m('orderedAt') : it.m('subscribedAt') }}</td>
-				<td>{{= it.subject.createdAt.formatted }}</td>
-			</tr>
-		</tbody>
-	</table>
 
 	<div class="thunder--checkout-success-actions">
 
