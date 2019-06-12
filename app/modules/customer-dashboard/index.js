@@ -29,7 +29,7 @@ module.exports = Thunder => {
 	implementation.options = () => $.extend({
 		nav:   supportedComponents(),    // Navigation components
 		focus: supportedComponents()[0], // Initial component to be focused
-		showLogout: Thunder.options.customerDashboardLogout,
+		logout: Thunder.options.customerDashboardLogout,
 
 	}, supportedComponents().reduce((o, component) => {
 
