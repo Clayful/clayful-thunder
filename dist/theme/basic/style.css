@@ -1808,34 +1808,44 @@ button[data-balloon] {
       .thunder--contents .thunder--checkout .thunder--checkout-process .thunder--customer .thunder--same-for-recipient label {
         display: inline;
         margin-left: 4px; }
+    .thunder--contents .thunder--checkout .thunder--checkout-process .thunder--recipient-info,
     .thunder--contents .thunder--checkout .thunder--checkout-process .thunder--address {
       float: left;
       margin: 14px 0;
       width: 48%; }
+      .thunder--contents .thunder--checkout .thunder--checkout-process .thunder--recipient-info:after,
       .thunder--contents .thunder--checkout .thunder--checkout-process .thunder--address:after {
         content: "";
         display: table;
         clear: both; }
+      .thunder--contents .thunder--checkout .thunder--checkout-process .thunder--recipient-info > div > div,
       .thunder--contents .thunder--checkout .thunder--checkout-process .thunder--address > div > div {
         float: left;
         width: 100%;
         margin-bottom: 8px; }
+        .thunder--contents .thunder--checkout .thunder--checkout-process .thunder--recipient-info > div > div label,
         .thunder--contents .thunder--checkout .thunder--checkout-process .thunder--address > div > div label {
           font-size: 14px;
           color: #555; }
+      .thunder--contents .thunder--checkout .thunder--checkout-process .thunder--recipient-info .thunder--address-state,
+      .thunder--contents .thunder--checkout .thunder--checkout-process .thunder--recipient-info .thunder--address-city,
       .thunder--contents .thunder--checkout .thunder--checkout-process .thunder--address .thunder--address-state,
       .thunder--contents .thunder--checkout .thunder--checkout-process .thunder--address .thunder--address-city {
         width: 49%; }
+      .thunder--contents .thunder--checkout .thunder--checkout-process .thunder--recipient-info .thunder--address-city,
       .thunder--contents .thunder--checkout .thunder--checkout-process .thunder--address .thunder--address-city {
         margin-left: 2%; }
+      .thunder--contents .thunder--checkout .thunder--checkout-process .thunder--recipient-info .thunder--save-primary-address label,
       .thunder--contents .thunder--checkout .thunder--checkout-process .thunder--address .thunder--save-primary-address label {
         display: inline;
         margin-left: 4px; }
+      .thunder--contents .thunder--checkout .thunder--checkout-process .thunder--recipient-info .thunder--action-address,
       .thunder--contents .thunder--checkout .thunder--checkout-process .thunder--address .thunder--action-address {
-        margin-top: 14px;
+        margin-top: -42px;
+        padding-bottom: 12px;
         text-align: right; }
-        .thunder--contents .thunder--checkout .thunder--checkout-process .thunder--address .thunder--action-address button:last-child {
-          margin-left: 12px; }
+        .thunder--contents .thunder--checkout .thunder--checkout-process .thunder--recipient-info .thunder--action-address .thunder--search-address,
+        .thunder--contents .thunder--checkout .thunder--checkout-process .thunder--recipient-info .thunder--action-address .thunder--apply-address,
         .thunder--contents .thunder--checkout .thunder--checkout-process .thunder--address .thunder--action-address .thunder--search-address,
         .thunder--contents .thunder--checkout .thunder--checkout-process .thunder--address .thunder--action-address .thunder--apply-address {
           padding: 4px 8px;
@@ -1846,9 +1856,15 @@ button[data-balloon] {
           color: #fff;
           font-size: 13px;
           text-shadow: none; }
+          .thunder--contents .thunder--checkout .thunder--checkout-process .thunder--recipient-info .thunder--action-address .thunder--search-address:hover,
+          .thunder--contents .thunder--checkout .thunder--checkout-process .thunder--recipient-info .thunder--action-address .thunder--apply-address:hover,
           .thunder--contents .thunder--checkout .thunder--checkout-process .thunder--address .thunder--action-address .thunder--search-address:hover,
           .thunder--contents .thunder--checkout .thunder--checkout-process .thunder--address .thunder--action-address .thunder--apply-address:hover {
             background-color: #333; }
+    .thunder--contents .thunder--checkout .thunder--checkout-process .thunder--recipient-info {
+      margin-bottom: 0; }
+    .thunder--contents .thunder--checkout .thunder--checkout-process .thunder--address {
+      margin-top: 0; }
     .thunder--contents .thunder--checkout .thunder--checkout-process .thunder--subscription-details > div {
       margin-bottom: 8px; }
     .thunder--contents .thunder--checkout .thunder--checkout-process .thunder--subscription-details .thunder--subscription-starts-at {
@@ -2016,7 +2032,11 @@ button[data-balloon] {
         width: 100%; }
       .thunder--contents .thunder--checkout .thunder--checkout-process .thunder--address {
         width: 100%;
-        margin-right: 0; }
+        margin-right: 0;
+        margin-top: 14px; }
+      .thunder--contents .thunder--checkout .thunder--checkout-process .thunder--recipient-info {
+        width: 100%;
+        margin-bottom: 14px; }
       .thunder--contents .thunder--checkout .thunder--checkout-process .thunder--order-payment {
         width: 100%;
         margin-right: 0; }

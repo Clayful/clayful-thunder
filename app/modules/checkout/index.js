@@ -296,17 +296,13 @@ module.exports = Thunder => {
 					{ field: 'address1', required: true },
 					{ field: 'address2', required: false },
 					{ field: 'postcode', required: true },
-				].map(detail => {
-					let address = $.extend(detail, {
-						$input: $(this).find(`.thunder--address [name="address.${detail.field}"]`)
-					});
-
-					if (!address.$input.length) {
-						address.$input = $(this).find(`.thunder--shipping-info [name="address.${detail.field}"]`);
-					}
-
-					return address;
-				}),
+				].map(detail => $.extend(detail, {
+					$input: $(this).find([
+						'.thunder--recipient-info',
+						'.thunder--address',
+					].join(','))
+					.find(`[name="address.${detail.field}"]`)
+				})),
 				translationKeys:     translationKeys,
 				searchAddressPlugin: Thunder.plugins.searchAddress
 			});

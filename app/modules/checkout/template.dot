@@ -220,8 +220,8 @@
 			</div>
 
 		</div>
-		<div class="thunder--shipping-info thunder--form">
-			<h2>{{= it.m('shippingInfo') }}</h2>
+		<div class="thunder--recipient-info thunder--form">
+			<h2>{{= it.m('recipientInfo') }}</h2>
 			<div class="thunder--address-recipient">
 
 				{{~ it.recipientFields :field }}
@@ -236,19 +236,16 @@
 			</div>
 		</div>
 		<div class="thunder--address thunder--form">
-			<div class="thunder--shipping-address-wrap">
-				<h2>{{= it.m('setShippingAddress') }}</h2>
-				<div class="thunder--action-address">
-					{{? it.useSearchAddress }}
-					<button class="thunder--search-address">{{= it.m('searchAddress') }}</button>
-					{{? }}
-					{{? !it.useSearchAddress }}
-					<button class="thunder--apply-address">{{= it.m('applyAddress') }}</button>
-					{{? }}
-				</div>
+			<h2>{{= it.m('setShippingAddress') }}</h2>
+
+			<div class="thunder--action-address">
+				{{? it.useSearchAddress }}
+				<button class="thunder--search-address">{{= it.m('searchAddress') }}</button>
+				{{? }}
+				{{? !it.useSearchAddress }}
+				<button class="thunder--apply-address">{{= it.m('applyAddress') }}</button>
+				{{? }}
 			</div>
-
-
 
 			<div class="thunder--address-location">
 
