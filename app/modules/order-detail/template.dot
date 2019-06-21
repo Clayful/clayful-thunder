@@ -178,7 +178,9 @@
 			<table class="thunder--table thunder--cart-items">
 				<thead>
 					<tr>
-						<th colspan="2">{{= it.m('itemInfo') }}</th>
+						<th colspan="2">
+							{{= it.m('itemInfo') }}
+						</th>
 						<th>{{= it.m('itemQuantity') }}</th>
 						<th>{{= it.m('itemPrice') }}</th>
 					</tr>
@@ -196,6 +198,27 @@
 								<h4 class="thunder--cart-item-name">
 									{{= item.product.name }}
 								</h4>
+								{{? it.order.status === 'paid' && item.type === 'downloadable' }}
+									<div class="thunder--download-button-wrap">
+										<button class="thunder--button-tiny thunder--download-button"
+											data-item="{{= item._id }}"
+											data-order="{{= it.order._id }}">
+											{{= it.m('downloadButton') }}
+										</button>
+										{{? item.download.policy.count }}
+										<p class="thunder--download-count-view"
+											data-current="{{= item.download.downloaded.raw }}"
+											data-total="{{= item.download.policy.count.raw }}">
+										</p>
+										{{? }}
+										{{? item.download.policy.expires.type }}
+										<p class="thunder--download-expires-view"
+											data-type="{{= item.download.policy.expires.type }}"
+											data-value="{{= item.download.policy.expires.value.raw }}">
+										</p>
+										{{? }}
+									</div>
+								{{? }}
 								<ul>
 									{{? item.variant && item.variant.types.length > 0 }}
 									<li class="thunder--cart-item-option">

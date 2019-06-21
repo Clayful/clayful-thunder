@@ -218,9 +218,52 @@ module.exports = Thunder => {
 		const $cancellationReason = $cancellationForm.find('textarea');
 		const $cancelButton = $cancellationForm.find('button');
 		const $requestRefund = $(this).find('.thunder--request-refund');
+		const $downloadButton = $(this).find('.thunder--download-button');
+		const $downloadCountView = $(this).find('.thunder--download-count-view');
+		const $downloadExpiresView = $(this).find('.thunder--download-expires-view');
 
 		const cancelButtonSpinner = Thunder.util.makeAsyncButton($cancelButton);
 
+		if ($downloadCountView.length) {
+			$downloadCountView.each((i, v) => {
+				v.innerText = context.m('downloadCountView', {
+					total: v.dataset.total,
+					current: v.dataset.current
+				});
+			});
+		}
+
+		if ($downloadExpiresView.length) {
+
+			$downloadExpiresView.each((i, v) => {
+				const type = v.dataset.type;
+				const value = v.dataset.value;
+
+				if (type === 'at') {
+					const expiresDate = new Date(value);
+					const year        = expiresDate.getFullYear().toString().slice(2);
+					const month       = (expiresDate.getMonth() + 1).toString();
+					const date        = expiresDate.getDate().toString();
+					const hours       = expiresDate.getHours().toString();
+
+					v.innerText = context.m('downloadExpiresAtView', {
+						year,
+						month,
+						date,
+						hours,
+					});
+				}
+
+				if (type === 'days') v.innerText = context.m('downloadExpiresDaysView', { value });
+				if (type === 'weeks') v.innerText = context.m('downloadExpiresWeeksView', { value });
+				if (type === 'months') v.innerText = context.m('downloadExpiresMonthsView', { value });
+				if (type === 'years') v.innerText = context.m('downloadExpiresYearsView', { value });
+			});
+
+		}
+
+
+		$downloadButton.on('click', getDownloadLink);
 		$subscriptionid.on('click', viewSubscription);
 		$markAsReceived.on('click', markAsReceived);
 		$markAsNotReceived.on('click', markAsNotReceived);
@@ -272,6 +315,28 @@ module.exports = Thunder => {
 				});
 
 			}));
+		}
+
+		function getDownloadLink(event) {
+			const orderId = event.target.dataset.order;
+			const itemId = event.target.dataset.item;
+
+			Thunder.request({
+				method: 'POST',
+				url:    `/v1/me/orders/${orderId}/items/${itemId}/download/url`,
+			}).then(res => {
+				if (res.url) window.open(res.url);
+			}, err => {
+				if (err && err.responseJSON.errorCode === 'fully-used-item') {
+					Thunder.notify('error', context.m('fullyUsedItem'));
+				}
+				if (err && err.responseJSON.errorCode === 'expired-item') {
+					Thunder.notify('error', context.m('expiredItem'));
+				}
+				if (err && err.responseJSON.errorCode === 'refunded-item') {
+					Thunder.notify('error', context.m('refundedItem'));
+				}
+			});
 		}
 
 		function viewSubscription() {
