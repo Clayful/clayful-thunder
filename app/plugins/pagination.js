@@ -77,19 +77,26 @@ module.exports = (options = {}) => {
 
 		const offset = -60;
 
+		const scrollTop = isOverlay ? (
+			$positionTarget.offset().top
+				- $scrollTarget.offset().top
+				+ $scrollTarget.scrollTop()
+				+ offset
+		) : (
+			$positionTarget.offset().top + offset
+		);
+
+		const shouldNotScroll = (
+			!isOverlay &&
+			$scrollTarget.scrollTop() <= scrollTop
+		);
+
 		onPageChange({ page });
 
+		if (shouldNotScroll) return;
+
 		// 오버레이 창인 경우
-		setTimeout(() => $scrollTarget.animate({
-			scrollTop: isOverlay ? (
-				$positionTarget.offset().top
-					- $scrollTarget.offset().top
-					+ $scrollTarget.scrollTop()
-					+ offset
-			) : (
-				$positionTarget.offset().top + offset
-			)
-		}, 400), 300);
+		return setTimeout(() => $scrollTarget.animate({ scrollTop }, 400), 300);
 
 	});
 
