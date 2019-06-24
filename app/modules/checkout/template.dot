@@ -220,11 +220,8 @@
 			</div>
 
 		</div>
-
-		<div class="thunder--address thunder--form">
-
-			<h2>{{= it.m('setShippingAddress') }}</h2>
-
+		<div class="thunder--recipient-info thunder--form">
+			<h2>{{= it.m('recipientInfo') }}</h2>
 			<div class="thunder--address-recipient">
 
 				{{~ it.recipientFields :field }}
@@ -236,6 +233,18 @@
 				</div>
 				{{~ }}
 
+			</div>
+		</div>
+		<div class="thunder--address thunder--form">
+			<h2>{{= it.m('setShippingAddress') }}</h2>
+
+			<div class="thunder--action-address">
+				{{? it.useSearchAddress }}
+				<button class="thunder--search-address">{{= it.m('searchAddress') }}</button>
+				{{? }}
+				{{? !it.useSearchAddress }}
+				<button class="thunder--apply-address">{{= it.m('applyAddress') }}</button>
+				{{? }}
 			</div>
 
 			<div class="thunder--address-location">
@@ -276,14 +285,14 @@
 					<input type="text" name="address.postcode" placeholder="{{= it.m('addressPostcode') }}" {{= it.disabled('postcode') }} required>
 				</div>
 
-				<div class="thunder--action-address">
-					{{? it.useSearchAddress }}
-					<button class="thunder--search-address">{{= it.m('searchAddress') }}</button>
-					{{? }}
-					{{? !it.useSearchAddress }}
-					<button class="thunder--apply-address">{{= it.m('applyAddress') }}</button>
-					{{? }}
+				{{? it.isAuthenticated && !it.customer.address.primary }}
+				<div class="thunder--save-primary-address">
+					<input type="checkbox" checked id="thunder--save-primary-address-agreement">
+					<label for="thunder--save-primary-address-agreement">
+						{{= it.m('saveAsPrimaryAddress') }}
+					</label>
 				</div>
+				{{? }}
 
 			</div>
 

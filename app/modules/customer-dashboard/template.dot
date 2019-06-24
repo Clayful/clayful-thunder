@@ -6,6 +6,14 @@
 		{{~ }}
 	</ul>
 
+	{{? it.options.logout }}
+	<div class="thunder--logout-wrap hidden">
+		<div class="thunder--logout">
+			<a>{{= it.m('customerLogout') }}</a>
+		</div>
+	</div>
+	{{? }}
+
 	<div class="thunder--customer-dashboard-view"></div>
 
 </div>

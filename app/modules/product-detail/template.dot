@@ -46,8 +46,8 @@
 			</div>
 
 			<div class="thunder--product-option">
-				{{? it.product.variants.length > 1 }}
-				<div class="thunder--product-variant">
+				{{? it.product.variants.length > 0 }}
+				<div class="thunder--product-variant {{= it.product.variants.length === 1 ? 'hidden' : '' }}">
 
 					<label>{{= it.m('selectVariant') }}</label>
 

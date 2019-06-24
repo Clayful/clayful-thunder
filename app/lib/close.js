@@ -6,6 +6,9 @@ module.exports = function() {
 
 	this.overlay.body.html('');
 
+	// show body scroll
+	$('html, body').removeClass('thunder--overflow-fix');
+
 	return this;
 
 };

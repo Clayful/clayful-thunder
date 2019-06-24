@@ -1,7 +1,5 @@
 module.exports = function(componentName, options, callback = () => {}) {
 
-	const Thunder = this;
-
 	options = options || {};
 
 	callback = typeof options === 'function' ? options : callback;
@@ -11,6 +9,8 @@ module.exports = function(componentName, options, callback = () => {}) {
 		this.overlay.background.removeClass('hidden');
 		this.overlay.container.removeClass('hidden');
 	}
+	// hide body scroll
+	$('html, body').addClass('thunder--overflow-fix');
 
 	// Mark current view
 	$.extend(true, options, {

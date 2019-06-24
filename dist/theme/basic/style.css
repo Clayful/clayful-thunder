@@ -699,6 +699,9 @@ button[data-balloon] {
 [data-thunder-logout] {
   cursor: pointer; }
 
+.thunder--overflow-fix {
+  overflow-y: hidden !important; }
+
 .thunder--contents {
   /*! normalize.css v6.0.0 | MIT License | github.com/necolas/normalize.css */
   /* Document
@@ -1805,31 +1808,44 @@ button[data-balloon] {
       .thunder--contents .thunder--checkout .thunder--checkout-process .thunder--customer .thunder--same-for-recipient label {
         display: inline;
         margin-left: 4px; }
+    .thunder--contents .thunder--checkout .thunder--checkout-process .thunder--recipient-info,
     .thunder--contents .thunder--checkout .thunder--checkout-process .thunder--address {
       float: left;
       margin: 14px 0;
       width: 48%; }
+      .thunder--contents .thunder--checkout .thunder--checkout-process .thunder--recipient-info:after,
       .thunder--contents .thunder--checkout .thunder--checkout-process .thunder--address:after {
         content: "";
         display: table;
         clear: both; }
+      .thunder--contents .thunder--checkout .thunder--checkout-process .thunder--recipient-info > div > div,
       .thunder--contents .thunder--checkout .thunder--checkout-process .thunder--address > div > div {
         float: left;
         width: 100%;
         margin-bottom: 8px; }
+        .thunder--contents .thunder--checkout .thunder--checkout-process .thunder--recipient-info > div > div label,
         .thunder--contents .thunder--checkout .thunder--checkout-process .thunder--address > div > div label {
           font-size: 14px;
           color: #555; }
+      .thunder--contents .thunder--checkout .thunder--checkout-process .thunder--recipient-info .thunder--address-state,
+      .thunder--contents .thunder--checkout .thunder--checkout-process .thunder--recipient-info .thunder--address-city,
       .thunder--contents .thunder--checkout .thunder--checkout-process .thunder--address .thunder--address-state,
       .thunder--contents .thunder--checkout .thunder--checkout-process .thunder--address .thunder--address-city {
         width: 49%; }
+      .thunder--contents .thunder--checkout .thunder--checkout-process .thunder--recipient-info .thunder--address-city,
       .thunder--contents .thunder--checkout .thunder--checkout-process .thunder--address .thunder--address-city {
         margin-left: 2%; }
+      .thunder--contents .thunder--checkout .thunder--checkout-process .thunder--recipient-info .thunder--save-primary-address label,
+      .thunder--contents .thunder--checkout .thunder--checkout-process .thunder--address .thunder--save-primary-address label {
+        display: inline;
+        margin-left: 4px; }
+      .thunder--contents .thunder--checkout .thunder--checkout-process .thunder--recipient-info .thunder--action-address,
       .thunder--contents .thunder--checkout .thunder--checkout-process .thunder--address .thunder--action-address {
-        margin-top: 14px;
+        margin-top: -42px;
+        padding-bottom: 12px;
         text-align: right; }
-        .thunder--contents .thunder--checkout .thunder--checkout-process .thunder--address .thunder--action-address button:last-child {
-          margin-left: 12px; }
+        .thunder--contents .thunder--checkout .thunder--checkout-process .thunder--recipient-info .thunder--action-address .thunder--search-address,
+        .thunder--contents .thunder--checkout .thunder--checkout-process .thunder--recipient-info .thunder--action-address .thunder--apply-address,
         .thunder--contents .thunder--checkout .thunder--checkout-process .thunder--address .thunder--action-address .thunder--search-address,
         .thunder--contents .thunder--checkout .thunder--checkout-process .thunder--address .thunder--action-address .thunder--apply-address {
           padding: 4px 8px;
@@ -1840,9 +1856,15 @@ button[data-balloon] {
           color: #fff;
           font-size: 13px;
           text-shadow: none; }
+          .thunder--contents .thunder--checkout .thunder--checkout-process .thunder--recipient-info .thunder--action-address .thunder--search-address:hover,
+          .thunder--contents .thunder--checkout .thunder--checkout-process .thunder--recipient-info .thunder--action-address .thunder--apply-address:hover,
           .thunder--contents .thunder--checkout .thunder--checkout-process .thunder--address .thunder--action-address .thunder--search-address:hover,
           .thunder--contents .thunder--checkout .thunder--checkout-process .thunder--address .thunder--action-address .thunder--apply-address:hover {
             background-color: #333; }
+    .thunder--contents .thunder--checkout .thunder--checkout-process .thunder--recipient-info {
+      margin-bottom: 0; }
+    .thunder--contents .thunder--checkout .thunder--checkout-process .thunder--address {
+      margin-top: 0; }
     .thunder--contents .thunder--checkout .thunder--checkout-process .thunder--subscription-details > div {
       margin-bottom: 8px; }
     .thunder--contents .thunder--checkout .thunder--checkout-process .thunder--subscription-details .thunder--subscription-starts-at {
@@ -2010,7 +2032,11 @@ button[data-balloon] {
         width: 100%; }
       .thunder--contents .thunder--checkout .thunder--checkout-process .thunder--address {
         width: 100%;
-        margin-right: 0; }
+        margin-right: 0;
+        margin-top: 14px; }
+      .thunder--contents .thunder--checkout .thunder--checkout-process .thunder--recipient-info {
+        width: 100%;
+        margin-bottom: 14px; }
       .thunder--contents .thunder--checkout .thunder--checkout-process .thunder--order-payment {
         width: 100%;
         margin-right: 0; }
@@ -2024,8 +2050,19 @@ button[data-balloon] {
       margin-bottom: 36px; }
     .thunder--contents .thunder--checkout-success > h3 {
       margin-bottom: 8px; }
+    .thunder--contents .thunder--checkout-success > .thunder--checkout-success-message {
+      width: 100%;
+      min-width: 260px;
+      max-width: 535px;
+      margin: 0 auto 16px;
+      display: inline-block;
+      padding: 16px;
+      box-sizing: border-box;
+      background-color: #f5f5f5;
+      border-radius: 2px; }
     .thunder--contents .thunder--checkout-success table {
-      max-width: 360px;
+      width: 100%;
+      max-width: 400px;
       margin: 8px auto 24px auto;
       padding-top: 8px;
       border-top: #ddd 1px solid;
@@ -2035,6 +2072,11 @@ button[data-balloon] {
         padding: 0 8px; }
         .thunder--contents .thunder--checkout-success table tbody tr td:first-child {
           color: #999; }
+        .thunder--contents .thunder--checkout-success table tbody tr td span.thunder--copy-to-id-button {
+          margin-left: 8px;
+          font-size: 14px;
+          cursor: pointer;
+          color: #2a6fcc; }
     .thunder--contents .thunder--checkout-success .thunder--checkout-success-actions {
       margin-top: 48px; }
   .thunder--contents .thunder--search-purchase-form-wrapper {
@@ -3120,7 +3162,7 @@ button[data-balloon] {
       margin-bottom: 12px;
       padding: 16px 16px; } }
   .thunder--contents .thunder--customer-dashboard .thunder--customer-dashboard-nav {
-    margin: 0 0 28px 0;
+    margin: 0 0 14px 0;
     padding: 0 0 14px 0;
     border-bottom: #eaeaea 1px solid; }
     .thunder--contents .thunder--customer-dashboard .thunder--customer-dashboard-nav li {
@@ -3132,8 +3174,22 @@ button[data-balloon] {
       cursor: pointer; }
       .thunder--contents .thunder--customer-dashboard .thunder--customer-dashboard-nav li:hover {
         color: #000; }
+      .thunder--contents .thunder--customer-dashboard .thunder--customer-dashboard-nav li:last-child {
+        margin-right: 0; }
       .thunder--contents .thunder--customer-dashboard .thunder--customer-dashboard-nav li.active {
         font-weight: bold; }
+  .thunder--contents .thunder--customer-dashboard .thunder--logout-wrap {
+    margin-bottom: 14px;
+    text-align: right; }
+    .thunder--contents .thunder--customer-dashboard .thunder--logout-wrap .thunder--logout {
+      display: inline-block;
+      font-size: 14px; }
+  .thunder--contents .thunder--customer-dashboard .thunder--customer-dashboard-view {
+    margin-top: 28px; }
+  .thunder--contents .thunder--customer-dashboard .thunder--logout-wrap + .thunder--customer-dashboard-view {
+    margin-top: 14px; }
+  .thunder--contents .thunder--customer-dashboard .thunder--logout-wrap.hidden + .thunder--customer-dashboard-view {
+    margin-top: 28px; }
   @media only screen and (min-width: 481px) and (max-width: 768px) {
     .thunder--contents .thunder--customer-dashboard .thunder--customer-dashboard-nav li {
       box-sizing: border-box;
@@ -3537,6 +3593,7 @@ button[data-balloon] {
     .thunder--contents .thunder--product-list.thunder--columns-12 .thunder--product:nth-child(12n) {
       margin-right: 0; }
   .thunder--contents .thunder--product-list .thunder--product {
+    position: relative;
     float: left;
     margin-bottom: 14px; }
     .thunder--contents .thunder--product-list .thunder--product.last {
@@ -3545,6 +3602,25 @@ button[data-balloon] {
     .thunder--contents .thunder--product-list .thunder--product .thunder--product-name,
     .thunder--contents .thunder--product-list .thunder--product .thunder--product-summary {
       cursor: pointer; }
+    .thunder--contents .thunder--product-list .thunder--product div.thunder--product-label {
+      position: absolute;
+      top: 0;
+      left: 0;
+      line-height: 100%;
+      text-align: center;
+      pointer-events: none; }
+      .thunder--contents .thunder--product-list .thunder--product div.thunder--product-label > div {
+        padding: 0 4px;
+        font-weight: 700;
+        font-size: 13px;
+        display: inline-block; }
+      .thunder--contents .thunder--product-list .thunder--product div.thunder--product-label div.thunder--product-label-discounted {
+        background-color: #2a6fcc;
+        color: #ffffff; }
+      .thunder--contents .thunder--product-list .thunder--product div.thunder--product-label div.thunder--product-label-unavailable,
+      .thunder--contents .thunder--product-list .thunder--product div.thunder--product-label div.thunder--product-label-sold-out {
+        background-color: #d0d0d0;
+        color: #444444; }
     .thunder--contents .thunder--product-list .thunder--product .thunder--product-thumbnail-wrapper {
       width: 100%; }
       .thunder--contents .thunder--product-list .thunder--product .thunder--product-thumbnail-wrapper img {
@@ -3773,6 +3849,11 @@ button[data-balloon] {
     margin-top: 16px;
     padding-top: 16px;
     border-top: #ddd solid 1px; }
+    .thunder--contents .thunder--product-detail .thunder--product-detail-trunk table {
+      width: 100%; }
+      .thunder--contents .thunder--product-detail .thunder--product-detail-trunk table td, .thunder--contents .thunder--product-detail .thunder--product-detail-trunk table th {
+        border: 1px solid #ddd;
+        padding: 4px 6px; }
   .thunder--contents .thunder--product-detail .thunder--following-nav-container + .thunder--product-detail-trunk {
     margin-top: 0; }
   .thunder--contents .thunder--product-detail .thunder--product-detailed-description {

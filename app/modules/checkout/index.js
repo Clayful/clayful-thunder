@@ -236,6 +236,7 @@ module.exports = Thunder => {
 			const $cartItems = $(this).find('.thunder--cart-items table');
 			const $goToUpdateCustomer = $(this).find('.thunder--go-to-update-customer');
 			const $sameForRecipient = $(this).find('[name="sameForRecipient"]');
+			const $saveAsPrimaryAddress = $(this).find('#thunder--save-primary-address-agreement');
 			const $searchAddress = $(this).find('.thunder--search-address');
 			const $applyAddress = $(this).find('.thunder--apply-address');
 			const $orderRequest = $(this).find('[name="request"]');
@@ -296,7 +297,11 @@ module.exports = Thunder => {
 					{ field: 'address2', required: false },
 					{ field: 'postcode', required: true },
 				].map(detail => $.extend(detail, {
-					$input: $(this).find(`.thunder--address [name="address.${detail.field}"]`)
+					$input: $(this).find([
+						'.thunder--recipient-info',
+						'.thunder--address',
+					].join(','))
+					.find(`[name="address.${detail.field}"]`)
 				})),
 				translationKeys:     translationKeys,
 				searchAddressPlugin: Thunder.plugins.searchAddress
@@ -361,7 +366,6 @@ module.exports = Thunder => {
 			}));
 
 			function copyToRecipient() {
-
 				return $(this).is(':checked') ?
 						addressHandler.setAddress(customerHandler.getCustomer()) :
 						addressHandler.reset('recipient');
@@ -566,6 +570,21 @@ module.exports = Thunder => {
 
 				const authByOrderOrSubscription = {
 					run: ({ order: o, subscription: s }) => {
+
+						if ($saveAsPrimaryAddress.is(':checked')) {
+							// Update the primary address (Fire & Forget)
+							const options = buildCartOptions('checkout');
+
+							Thunder.request({
+								method: 'PUT',
+								url:    `/v1/me`,
+								data:   {
+									address: {
+										primary: options.data.address.shipping
+									}
+								}
+							});
+						}
 
 						order = o;
 						subscription = s || null;

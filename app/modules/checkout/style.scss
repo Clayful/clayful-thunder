@@ -146,6 +146,7 @@
 
 		}
 
+		.thunder--recipient-info,
 		.thunder--address {
 
 			@include clearfix;
@@ -174,13 +175,17 @@
 				margin-left: 2%;
 			}
 
-			.thunder--action-address {
-				margin-top: 14px;
-				text-align: right;
-
-				button:last-child {
-					margin-left: 12px;
+			.thunder--save-primary-address {
+				label {
+					display: inline;
+					margin-left: 4px;
 				}
+			}
+
+			.thunder--action-address {
+				margin-top: -42px;
+				padding-bottom: 12px;
+				text-align: right;
 
 				.thunder--search-address,
 				.thunder--apply-address {
@@ -199,6 +204,14 @@
 
 			}
 
+		}
+
+		.thunder--recipient-info {
+			margin-bottom: 0;
+		}
+
+		.thunder--address {
+			margin-top: 0;
 		}
 
 		.thunder--subscription-details {

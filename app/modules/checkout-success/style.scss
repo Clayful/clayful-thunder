@@ -10,8 +10,21 @@
 		margin-bottom: 8px;
 	}
 
+	& > .thunder--checkout-success-message {
+		width: 100%;
+		min-width: 260px;
+		max-width: 535px;
+		margin: 0 auto 16px;
+		display: inline-block;
+		padding: 16px;
+		box-sizing: border-box;
+		background-color: #f5f5f5;
+		border-radius: 2px;
+	}
+
 	table {
-		max-width: 360px;
+		width: 100%;
+		max-width: 400px;
 		margin: 8px auto 24px auto;
 		padding-top: 8px;
 		border-top: #ddd 1px solid;
@@ -24,6 +37,12 @@
 					padding: 0 8px;
 					&:first-child {
 						color: #999;
+					}
+					span.thunder--copy-to-id-button {
+						margin-left: 8px;
+						font-size: 14px;
+						cursor: pointer;
+						color: $color-primary;
 					}
 				}
 			}

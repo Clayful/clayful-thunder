@@ -52,6 +52,11 @@ const Thunder = function(options) {
 			'add-to-cart',
 			'buy-now'
 		],
+		productLabels:        [
+			// 'unavailable',
+			// 'sold-out',
+			// 'discounted'
+		],
 		productReview:        true,
 		productReviewRating:  true,
 		productReviewComment: true,
@@ -59,10 +64,11 @@ const Thunder = function(options) {
 			order:        [],
 			subscription: []
 		},
-		refundReasonCategories: [],
-		subscriptionPlans:      [],
-		customerAvatar:         true,
-		customerIdentity:       [
+		refundReasonCategories:  [],
+		subscriptionPlans:       [],
+		customerAvatar:          true,
+		customerDashboardLogout: false,
+		customerIdentity:        [
 			'name.full',
 			'alias',
 			'userId'
@@ -227,6 +233,7 @@ const Thunder = function(options) {
 		legal:                      options.legal,                               // Legal information
 		confirmation:               options.confirmation,                        // Confirmation settings
 		productActions:             options.productActions,                      // Supported product options
+		productLabels:              options.productLabels,                       // Product labels to display
 		productReview:              options.productReview,
 		productReviewRating:        options.productReviewRating,
 		productReviewComment:       options.productReviewComment,
@@ -234,6 +241,7 @@ const Thunder = function(options) {
 		refundReasonCategories:     options.refundReasonCategories,              // Refund reason categories
 		subscriptionPlans:          options.subscriptionPlans,                   // Supported subscription plan ids
 		customerAvatar:             options.customerAvatar,                      // Use customer avatar for `customer-update`, `product-reviews`?
+		customerDashboardLogout:    options.customerDashboardLogout,             // Show Logout button in `customer-dashboard`?
 		customerIdentity:           options.customerIdentity,                    // Customer identity fields
 		customerRegistrationFields: options.customerRegistrationFields,          // Customer registration fields
 		customerUpdateFields:       options.customerUpdateFields,                // Customer update fields
@@ -367,6 +375,7 @@ Thunder.util = {
 	bindRecaptcha:       require('./util/bindRecaptcha').bind(Thunder),
 	useRecaptcha:        require('./util/useRecaptcha').bind(Thunder),
 	imageUploader:       require('./util/imageUploader').bind(Thunder),
+	copyToClipboard:     require('./util/copyToClipboard').bind(Thunder),
 	bindBackButton:      require('./util/bindBackButton').bind(Thunder),
 	followingNavigation: require('./util/followingNavigation').bind(Thunder),
 	quantityInput:       require('./util/quantityInput').bind(Thunder),

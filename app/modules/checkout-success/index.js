@@ -31,28 +31,43 @@ module.exports = Thunder => {
 		};
 
 		// Get an order or a subscription
-		return Thunder.request({
-			method: 'GET',
-			url:    `/v1/me/${type}s/${subject}`
-		}).then(subject => {
-			return callback(null, set(context, 'subject', subject));
-		}, err => Thunder.util.requestErrorHandler(
-			err.responseJSON,
-			errors,
-			callback
-		));
+		return type === 'order' ?
+			Thunder.request({
+				method: 'PUT',
+				url:    `/v1/me/${type}s/${subject}/transactions`
+			}).then(() => getSubject()) :
+			getSubject();
+
+		function getSubject() {
+			return Thunder.request({
+				method: 'GET',
+				url:    `/v1/me/${type}s/${subject}`
+			}).then(subject => {
+				return callback(null, set(context, 'subject', subject));
+			}, err => Thunder.util.requestErrorHandler(
+				err.responseJSON,
+				errors,
+				callback
+			));
+		}
 	};
 
 	implementation.init = function(context) {
 
 		const $container = $(this);
 		const $viewMoreDetails = $(this).find('.thunder--view-more-details');
+		const $copyToId = $(this).find('.thunder--copy-to-id');
+		const $copyToIdButton = $(this).find('.thunder--copy-to-id-button');
 
 		$viewMoreDetails.on('click', () => Thunder.execute(
 			context.options.onViewDetails,
 			$container,
 			context
 		));
+
+		$copyToIdButton.on('click', () => {
+			Thunder.util.copyToClipboard($copyToId);
+		});
 
 	};
 

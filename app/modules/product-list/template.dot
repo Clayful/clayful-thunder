@@ -5,11 +5,9 @@
 		{{~ it.products :product:index }}
 
 		<div class="thunder--product" data-product="{{= product._id }}" data-mh="{{= it.id }}">
-
 			<div class="thunder--product-thumbnail-wrapper">
 				<img src="{{= it.imageURL(product.thumbnail, it.options.imageWidth, it.options.imageHeight) }}">
 			</div>
-
 			<div class="thunder--product-info">
 
 				<h3 class="thunder--product-name">
@@ -43,6 +41,13 @@
 
 			</div>
 
+			{{? product.label }}
+			<div class="thunder--product-label">
+				<div class="thunder--product-label-{{= product.label }}">
+					{{= it.m(it.camelCase(['label', product.label])) }}
+				</div>
+			</div>
+			{{? }}
 		</div>
 
 		{{~ }}

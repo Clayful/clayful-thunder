@@ -2,7 +2,7 @@
 
 	.thunder--customer-dashboard-nav {
 
-		margin: 0 0 28px 0;
+		margin: 0 0 14px 0;
 		padding: 0 0 14px 0;
 		border-bottom: #eaeaea 1px solid;
 
@@ -16,11 +16,33 @@
 			&:hover {
 				color: #000;
 			}
+			&:last-child {
+				margin-right: 0;
+			}
 			&.active {
 				font-weight: bold;
 			}
 		}
 
+	}
+
+	.thunder--logout-wrap {
+		margin-bottom: 14px;
+		text-align: right;
+		.thunder--logout {
+			display: inline-block;
+			font-size: 14px;
+		}
+	}
+
+	.thunder--customer-dashboard-view {
+		margin-top: 28px;
+	}
+	.thunder--logout-wrap + .thunder--customer-dashboard-view {
+		margin-top: 14px;
+	}
+	.thunder--logout-wrap.hidden + .thunder--customer-dashboard-view {
+		margin-top: 28px;
 	}
 
 }

@@ -68,7 +68,35 @@ module.exports = (options = {}) => {
 
 		if (currentPage === page) return;
 
-		return onPageChange({ page });
+		const $overlay = $(this).parents('#thunder--overlay');
+
+		const isOverlay = !!$overlay.length;
+
+		const $scrollTarget = isOverlay ? $overlay.eq(0) : $('html, body');
+		const $positionTarget = $(this).parents('.thunder--contents').eq(0);
+
+		const offset = -60;
+
+		const scrollTop = isOverlay ? (
+			$positionTarget.offset().top
+				- $scrollTarget.offset().top
+				+ $scrollTarget.scrollTop()
+				+ offset
+		) : (
+			$positionTarget.offset().top + offset
+		);
+
+		const shouldNotScroll = (
+			!isOverlay &&
+			$scrollTarget.scrollTop() <= scrollTop
+		);
+
+		onPageChange({ page });
+
+		if (shouldNotScroll) return;
+
+		// 오버레이 창인 경우
+		return setTimeout(() => $scrollTarget.animate({ scrollTop }, 400), 300);
 
 	});
 
