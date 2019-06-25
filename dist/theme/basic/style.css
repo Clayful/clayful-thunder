@@ -2478,6 +2478,17 @@ button[data-balloon] {
     .thunder--contents .thunder--order-detail .thunder--order-secondary-info .thunder--order-customer-and-address table {
       border-spacing: 0;
       font-size: 14px; }
+  .thunder--contents .thunder--order-detail .thunder--download-button {
+    margin: 0;
+    margin-top: 8px; }
+  .thunder--contents .thunder--order-detail .thunder--download-count-view, .thunder--contents .thunder--order-detail .thunder--download-expires-view {
+    font-size: 12px;
+    margin: 0;
+    margin-top: 4px; }
+  .thunder--contents .thunder--order-detail .thunder--download-button-wrap {
+    margin: 0; }
+    .thunder--contents .thunder--order-detail .thunder--download-button-wrap.thunder--download-button-disabled {
+      display: none !important; }
   @media only screen and (min-width: 481px) and (max-width: 768px) {
     .thunder--contents .thunder--order-detail .thunder--order-primary-info .thunder--order-basic-info {
       width: 100%; }
