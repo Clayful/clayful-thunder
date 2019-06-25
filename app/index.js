@@ -379,6 +379,7 @@ Thunder.util = {
 	bindBackButton:      require('./util/bindBackButton').bind(Thunder),
 	followingNavigation: require('./util/followingNavigation').bind(Thunder),
 	quantityInput:       require('./util/quantityInput').bind(Thunder),
+	checkItemRefunded:   require('./util/checkItemRefunded').bind(Thunder),
 };
 
 // Global template methods
