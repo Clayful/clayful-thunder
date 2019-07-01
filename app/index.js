@@ -355,6 +355,7 @@ Thunder.util = {
 	formatNumber:        require('./util/formatNumber').bind(Thunder),
 	formatPrice:         require('./util/formatPrice').bind(Thunder),
 	isExpired:           require('./util/isExpired').bind(Thunder),
+	addTime:             require('./util/addTime').bind(Thunder),
 	countryName:         require('./util/countryName').bind(Thunder),
 	customerIdentity:    require('./util/customerIdentity').bind(Thunder),
 	productName:         require('./util/productName').bind(Thunder),
