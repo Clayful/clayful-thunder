@@ -56,6 +56,24 @@ module.exports = Thunder => {
 				null,
 		].filter(v => v).join(' + ');
 
+		context.calculateExpiresAt = (order, item) => {
+
+			const { type, value } = item.download.policy.expires;
+
+			if (!type) return null;
+
+			return type === 'at' ?
+				new Date(value.raw) :
+				Thunder.util.addTime(order.createdAt.raw, type, value.raw);
+		};
+
+		context.toDateValues = date => ({
+			year:  date.getFullYear().toString(),
+			month: (date.getMonth() + 1).toString(),
+			date:  date.getDate().toString(),
+			hours: date.getHours().toString(),
+		});
+
 		const translationKeys = {
 			'name.first': 'firstName',
 			'name.last':  'lastName',
@@ -101,6 +119,28 @@ module.exports = Thunder => {
 				return items.concat(item, item.bundleItems || []);
 			}, []);
 			const itemsAndShipments = [].concat(allItems, order.shipments);
+
+			allItems.forEach(item => {
+				// 환불 여부 플래그
+				item.refunded = Thunder.util.checkItemRefunded(order, item._id);
+
+				// 다운로드 가능 여부 플래그
+				item.downloadable = (
+					item.type === 'downloadable' && // 다운로드 상품이면서
+					!item.refunded &&               // 환불되지 않았고
+					(
+						// 다운로드 가능 횟수 제한이 없거나, 제한량을 넘기지 않았고
+						!item.download.policy.count ||
+						item.download.downloaded.raw < item.download.policy.count.raw
+					) &&
+					(
+						// 만료 날짜 제한이 없거나, 만료일이 지나지 않은 상품
+						!item.download.policy.expires.type ||
+						context.calculateExpiresAt(order, item).valueOf() > Date.now()
+					)
+				);
+
+			});
 
 			itemsAndShipments.forEach(item => {
 
@@ -219,124 +259,8 @@ module.exports = Thunder => {
 		const $cancelButton = $cancellationForm.find('button');
 		const $requestRefund = $(this).find('.thunder--request-refund');
 		const $downloadButton = $(this).find('.thunder--download-button');
-		const $downloadCountView = $(this).find('.thunder--download-count-view');
-		const $downloadExpiresView = $(this).find('.thunder--download-expires-view');
 
 		const cancelButtonSpinner = Thunder.util.makeAsyncButton($cancelButton);
-		const convertDate = option => option ? new Date(option) : new Date();
-		const splitDate = dateValue => {
-			const year        = dateValue.getFullYear().toString();
-			const month       = (dateValue.getMonth() + 1).toString();
-			const date        = dateValue.getDate().toString();
-			const hours       = dateValue.getHours().toString();
-
-			return { year, month, date, hours };
-		};
-
-		// 목록 중에 환불 요청 및 승인된 아이템이 있으면 숨김처리
-		$downloadButton.length && $downloadButton.each((i, v) => {
-			if (Thunder.util.checkItemRefunded(context.order, v.dataset.item)) {
-				$($(v).parent()).addClass('thunder--download-button-disabled');
-			}
-		});
-
-		// 다운 횟수 설정이 되어있는 경우 생성 로직
-		if ($downloadCountView.length) {
-			$downloadCountView.each((i, v) => {
-				v.innerText = context.m('downloadCountView', {
-					total: v.dataset.total,
-					current: v.dataset.current
-				});
-				// 다운 횟수가 다 찼을 경우 button disabled
-				if (v.dataset.total <= v.dataset.current) {
-					$($(v).parent().children()[0]).attr('disabled', true);
-				}
-			});
-		}
-
-		// 다운 만료일 설정이 되어 있는 경우 생성 로직
-		if ($downloadExpiresView.length) {
-
-			$downloadExpiresView.each((i, v) => {
-				const type = v.dataset.type;
-				const value = v.dataset.value;
-				const orderCreatedAt = convertDate(context.order.createdAt.raw);
-				const orderCreatedAtTime = convertDate(context.order.createdAt.raw).valueOf();
-				const orderCreatedAtMonth = orderCreatedAt.getMonth();
-				const orderCreatedAtDate = orderCreatedAt.getDate();
-				let orderExpirationDate = convertDate();
-
-				// 특정 시점이 정해져 있을 때
-				if (type === 'at') {
-
-					orderExpirationDate = convertDate(value);
-
-					// download button needDisabled
-					if (convertDate().valueOf() >= orderExpirationDate.valueOf()) {
-						$($(v).parent().children()[0]).attr('disabled', true);
-					}
-					v.innerText = context.m('downloadExpiresAtView', splitDate(orderExpirationDate));
-				}
-
-				// 주문 시점부터 어느 시점 이후로 만료되는 건지만 아는 경우
-				if (type !== 'at') {
-					const timeMap = {
-						days: 86400000, // 하루를 밀리초로 환산
-						weeks: 604800000, // 한 주를 밀리초로 환산
-					};
-
-					// 일, 주 셋업 케이스
-					if (type === 'days' || type === 'weeks') {
-						orderExpirationDate = convertDate(orderCreatedAtTime + (timeMap[type] * Number(value)));
-
-						// download button needDisabled
-						if (convertDate().valueOf() >= orderExpirationDate.valueOf()) {
-							$($(v).parent().children()[0]).attr('disabled', true);
-						}
-						v.innerText = context.m('downloadExpiresAtView', splitDate(orderExpirationDate));
-					}
-
-					// 월 셋업 케이스
-					if (type === 'months') {
-							const expiresMonth = (orderCreatedAtMonth + Number(value)) % 12;
-
-							const originalOrderCreatedAtMonth = convertDate(orderCreatedAtTime).getMonth();
-							const originalOrderCreatedAt = convertDate(orderCreatedAtTime);
-							const setOriginalCreatedAtData = originalOrderCreatedAt.setMonth((originalOrderCreatedAtMonth + Number(value) % 12));
-							const calculatedMonth = convertDate(setOriginalCreatedAtData).getMonth();
-
-							orderExpirationDate = convertDate(convertDate(orderCreatedAtTime).setMonth(expiresMonth));
-
-							if (expiresMonth !== calculatedMonth) {
-								orderExpirationDate.setDate(0);
-							}
-					}
-
-					// 년 셋업 케이스
-					if (type === 'years') {
-						const expiresYear = (orderCreatedAt.getFullYear() + Number(value));
-
-						orderExpirationDate = convertDate(convertDate(orderCreatedAtTime).setFullYear(expiresYear));
-						// 주문일자가 2월 29일이면서 만료연도로 갔을 때 3월이 된 경우(만료연도에 2월 29일이 없는 경우)
-						if (orderCreatedAtMonth === 1 && orderCreatedAtDate === 29 &&
-							convertDate(convertDate(orderCreatedAtTime).setFullYear(expiresYear)).getMonth() === 2) {
-							orderExpirationDate.setDate(0);
-						}
-					}
-
-					// 년 월 셋업 적용부
-					if (type === 'months' || type === 'years') {
-						// download button needDisabled
-						if (convertDate().valueOf() >= orderExpirationDate.valueOf()) {
-							$($(v).parent().children()[0]).attr('disabled', true);
-						}
-						v.innerText = context.m('downloadExpiresAtView', splitDate(orderExpirationDate));
-					}
-
-				}
-			});
-
-		}
 
 		$downloadButton.on('click', getDownloadLink);
 		$subscriptionid.on('click', viewSubscription);
@@ -392,45 +316,36 @@ module.exports = Thunder => {
 			}));
 		}
 
-		function getDownloadLink(event) {
-			const orderId = event.target.dataset.order;
-			const itemId = event.target.dataset.item;
-			const downloadCountTarget = event.target.nextElementSibling.classList.contains('thunder--download-count-view') &&
-			$(event.target.nextElementSibling);
+		function getDownloadLink() {
 
-			if (downloadCountTarget) {
-				const totalCount = downloadCountTarget.data('total');
-				let currentCount = downloadCountTarget.data('current');
+			const $item = $(this).parents('[data-item]').eq(0);
+			const itemId = $item.data('item');
+			const orderId = context.order._id;
 
-				// 버튼 클릭 시 다운로드 횟수 실시간 반영부
-				if (currentCount < totalCount) {
-					downloadCountTarget.data('current', ++currentCount);
-					downloadCountTarget.text(context.m('downloadCountView', { current: currentCount, total: totalCount }));
-				}
-			}
-
-			Thunder.request({
+			return Thunder.request({
 				method: 'POST',
 				url:    `/v1/me/orders/${orderId}/items/${itemId}/download/url`,
 			}).then(res => {
-				if (res.url) window.open(res.url);
-			}, err => {
-				if (err && err.responseJSON.errorCode === 'fully-used-item') {
-					Thunder.notify('error', context.m('fullyUsedItem'));
-				}
-				if (err && err.responseJSON.errorCode === 'expired-item') {
-					Thunder.notify('error', context.m('expiredItem'));
-				}
-				if (err && err.responseJSON.errorCode === 'refunded-item') {
-					Thunder.notify('error', context.m('refundedItem'));
-				}
-				if (downloadCountTarget) {
-					const totalCount = downloadCountTarget.data('total');
-					let currentCount = downloadCountTarget.data('current');
+				if (!res.url) return;
 
-					// 버튼 클릭 시 다운로드 횟수 실시간 반영 취소
-					downloadCountTarget.data('current', --currentCount);
-					downloadCountTarget.text(context.m('downloadCountView', { current: currentCount, total: totalCount }));
+				const $countView = $item.find('.thunder--download-count-view').eq(0);
+
+				if ($countView.length) {
+					$countView.data('current', $countView.data('current') + 1);
+					$countView.text(context.m('nTimesDownloaded', $countView.data()));
+				}
+
+				window.open(res.url);
+
+			}, err => {
+				if (err.responseJSON.errorCode === 'fully-used-item') {
+					return Thunder.notify('error', context.m('fullyUsedDownloadable'));
+				}
+				if (err.responseJSON.errorCode === 'expired-item') {
+					return Thunder.notify('error', context.m('expiredDownloadable'));
+				}
+				if (err.responseJSON.errorCode === 'refunded-item') {
+					return Thunder.notify('error', context.m('refundedItem'));
 				}
 			});
 		}

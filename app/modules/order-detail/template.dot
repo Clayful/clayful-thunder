@@ -178,9 +178,7 @@
 			<table class="thunder--table thunder--cart-items">
 				<thead>
 					<tr>
-						<th colspan="2">
-							{{= it.m('itemInfo') }}
-						</th>
+						<th colspan="2">{{= it.m('itemInfo') }}</th>
 						<th>{{= it.m('itemQuantity') }}</th>
 						<th>{{= it.m('itemPrice') }}</th>
 					</tr>
@@ -223,21 +221,22 @@
 								</ul>
 								{{? (it.order.status === 'paid' || it.order.status === 'partially-refunded') && item.type === 'downloadable' }}
 									<div class="thunder--download-button-wrap">
-										<button class="thunder--button-tiny thunder--download-button"
-											data-item="{{= item._id }}"
-											data-order="{{= it.order._id }}">
-											{{= it.m('downloadButton') }}
+										<button class="thunder--button-tiny thunder--download-button" {{= item.downloadable ? '' : 'disabled' }}>
+											{{= it.m('downloadFile') }}
 										</button>
 										{{? item.download.policy.count }}
 										<p class="thunder--download-count-view"
-											data-current="{{= item.download.downloaded.raw }}"
-											data-total="{{= item.download.policy.count.raw }}">
+											data-total="{{= item.download.policy.count.raw }}"
+											data-current="{{= item.download.downloaded.raw }}">
+											{{= it.m('nTimesDownloaded', {
+												total: item.download.policy.count.raw,
+												current: item.download.downloaded.raw
+											}) }}
 										</p>
 										{{? }}
 										{{? item.download.policy.expires.type }}
-										<p class="thunder--download-expires-view"
-											data-type="{{= item.download.policy.expires.type }}"
-											data-value="{{= item.download.policy.expires.value.raw }}">
+										<p class="thunder--download-expires-view">
+											{{= it.m('downloadExpiresAt', it.toDateValues(it.calculateExpiresAt(it.order, item))) }}
 										</p>
 										{{? }}
 									</div>
@@ -268,8 +267,7 @@
 					{{~ item.bundleItems :bundleItem }}
 					<tr class="thunder--cart-item thunder--cart-bundle-item" data-item="{{= item._id }}" data-bundle-item="{{= bundleItem._id }}">
 
-						<td class="thunder--cart-item-thumbnail-container">
-						</td>
+						<td class="thunder--cart-item-thumbnail-container"></td>
 
 						<td class="thunder--cart-item-name">
 
@@ -302,21 +300,22 @@
 								</ul>
 								{{? (it.order.status === 'paid' || it.order.status === 'partially-refunded') && bundleItem.type === 'downloadable' }}
 									<div class="thunder--download-button-wrap">
-										<button class="thunder--button-tiny thunder--download-button"
-											data-item="{{= bundleItem._id }}"
-											data-order="{{= it.order._id }}">
-											{{= it.m('downloadButton') }}
+										<button class="thunder--button-tiny thunder--download-button" {{= bundleItem.downloadable ? '' : 'disabled' }}>
+											{{= it.m('downloadFile') }}
 										</button>
 										{{? bundleItem.download.policy.count }}
 										<p class="thunder--download-count-view"
-											data-current="{{= bundleItem.download.downloaded.raw }}"
-											data-total="{{= bundleItem.download.policy.count.raw }}">
+											data-total="{{= bundleItem.download.policy.count.raw }}"
+											data-current="{{= bundleItem.download.downloaded.raw }}">
+											{{= it.m('nTimesDownloaded', {
+												total: bundleItem.download.policy.count.raw,
+												current: bundleItem.download.downloaded.raw
+											}) }}
 										</p>
 										{{? }}
 										{{? bundleItem.download.policy.expires.type }}
-										<p class="thunder--download-expires-view"
-											data-type="{{= bundleItem.download.policy.expires.type }}"
-											data-value="{{= bundleItem.download.policy.expires.value.raw }}">
+										<p class="thunder--download-expires-view">
+											{{= it.m('downloadExpiresAt', it.toDateValues(it.calculateExpiresAt(it.order, bundleItem))) }}
 										</p>
 										{{? }}
 									</div>
