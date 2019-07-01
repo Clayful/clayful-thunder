@@ -94,6 +94,12 @@ module.exports = Thunder => {
 			translationKey: camelCase(['address', translationKeys[key] || key]),
 		}));
 
+		context.undownloadableStatuses = {
+			placed:       true,
+			cancelled:    true,
+			'under-paid': true,
+		};
+
 		return context.options.updateTransactions ?
 				// Since we are trying to make the order up-to-date with the best effort,
 				// proceed following processes even if `updateTransactions` execution fails.

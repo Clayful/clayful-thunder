@@ -219,7 +219,7 @@
 									</li>
 									{{? }}
 								</ul>
-								{{? (it.order.status === 'paid' || it.order.status === 'partially-refunded') && item.type === 'downloadable' }}
+								{{? !it.undownloadableStatuses[it.order.status] && item.type === 'downloadable' }}
 									<div class="thunder--download-button-wrap">
 										<button class="thunder--button-tiny thunder--download-button" {{= item.downloadable ? '' : 'disabled' }}>
 											{{= it.m('downloadFile') }}
@@ -298,7 +298,7 @@
 									</li>
 									{{? }}
 								</ul>
-								{{? (it.order.status === 'paid' || it.order.status === 'partially-refunded') && bundleItem.type === 'downloadable' }}
+								{{? !it.undownloadableStatuses[it.order.status] && bundleItem.type === 'downloadable' }}
 									<div class="thunder--download-button-wrap">
 										<button class="thunder--button-tiny thunder--download-button" {{= bundleItem.downloadable ? '' : 'disabled' }}>
 											{{= it.m('downloadFile') }}
