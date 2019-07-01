@@ -1,5 +1,3 @@
-'use strict';
-
 const refundStatusToCheck = {
 	requested: true,
 	accepted:  true,
