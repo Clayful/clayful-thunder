@@ -325,7 +325,7 @@ module.exports = Thunder => {
 		function getDownloadLink() {
 
 			const $item = $(this).parents('[data-item]').eq(0);
-			const itemId = $item.data('item');
+			const itemId = $item.data('bundleItem') || $item.data('item');
 			const orderId = context.order._id;
 
 			return Thunder.request({
