@@ -338,6 +338,7 @@
 		'product-detail': {
 			quantity:                          '수량',
 			selectVariant:                     '세부 옵션 선택',
+			variant:                           '세부 옵션',
 			notAvailableVariant:               '구매 불가',
 			soldOutVariant:                    '품절',
 			selectShippingMethod:              '배송 방식 선택',
@@ -356,6 +357,7 @@
 			buyNow:                            '바로 구매',
 			unavailableProduct:                '구매 불가 상품',
 			notExistingProduct:                '존재하지 않는 상품입니다.',
+			priceTotal:                        '총 상품 금액',
 			productReadFailed:                 '상품을 읽어오는데 실패했습니다.',
 			productInfo:                       '상품 정보',
 			productReviews:                    '상품 후기',

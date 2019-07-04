@@ -57,6 +57,7 @@ const Thunder = function(options) {
 			// 'sold-out',
 			// 'discounted'
 		],
+		productOptionSelector: 'separated',
 		productReview:        true,
 		productReviewRating:  true,
 		productReviewComment: true,
@@ -237,6 +238,7 @@ const Thunder = function(options) {
 		productReview:              options.productReview,
 		productReviewRating:        options.productReviewRating,
 		productReviewComment:       options.productReviewComment,
+		productOptionSelector:      options.productOptionSelector,
 		paymentMethods:             options.paymentMethods,                      // Supported payment methods
 		refundReasonCategories:     options.refundReasonCategories,              // Refund reason categories
 		subscriptionPlans:          options.subscriptionPlans,                   // Supported subscription plan ids
@@ -354,6 +356,7 @@ Thunder.util = {
 	toPrecision:         require('./util/toPrecision').bind(Thunder),
 	formatNumber:        require('./util/formatNumber').bind(Thunder),
 	formatPrice:         require('./util/formatPrice').bind(Thunder),
+	getCurrency:         require('./util/getCurrency').bind(Thunder),
 	isExpired:           require('./util/isExpired').bind(Thunder),
 	countryName:         require('./util/countryName').bind(Thunder),
 	customerIdentity:    require('./util/customerIdentity').bind(Thunder),
