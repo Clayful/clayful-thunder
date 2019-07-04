@@ -152,7 +152,83 @@
 		.thunder--product-variant {
 			float: left;
 			margin-right: 3%;
-			width: 67%
+			width: 67%;
+
+			&.separated {
+				float: none;
+				padding-top: 12px;
+				margin-top: 14px;
+				width: 100%;
+				border-top: #eee 1px solid;
+				div.thunder--product-option-wrap:not(:first-child) {
+					margin-top: 10px;
+				}
+			}
+		}
+
+		.thunder--product-bundles.separated {
+			.thunder--product-variant.separated {
+				border-top: 0;
+				padding-top: 0;
+				margin-top: 8px;
+			}
+		}
+
+		.thunder--summary-box {
+			background-color: #eee;
+			margin-top: 16px;
+			.thunder--price-total-wrap {
+				padding-left: 16px;
+				padding-bottom: 10px;
+				border-top: 4px solid #ddd;
+				margin-top: 0;
+				padding-top: 4px;
+			}
+		}
+
+		.thunder--selected-variant, .thunder--selected-bundle {
+			width: 100%;
+			position: relative;
+			min-height: 30px;
+			margin-top: 0;
+			padding: 0;
+			&.thunder--selected-variant {
+				border-top: 1px solid #ddd;
+				border-bottom: 2px solid #ddd;
+			}
+			&:hover {
+				background-color: darken(#eee, 5);
+			}
+
+			@include clearfix;
+
+			.thunder--item-quantity {
+				position: relative;
+				top: 8px;
+			}
+			.thunder--selected-item-delete {
+				font-size: 32px;
+				line-height: 0;
+				position: absolute;
+				right: 10px;
+				top: 25px;
+				color: #A9A9A9;
+				cursor: pointer;
+				&:hover {
+					color: #222;
+				}
+			}
+			.thunder--selected-item {
+				float: left;
+				width: 67%;
+				margin-right: 3%;
+				padding: 6px;
+				padding-left: 16px;
+				box-sizing: border-box;
+				.thunder--selected-item-price {
+					margin: 0;
+				}
+			}
 		}
 
 		.thunder--item-quantity {
@@ -197,9 +273,21 @@
 			font-size: 14px;
 		}
 
+		.thunder--price-total-wrap {
+			margin-top: 10px;
+			span {
+				font-size: 20px;
+				font-weight: 600;
+			}
+		}
+
 		.thunder--product-detail-buttons {
 
-			margin-top: 21px;
+			margin-top: 8px;
+
+			&.separated {
+				margin-top: 16px;
+			}
 
 			button {
 				display: inline-block;
