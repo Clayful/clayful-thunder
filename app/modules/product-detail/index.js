@@ -171,87 +171,90 @@ module.exports = Thunder => {
 
 		});
 
-		const calculatePriceSeparated = (e) => {
-			let total = 0;
+		const calculatePrice = (e) => {
 
-			$summaryBox.find('h3[data-value]').each((i, value) => {
-				const price = $(value).data('value');
-				const quantity = Number($(value).parent().parent().find('input').val());
-				const itemTotal = price * quantity;
+			if (currentOption === 'separated') {
+				let total = 0;
 
-				total += itemTotal;
-				$(value).text(Thunder.util.formatPrice(itemTotal, context.currency));
-			});
+				$summaryBox.find('h3[data-value]').each((i, value) => {
+					const price = $(value).data('value');
+					const quantity = Number($(value).parent().parent().find('input').val());
+					const itemTotal = price * quantity;
 
-			$summaryBox.find('span[data-value]').text(Thunder.util.formatPrice(total, context.currency));
-		};
+					total += itemTotal;
+					$(value).text(Thunder.util.formatPrice(itemTotal, context.currency));
+				});
 
-		const calculatePriceCombined = (e) => {
-			if (e.currentTarget.name === 'shippingMethod') return;
-			if (currentOption !== 'combined') return;
-			const variant = $container.find([
-				'.thunder--product-option',
-				'.thunder--product-variant',
-				'select[name="variant"]',
-			].join(' '));
-
-			const quantity = $container.find([
-				'.thunder--product-option',
-				'.thunder--item-quantity',
-				'input[name="quantity"]'
-			].join(' ')).val();
-
-			const defaultVariant = context.product.variants.length === 1 ?
-				context.product.variants[0] :
-				null;
-
-			const variantMap = context.product.variants.reduce(function(o, variant) {
-				o[variant._id] = variant;
-				return o;
-			}, {});
-
-			const selectedVariant = variantMap[variant.val()] || defaultVariant;
-			const bundleVariantMap = context.product.bundles.reduce(function(items, bundle) {
-				return items.concat(bundle.items);
-			}, []).reduce(function(o, item) {
-				o[item.product._id + '.' + item.variant._id] = item.variant;
-				return o;
-			}, {});
-
-			if (!selectedVariant) return;
-
-			const itemPrice = selectedVariant.price.sale.raw * quantity;
-			const bundlePrice = $container.find('.thunder--product-bundle-item').map(function() {
-				const variant = bundleVariantMap[$(this).find('.thunder--product-variant select').val()];
-				const quantity = $(this).find('.thunder--item-quantity input[type="number"]').val();
-
-				return variant && quantity ? variant.price.sale.raw * quantity : 0;
-			}).get().reduce(function(sum, price) {
-					return sum + price;
-			}, 0);
-
-			// 최종 금액 (raw)
-			const price = itemPrice + bundlePrice;
-
-			// 최종 금액이 있고 템플릿이 없을 때
-			if (price && !$('.thunder--price-total-value').length) {
-				const template = `
-					<div class="thunder--price-total-wrap">
-						<span class="thunder--price-total-label">${context.m('priceTotal')} : </span>
-						<span data-value="${price}" class="thunder--price-total-value">${Thunder.util.formatPrice(price, context.currency)}</span>
-					</div>`;
-
-				$('.thunder--product-detail-buttons').before(template);
-
-			// 최종 금액이 있고 템플릿이 있을 때
-			} else if (price && $('.thunder--price-total-value').length) {
-				$('.thunder--price-total-value').text(Thunder.util.formatPrice(price, context.currency));
-				$('.thunder--price-total-value').data('value', price);
+				$summaryBox.find('span[data-value]').text(Thunder.util.formatPrice(total, context.currency));
 			}
 
+			if (currentOption === 'combined') {
+				if (e.currentTarget.name === 'shippingMethod') return;
+
+				const variant = $container.find([
+					'.thunder--product-option',
+					'.thunder--product-variant',
+					'select[name="variant"]',
+				].join(' '));
+
+				const quantity = $container.find([
+					'.thunder--product-option',
+					'.thunder--item-quantity',
+					'input[name="quantity"]'
+				].join(' ')).val();
+
+				const defaultVariant = context.product.variants.length === 1 ?
+					context.product.variants[0] :
+					null;
+
+				const variantMap = context.product.variants.reduce(function(o, variant) {
+					o[variant._id] = variant;
+					return o;
+				}, {});
+
+				const selectedVariant = variantMap[variant.val()] || defaultVariant;
+				const bundleVariantMap = context.product.bundles.reduce(function(items, bundle) {
+					return items.concat(bundle.items);
+				}, []).reduce(function(o, item) {
+					o[item.product._id + '.' + item.variant._id] = item.variant;
+					return o;
+				}, {});
+
+				if (!selectedVariant) return;
+
+				const itemPrice = selectedVariant.price.sale.raw * quantity;
+				const bundlePrice = $container.find('.thunder--product-bundle-item').map(function() {
+					const variant = bundleVariantMap[$(this).find('.thunder--product-variant select').val()];
+					const quantity = $(this).find('.thunder--item-quantity input[type="number"]').val();
+
+					return variant && quantity ? variant.price.sale.raw * quantity : 0;
+				}).get().reduce(function(sum, price) {
+						return sum + price;
+				}, 0);
+
+				// 최종 금액 (raw)
+				const price = itemPrice + bundlePrice;
+
+				// 최종 금액이 있고 템플릿이 없을 때
+				if (price && !$('.thunder--price-total-value').length) {
+					const template = `
+						<div class="thunder--price-total-wrap">
+							<span class="thunder--price-total-label">${context.m('priceTotal')} : </span>
+							<span data-value="${price}" class="thunder--price-total-value">${Thunder.util.formatPrice(price, context.currency)}</span>
+						</div>`;
+
+					$('.thunder--product-detail-buttons').before(template);
+
+				// 최종 금액이 있고 템플릿이 있을 때
+				} else if (price && $('.thunder--price-total-value').length) {
+					$('.thunder--price-total-value').text(Thunder.util.formatPrice(price, context.currency));
+					$('.thunder--price-total-value').data('value', price);
+				}
+
+			}
 		};
 
-		$container.find('input, select').on('change', calculatePriceCombined);
+		$container.find('input, select').on('change', calculatePrice);
 
 
 		// 옵션 선택 이벤트 ('separated')
@@ -292,7 +295,7 @@ module.exports = Thunder => {
 								deleteOption(); // 추가전 선택된 옵션 모두 제거
 
 								$summaryBox.prepend(template);
-								calculatePriceSeparated();
+								calculatePrice();
 
 								const bundle = $summaryBox.find('.thunder--selected-bundle');
 
@@ -306,7 +309,7 @@ module.exports = Thunder => {
 									deleteOption(item._id);
 								});
 								Thunder.util.quantityInput($(`.thunder--selected-variant[data-id="${item._id}"]`));
-								$(`.thunder--selected-variant[data-id="${item._id}"]`).on('change', calculatePriceSeparated);
+								$(`.thunder--selected-variant[data-id="${item._id}"]`).on('change', calculatePrice);
 							}
 						});
 					}
@@ -319,7 +322,7 @@ module.exports = Thunder => {
 						</div>`;
 
 					$summaryBox.append(template);
-					calculatePriceSeparated();
+					calculatePrice();
 				}
 			}
 
@@ -370,15 +373,15 @@ module.exports = Thunder => {
 					} else {
 						$summaryBox.append(template);
 					}
-					calculatePriceSeparated();
+					calculatePrice();
 
 					// separated 선택된 옵션 제거 이벤트
 					$(`.thunder--selected-item-delete[data-id="${targetId}"]`).on('click', () => {
 						deleteBundleOption(targetId);
-						calculatePriceSeparated();
+						calculatePrice();
 					});
 					Thunder.util.quantityInput($(`.thunder--selected-bundle[data-id="${targetId}"]`));
-					$(`.thunder--selected-bundle[data-id="${targetId}"]`).on('change', calculatePriceSeparated);
+					$(`.thunder--selected-bundle[data-id="${targetId}"]`).on('change', calculatePrice);
 				}
 			}
 
@@ -593,6 +596,7 @@ module.exports = Thunder => {
 			$bundleItems.each(function() {
 
 				const [product, variant] = ($(this).find('select').val() || '').split('.');
+
 				let bundleItemQuantity = 0;
 
 				if (currentOption === 'combined') {
@@ -618,17 +622,30 @@ module.exports = Thunder => {
 			let itemQuantity = currentOption === 'combined' ? $itemQuantityInput.val() :
 				$('.thunder--selected-variant').find('input[type="number"]').val();
 
-			const variant = $('.thunder--selected-variant').data('id'); // separated;
+			if (currentOption === 'separated' && !product.options.length) {
+				itemQuantity = $('.thunder--product-option').find('input[type="number"]').val();
+			}
 
-			return {
-				product:        product._id,
-				variant:        currentOption === 'combined' ? $variantSelector.val() : variant ||
+			const variant = {
+				combined: $variantSelector.val() ||
 								(
 									product.variants.length === 1 ?
 										product.variants[0]._id :
 										null
 								) ||
 								null,
+				separated: $('.thunder--selected-variant').data('id') ||
+								(
+									product.variants.length === 1 ?
+										product.variants[0]._id :
+										null
+								) ||
+								null
+			};
+
+			return {
+				product:        product._id,
+				variant:        variant[currentOption],
 				shippingMethod: shippingMethod,
 				quantity:       itemQuantity ? parseInt(itemQuantity) : null,
 				bundleItems:    bundleItems

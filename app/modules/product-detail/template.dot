@@ -60,6 +60,17 @@
 					</div>
 				{{~ }}
 				</div>
+				{{? !it.product.options.length }}
+				<div class="thunder--item-quantity">
+
+					<label class="thunder--label">{{= it.m('quantity') }}</label>
+
+					<div>
+						<input type="number" name="quantity" value="1" min="1" class="thunder--quantity" />
+					</div>
+
+				</div>
+				{{? }}
 			</div>
 
 			{{? }}

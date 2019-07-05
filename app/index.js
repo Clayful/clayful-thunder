@@ -57,7 +57,7 @@ const Thunder = function(options) {
 			// 'sold-out',
 			// 'discounted'
 		],
-		productOptionSelector: 'separated',
+		productOptionSelector: 'combined',
 		productReview:        true,
 		productReviewRating:  true,
 		productReviewComment: true,
