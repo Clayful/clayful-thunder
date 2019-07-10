@@ -56,6 +56,24 @@ module.exports = Thunder => {
 				null,
 		].filter(v => v).join(' + ');
 
+		context.calculateExpiresAt = (order, item) => {
+
+			const { type, value } = item.download.policy.expires;
+
+			if (!type) return null;
+
+			return type === 'at' ?
+				new Date(value.raw) :
+				Thunder.util.addTime(order.createdAt.raw, type, value.raw);
+		};
+
+		context.toDateValues = date => ({
+			year:  date.getFullYear().toString(),
+			month: (date.getMonth() + 1).toString(),
+			date:  date.getDate().toString(),
+			hours: date.getHours().toString(),
+		});
+
 		const translationKeys = {
 			'name.first': 'firstName',
 			'name.last':  'lastName',
@@ -75,6 +93,12 @@ module.exports = Thunder => {
 			key: key,
 			translationKey: camelCase(['address', translationKeys[key] || key]),
 		}));
+
+		context.undownloadableStatuses = {
+			placed:       true,
+			cancelled:    true,
+			'under-paid': true,
+		};
 
 		return context.options.updateTransactions ?
 				// Since we are trying to make the order up-to-date with the best effort,
@@ -101,6 +125,28 @@ module.exports = Thunder => {
 				return items.concat(item, item.bundleItems || []);
 			}, []);
 			const itemsAndShipments = [].concat(allItems, order.shipments);
+
+			allItems.forEach(item => {
+				// 환불 여부 플래그
+				item.refunded = Thunder.util.checkItemRefunded(order, item._id);
+
+				// 다운로드 가능 여부 플래그
+				item.downloadable = (
+					item.type === 'downloadable' && // 다운로드 상품이면서
+					!item.refunded &&               // 환불되지 않았고
+					(
+						// 다운로드 가능 횟수 제한이 없거나, 제한량을 넘기지 않았고
+						!item.download.policy.count ||
+						item.download.downloaded.raw < item.download.policy.count.raw
+					) &&
+					(
+						// 만료 날짜 제한이 없거나, 만료일이 지나지 않은 상품
+						!item.download.policy.expires.type ||
+						context.calculateExpiresAt(order, item).valueOf() > Date.now()
+					)
+				);
+
+			});
 
 			itemsAndShipments.forEach(item => {
 
@@ -218,9 +264,11 @@ module.exports = Thunder => {
 		const $cancellationReason = $cancellationForm.find('textarea');
 		const $cancelButton = $cancellationForm.find('button');
 		const $requestRefund = $(this).find('.thunder--request-refund');
+		const $downloadButton = $(this).find('.thunder--download-button');
 
 		const cancelButtonSpinner = Thunder.util.makeAsyncButton($cancelButton);
 
+		$downloadButton.on('click', getDownloadLink);
 		$subscriptionid.on('click', viewSubscription);
 		$markAsReceived.on('click', markAsReceived);
 		$markAsNotReceived.on('click', markAsNotReceived);
@@ -272,6 +320,40 @@ module.exports = Thunder => {
 				});
 
 			}));
+		}
+
+		function getDownloadLink() {
+
+			const $item = $(this).parents('[data-item]').eq(0);
+			const itemId = $item.data('bundleItem') || $item.data('item');
+			const orderId = context.order._id;
+
+			return Thunder.request({
+				method: 'POST',
+				url:    `/v1/me/orders/${orderId}/items/${itemId}/download/url`,
+			}).then(res => {
+				if (!res.url) return;
+
+				const $countView = $item.find('.thunder--download-count-view').eq(0);
+
+				if ($countView.length) {
+					$countView.data('current', $countView.data('current') + 1);
+					$countView.text(context.m('nTimesDownloaded', $countView.data()));
+				}
+
+				window.open(res.url);
+
+			}, err => {
+				if (err.responseJSON.errorCode === 'fully-used-item') {
+					return Thunder.notify('error', context.m('fullyUsedDownloadable'));
+				}
+				if (err.responseJSON.errorCode === 'expired-item') {
+					return Thunder.notify('error', context.m('expiredDownloadable'));
+				}
+				if (err.responseJSON.errorCode === 'refunded-item') {
+					return Thunder.notify('error', context.m('refundedItem'));
+				}
+			});
 		}
 
 		function viewSubscription() {

@@ -358,6 +358,7 @@ Thunder.util = {
 	formatPrice:         require('./util/formatPrice').bind(Thunder),
 	getCurrency:         require('./util/getCurrency').bind(Thunder),
 	isExpired:           require('./util/isExpired').bind(Thunder),
+	addTime:             require('./util/addTime').bind(Thunder),
 	countryName:         require('./util/countryName').bind(Thunder),
 	customerIdentity:    require('./util/customerIdentity').bind(Thunder),
 	productName:         require('./util/productName').bind(Thunder),
@@ -382,6 +383,7 @@ Thunder.util = {
 	bindBackButton:      require('./util/bindBackButton').bind(Thunder),
 	followingNavigation: require('./util/followingNavigation').bind(Thunder),
 	quantityInput:       require('./util/quantityInput').bind(Thunder),
+	checkItemRefunded:   require('./util/checkItemRefunded').bind(Thunder),
 };
 
 // Global template methods
