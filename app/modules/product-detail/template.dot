@@ -45,14 +45,14 @@
 				{{? }}
 			</div>
 
-			{{? it.options.optionSelector === 'separated' }}
 			<div class="thunder--product-option">
-				<div class="thunder--product-variant separated {{= it.product.variants.length === 1 ? 'hidden' : '' }}">
+				{{? it.options.optionSelector === 'separated' }}
+				<div class="thunder--product-variant-filter separated {{= it.product.variants.length === 1 ? 'hidden' : '' }}">
 				{{~ it.product.options :option }}
 					<div class="thunder--product-option-wrap">
-						<label>{{= option.name }} 선택</label>
+						<label>{{= option.name }}{{= it.m('select') }}</label>
 						<select name="{{= option.name }}"  required>
-							<option value="" disabled selected>{{= it.m('selectVariant') }}</option>
+							<option value="" disabled selected>{{= option.name }}{{= it.m('select') }}</option>
 							{{~ option.variations :variation }}
 							<option value="{{= variation._id }}/{{= variation.value }}"> {{= variation.value }} </option>
 							{{~ }}
@@ -60,27 +60,12 @@
 					</div>
 				{{~ }}
 				</div>
-				{{? !it.product.options.length }}
-				<div class="thunder--item-quantity">
-
-					<label class="thunder--label">{{= it.m('quantity') }}</label>
-
-					<div>
-						<input type="number" name="quantity" value="1" min="1" class="thunder--quantity" />
-					</div>
-
-				</div>
 				{{? }}
-			</div>
-
-			{{? }}
-
-			{{? it.options.optionSelector === 'combined' }}
-			<div class="thunder--product-option">
+				<div class="thunder--product-variant-wrap {{= it.options.optionSelector === 'separated' ? 'separated' : 'combined' }}">
 				{{? it.product.variants.length > 0 }}
-				<div class="thunder--product-variant {{= it.product.variants.length === 1 ? 'hidden' : '' }}">
+				<div class="thunder--product-variant {{= it.options.optionSelector === 'separated' ? 'separated' : 'combined' }} {{= it.product.variants.length === 1 ? 'hidden' : '' }}">
 
-					<label>{{= it.m('selectVariant') }}</label>
+					<label>{{= it.m('selectedVariant') }}</label>
 
 					<select name="variant" required>
 						<option value="" disabled selected>{{= it.m('selectVariant') }}</option>
@@ -101,8 +86,7 @@
 				</div>
 				{{? }}
 
-
-				<div class="thunder--item-quantity">
+				<div class="thunder--item-quantity {{= it.options.optionSelector === 'separated' ? 'separated' : 'combined' }}">
 
 					<label class="thunder--label">{{= it.m('quantity') }}</label>
 
@@ -112,11 +96,9 @@
 
 				</div>
 			</div>
+			</div>
 
-			{{? }}
-
-
-			{{? it.product.bundles.length > 0 && it.options.optionSelector === 'combined' }}
+			{{? it.product.bundles.length > 0 }}
 			<div class="thunder--product-bundles">
 
 				<div>
@@ -154,40 +136,6 @@
 			</div>
 			{{? }}
 
-			{{? it.product.bundles.length > 0 && it.options.optionSelector === 'separated' }}
-			<div class="thunder--product-bundles separated">
-
-				<div>
-					<label class="thunder--label-select-bundle-item">{{= it.m('selectBundleItems') }}</label>
-				</div>
-
-				{{~ it.product.bundles :bundle }}
-				<div class="thunder--product-bundle-item separated">
-					<div class="thunder--product-variant separated">
-						<select>
-							<option value="" selected>
-								{{= bundle.name }}{{? bundle.required }} ({{= it.m('requiredBundle') }}){{? }}
-							</option>
-							{{~ bundle.items :item }}
-							<option value="{{= item.product._id }}.{{= item.variant._id }}" {{= it.isUnavailableVariant(item.product, item.variant) ? 'disabled' : '' }}>
-								{{= it.productName(item.product, item.variant) }}
-								&nbsp;/&nbsp;
-								{{= item.variant.price.sale.converted }}
-								{{=
-									it.isUnavailableVariant(item.product, item.variant) ?
-										' (' + it.m(it.isUnavailableVariant(item.product, item.variant)) + ')' :
-										''
-								}}
-							</option>
-							{{~ }}
-						</select>
-					</div>
-				</div>
-				{{~ }}
-
-			</div>
-			{{? }}
-
 			{{? it.product.type === 'tangible' }}
 			<div class="thunder--shipping-method">
 
@@ -204,12 +152,14 @@
 			</div>
 			{{? }}
 
-			{{? it.options.optionSelector === 'separated'}}
-			<div class="thunder--summary-box"></div>
-			{{? }}
-			<div class="thunder--product-detail-buttons {{= it.options.optionSelector === 'separated' ? 'separated' : '' }} {{= it.options.productActions.length === 1 ? 'single-action' : '' }}">
+			<div class="thunder--price-total-wrap">
+				<span class="thunder--price-total-label">{{= it.m('priceTotal') }} : </span>
+				<span data-value="" class="thunder--price-total-value"></span>
+			</div>
 
-				{{? !it.isUnavailableProduct(it.product) }}
+			<div class="thunder--product-detail-buttons {{= it.options.optionSelector === 'separated' ? 'separated' : 'combined' }} {{= it.options.productActions.length === 1 ? 'single-action' : '' }}">
+
+				{{? !it.isUnavailableProduct(it.product) && !it.isSoldOutProduct(it.product) }}
 				{{~ it.options.productActions :action:index }}
 				<button class="thunder--button thunder--{{= action }} {{= index === 0 && it.options.productActions.length === 2 ? 'skeleton' : '' }}">
 					{{= it.m(it.camelCase(action)) }}
@@ -225,6 +175,12 @@
 				<div class="thunder--product-detail-button-helpers">
 					<a href="#" class="thunder--go-to-cart">{{= it.m('goToCart') }}</a>
 				</div>
+
+				<!-- soldOut product -->
+				{{? it.isSoldOutProduct(it.product) && !it.isUnavailableProduct(it.product) }}
+				<button class="thunder--button" disabled>{{= it.m('soldOutProduct') }}</button>
+				{{? }}
+
 
 			</div>
 

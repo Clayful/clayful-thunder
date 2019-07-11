@@ -149,7 +149,21 @@
 			margin-top: 14px;
 		}
 
+		.thunder--product-variant-wrap.separated {
+			border-top: #eee 1px solid;
+		}
+
 		.thunder--product-variant {
+			float: left;
+			margin-right: 3%;
+			width: 67%;
+
+			&.separated {
+				padding-top: 12px;
+			}
+		}
+
+		.thunder--product-variant-filter {
 			float: left;
 			margin-right: 3%;
 			width: 67%;
@@ -157,9 +171,8 @@
 			&.separated {
 				float: none;
 				padding-top: 12px;
+				padding-bottom: 12px;
 				margin-top: 14px;
-				width: 100%;
-				border-top: #eee 1px solid;
 				div.thunder--product-option-wrap:not(:first-child) {
 					margin-top: 10px;
 				}
@@ -171,18 +184,6 @@
 				border-top: 0;
 				padding-top: 0;
 				margin-top: 8px;
-			}
-		}
-
-		.thunder--summary-box {
-			background-color: #eee;
-			margin-top: 16px;
-			.thunder--price-total-wrap {
-				padding-left: 16px;
-				padding-bottom: 10px;
-				border-top: 4px solid #ddd;
-				margin-top: 0;
-				padding-top: 4px;
 			}
 		}
 
@@ -234,6 +235,9 @@
 		.thunder--item-quantity {
 			float: left;
 			width: 30%;
+			&.separated {
+				padding-top: 12px;
+			}
 		}
 
 		.thunder--shipping-method {
@@ -274,6 +278,7 @@
 		}
 
 		.thunder--price-total-wrap {
+			display: none;
 			margin-top: 10px;
 			span {
 				font-size: 20px;
