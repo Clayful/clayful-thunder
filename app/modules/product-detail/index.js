@@ -88,10 +88,16 @@ module.exports = Thunder => {
 			query:  {
 				embed: '+bundles.items.product.shipping'
 			}
-		}).then((data, textStatus, jqXHR) => {
-			Thunder.util.getCurrency(jqXHR.getResponseHeader('content-currency'))
-			.then(res => context.currency = res, err => new Error(err));
-			return callback(null, set(context, 'product', data));
+		}).then((product, textStatus, jqXHR) => {
+
+			return Thunder.util.getCurrency(jqXHR.getResponseHeader('content-currency')).then(currency => {
+
+				context.currency = currency;
+				context.product = product;
+
+				return callback(null, context);
+
+			});
 
 		}, err => Thunder.util.requestErrorHandler(
 			err.responseJSON,
