@@ -157,7 +157,7 @@
 				<span data-value="" class="thunder--price-total-value"></span>
 			</div>
 
-			<div class="thunder--product-detail-buttons {{= it.options.optionSelector === 'separated' ? 'separated' : 'combined' }} {{= it.options.productActions.length === 1 ? 'single-action' : '' }}">
+			<div class="thunder--product-detail-buttons {{= it.options.productActions.length === 1 ? 'single-action' : '' }}">
 
 				{{? !it.isUnavailableProduct(it.product) && !it.isSoldOutProduct(it.product) }}
 				{{~ it.options.productActions :action:index }}
