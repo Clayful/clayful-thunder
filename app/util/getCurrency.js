@@ -1,17 +1,22 @@
 module.exports = function(code) {
-	const deferred = $.Deferred();
 
-	if (!code) return deferred.reject('code is required.');
+	if (!code) {
+		return deferred.reject(new Error('Currency code is required.'));
+	}
 
 	code = code.toUpperCase();
 
-	if (sessionStorage.getItem(`__currency:${code}__`)) {
-		deferred.resolve(JSON.parse(sessionStorage.getItem(`__currency:${code}__`)));
-	}
+	const deferred = $.Deferred();
+	const key = `__currency:${code}__`;
+	const saved = sessionStorage.getItem(key);
 
-	if (!sessionStorage.getItem(`__currency:${code}__`)) {
+	if (saved) {
 
-		window.Thunder.request({
+		return deferred.resolve(JSON.parse(saved));
+
+	} else {
+
+		Thunder.request({
 			method: 'GET',
 			url: '/v1/currencies',
 			query: {
@@ -26,7 +31,7 @@ module.exports = function(code) {
 				code: code,
 			}
 		}).then(res => {
-			sessionStorage.setItem(`__currency:${code}__`, JSON.stringify(res[0]));
+			sessionStorage.setItem(key, JSON.stringify(res[0]));
 			return deferred.resolve(res[0]);
 		});
 	}
