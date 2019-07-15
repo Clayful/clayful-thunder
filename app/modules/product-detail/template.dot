@@ -71,14 +71,14 @@
 						<option value="" disabled selected>{{= it.m('selectVariant') }}</option>
 						{{~ it.product.variants :variant }}
 							<option value="{{= variant._id }}" {{= it.isUnavailableVariant(it.product, variant) ? 'disabled' : '' }}>
+								{{=
+									it.isUnavailableVariant(it.product, variant) ?
+										'[' + it.m(it.isUnavailableVariant(it.product, variant)) + '] ' :
+										''
+								}}
 								{{= it.variantName(variant) }}
 								&nbsp;/&nbsp;
 								{{= variant.price.sale.converted }}
-								{{=
-									it.isUnavailableVariant(it.product, variant) ?
-										' (' + it.m(it.isUnavailableVariant(it.product, variant)) + ')' :
-										''
-								}}
 							</option>
 						{{~ }}
 					</select>
