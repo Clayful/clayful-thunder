@@ -207,29 +207,6 @@
 				position: relative;
 				top: 8px;
 			}
-			.thunder--selected-item-delete {
-				font-size: 32px;
-				line-height: 0;
-				position: absolute;
-				right: 10px;
-				top: 25px;
-				color: #A9A9A9;
-				cursor: pointer;
-				&:hover {
-					color: #222;
-				}
-			}
-			.thunder--selected-item {
-				float: left;
-				width: 67%;
-				margin-right: 3%;
-				padding: 6px;
-				padding-left: 16px;
-				box-sizing: border-box;
-				.thunder--selected-item-price {
-					margin: 0;
-				}
-			}
 		}
 
 		.thunder--item-quantity {
