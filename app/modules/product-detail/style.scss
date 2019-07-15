@@ -149,10 +149,6 @@
 			margin-top: 14px;
 		}
 
-		.thunder--product-variant-wrap.separated {
-			border-top: #eee 1px solid;
-		}
-
 		.thunder--product-variant {
 			float: left;
 			margin-right: 3%;
@@ -160,18 +156,17 @@
 		}
 
 		.thunder--product-variant-filter {
-			float: left;
-			margin-right: 3%;
-			width: 67%;
+			width: 100%;
+			margin-bottom: 12px;
+			padding-bottom: 14px;
+			border-bottom: #eee 1px solid;
+			div.thunder--product-option-wrap {
 
-			&.separated {
-				float: none;
-				padding-top: 12px;
-				padding-bottom: 12px;
-				margin-top: 14px;
-				div.thunder--product-option-wrap:not(:first-child) {
+				width: 67%;
+				&:not(:first-child) {
 					margin-top: 10px;
 				}
+
 			}
 		}
 
