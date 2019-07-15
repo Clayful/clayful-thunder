@@ -171,15 +171,15 @@
 				{{? it.isUnavailableProduct(it.product) }}
 				<button class="thunder--button" disabled>{{= it.m('unavailableProduct') }}</button>
 				{{? }}
+				<!-- sold-out product -->
+				{{? it.isSoldOutProduct(it.product) && !it.isUnavailableProduct(it.product) }}
+				<button class="thunder--button" disabled>{{= it.m('soldOutProduct') }}</button>
+				{{? }}
 
 				<div class="thunder--product-detail-button-helpers">
 					<a href="#" class="thunder--go-to-cart">{{= it.m('goToCart') }}</a>
 				</div>
 
-				<!-- soldOut product -->
-				{{? it.isSoldOutProduct(it.product) && !it.isUnavailableProduct(it.product) }}
-				<button class="thunder--button" disabled>{{= it.m('soldOutProduct') }}</button>
-				{{? }}
 
 
 			</div>
