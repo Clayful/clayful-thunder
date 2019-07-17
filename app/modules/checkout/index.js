@@ -238,6 +238,7 @@ module.exports = Thunder => {
 			const $sameForRecipient = $(this).find('[name="sameForRecipient"]');
 			const $saveAsPrimaryAddress = $(this).find('#thunder--save-primary-address-agreement');
 			const $searchAddress = $(this).find('.thunder--search-address');
+			const $disabledAddressInputs = $(this).find('.thunder--address-location div [readonly]').parent();
 			const $applyAddress = $(this).find('.thunder--apply-address');
 			const $orderRequest = $(this).find('[name="request"]');
 			const $totalDetails = $(this).find('.thunder--total-details');
@@ -333,6 +334,7 @@ module.exports = Thunder => {
 			$sameForRecipient.on('change', copyToRecipient);
 			$applyAddress.on('click', applyChanges);
 			$searchAddress.on('click', searchAddress);
+			$disabledAddressInputs.on('click', searchAddress);
 
 			$goToUpdateCustomer.on('click', () => {
 				return Thunder.render($container, 'customer-update', {
