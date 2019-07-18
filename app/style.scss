@@ -1,5 +1,6 @@
 @import '../node_modules/balloon-css/src/balloon.scss';
 @import '../node_modules/pikaday/scss/pikaday.scss';
+@import '../node_modules/lightslider/dist/css/lightslider.min';
 @import './setting.scss';
 @import './theme.scss';
 
@@ -19,6 +20,7 @@
 	@import './custom-normalize.scss';
 	@import './formalize.scss';
 
+	@import './modules/catalog-slider/style.scss';
 	@import './modules/cart/style.scss';
 	@import './modules/cart/style.tablet.scss';
 	@import './modules/cart/style.mobile.scss';

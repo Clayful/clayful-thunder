@@ -283,6 +283,7 @@ Thunder.methods = {};
 // Specs for components
 Thunder.components = {
 	cart:                         component(require('./modules/cart')(Thunder)),
+	'catalog-slider':             component(require('./modules/catalog-slider')(Thunder)),
 	checkout:                     component(require('./modules/checkout')(Thunder)),
 	'checkout-success':           component(require('./modules/checkout-success')(Thunder)),
 	'product-list':               component(require('./modules/product-list')(Thunder)),
@@ -329,6 +330,8 @@ Thunder.uis = {
 	'review-stars':       require('./ui/review-stars').bind(Thunder),
 	'review-star-rating': require('./ui/review-star-rating').bind(Thunder),
 	'text-box-overlay':   require('./ui/text-box-overlay').bind(Thunder),
+	'left-arrow':         require('./ui/left-arrow').bind(Thunder),
+	'right-arrow':        require('./ui/right-arrow').bind(Thunder)
 };
 
 // Plugins (address search, payment, ...)

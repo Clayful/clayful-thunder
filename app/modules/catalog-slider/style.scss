@@ -1,0 +1,33 @@
+.thunder--catalog-slider-wrapper {
+	width:100%;
+
+	ul {
+		list-style: none outside none;
+		padding-left: 0;
+		margin-bottom:0;
+	}
+	li {
+		display: block;
+		float: left;
+		margin-right: 6px;
+		cursor:pointer;
+		position: relative;
+		div.thunder--slider-title-wrap {
+			position: absolute;
+			width: 100%;
+			bottom: 0;
+			left: 0;
+			background-color: rgba(#000, .3);
+			height: 24px;
+			span {
+				color: #fff;
+				margin-left: 8px;
+			}
+		}
+	}
+	img {
+		display: block;
+		height: auto;
+		max-width: 100%;
+	}
+}

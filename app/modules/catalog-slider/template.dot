@@ -1,0 +1,22 @@
+<div class="thunder--catalog-slider-wrapper">
+
+	<ul class="thunder--catlaog-slider">
+
+		{{~ it['catalog-slider'].items :item }}
+		<li data-thumb="{{= item.image.url }}">
+			{{? item.link }}
+				<a href="{{= item.link }}"><img src="{{= item.image.url }}" /></a>
+			{{? }}
+
+			{{? !item.link }}
+				<img src="{{= item.image.url }}" />
+			{{? }}
+			{{? it.options.showCaption && item.title }}
+				<div class="thunder--slider-title-wrap"><span>{{= item.title }}</span></div>
+			{{? }}
+		</li>
+		{{~ }}
+
+	</ul>
+
+</div>
