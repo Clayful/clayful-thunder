@@ -47,7 +47,7 @@
 
 			<div class="thunder--product-option">
 				{{? it.options.optionSelector === 'separated' }}
-				<div class="thunder--product-variant-filter separated {{= it.product.variants.length === 1 ? 'hidden' : '' }}">
+				<div class="thunder--product-variant-filter {{= it.product.variants.length === 1 ? 'hidden' : '' }}">
 				{{~ it.product.options :option }}
 					<div class="thunder--product-option-wrap">
 						<label>{{= option.name }}{{= it.m('select') }}</label>
@@ -61,9 +61,9 @@
 				{{~ }}
 				</div>
 				{{? }}
-				<div class="thunder--product-variant-wrap {{= it.options.optionSelector === 'separated' ? 'separated' : 'combined' }}">
+				<div class="thunder--product-variant-wrap">
 				{{? it.product.variants.length > 0 }}
-				<div class="thunder--product-variant {{= it.options.optionSelector === 'separated' ? 'separated' : 'combined' }} {{= it.product.variants.length === 1 ? 'hidden' : '' }}">
+				<div class="thunder--product-variant {{= it.product.variants.length === 1 ? 'hidden' : '' }}">
 
 					<label>{{= it.m('selectedVariant') }}</label>
 
@@ -86,7 +86,7 @@
 				</div>
 				{{? }}
 
-				<div class="thunder--item-quantity {{= it.options.optionSelector === 'separated' ? 'separated' : 'combined' }}">
+				<div class="thunder--item-quantity">
 
 					<label class="thunder--label">{{= it.m('quantity') }}</label>
 
