@@ -178,28 +178,6 @@
 			}
 		}
 
-		.thunder--selected-variant, .thunder--selected-bundle {
-			width: 100%;
-			position: relative;
-			min-height: 30px;
-			margin-top: 0;
-			padding: 0;
-			&.thunder--selected-variant {
-				border-top: 1px solid #ddd;
-				border-bottom: 2px solid #ddd;
-			}
-			&:hover {
-				background-color: darken(#eee, 5);
-			}
-
-			@include clearfix;
-
-			.thunder--item-quantity {
-				position: relative;
-				top: 8px;
-			}
-		}
-
 		.thunder--item-quantity {
 			float: left;
 			width: 30%;
