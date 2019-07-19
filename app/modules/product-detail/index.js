@@ -186,7 +186,7 @@ module.exports = Thunder => {
 		}, {});
 
 		const $container = $(this);
-		const $variantSelector = $(this).find('.thunder--product-info .thunder--product-variant-wrap .thunder--product-variant select');
+		const $variantSelector = $(this).find('.thunder--product-info .thunder--product-option .thunder--product-variant select');
 		const $shippingMethodSelector = $(this).find('.thunder--shipping-method select');
 		const $itemQuantityInput = $(this).find('.thunder--item-quantity input');
 		const $bundleItems = $(this).find('.thunder--product-bundle-item');

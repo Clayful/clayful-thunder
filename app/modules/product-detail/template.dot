@@ -61,7 +61,6 @@
 				{{~ }}
 				</div>
 				{{? }}
-				<div class="thunder--product-variant-wrap">
 				{{? it.product.variants.length > 0 }}
 				<div class="thunder--product-variant {{= it.product.variants.length === 1 ? 'hidden' : '' }}">
 
@@ -95,7 +94,6 @@
 					</div>
 
 				</div>
-			</div>
 			</div>
 
 			{{? it.product.bundles.length > 0 }}
