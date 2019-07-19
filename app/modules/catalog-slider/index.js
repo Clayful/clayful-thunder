@@ -34,6 +34,12 @@ module.exports = Thunder => {
 				].join(',')
 			}
 		}).then(data => {
+
+			context.targetCheck = (url) => {
+				if (url[0] !== '/' && url.indexOf(window.location.host) === -1) return '_blank';
+				return '_self';
+			};
+
 			return callback(null, set(context, 'catalog-slider', data));
 		}, err => Thunder.util.requestErrorHandler(
 			err.responseJSON,

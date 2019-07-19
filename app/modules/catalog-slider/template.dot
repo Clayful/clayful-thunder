@@ -5,7 +5,7 @@
 		{{~ it['catalog-slider'].items :item }}
 		<li data-thumb="{{= item.image.url }}">
 			{{? item.link }}
-				<a href="{{= item.link }}"><img src="{{= item.image.url }}" /></a>
+				<a href="{{= item.link }}" target="{{= it.targetCheck(item.link) }}"><img src="{{= item.image.url }}" /></a>
 			{{? }}
 
 			{{? !item.link }}
