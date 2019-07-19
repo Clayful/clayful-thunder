@@ -337,10 +337,10 @@
 		},
 		'product-detail': {
 			quantity:                          '수량',
-			select:                            '선택',
+			selectOption:                      '%{option} 선택',
 			selectVariant:                     '세부 옵션 선택',
 			selectedVariant:                   '선택된 세부 옵션',
-			noneVariant:                       '세부옵션에 해당 옵션이 없습니다.',
+			notExistingVariant:                '세부 옵션에 해당 옵션이 없습니다.',
 			notAvailableVariant:               '구매 불가',
 			soldOutVariant:                    '품절',
 			selectShippingMethod:              '배송 방식 선택',

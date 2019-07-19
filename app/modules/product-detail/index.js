@@ -252,7 +252,7 @@ module.exports = Thunder => {
 			const $selectedOption = $('.thunder--product-option .thunder--product-variant-wrap .thunder--product-variant.separated');
 
 			if (!value && target.indexOf('none') === -1) {
-				Thunder.notify('error', context.m('noneVariant'));
+				Thunder.notify('error', context.m('notExistingVariant'));
 				$('.thunder--price-total-value').text('');
 			}
 

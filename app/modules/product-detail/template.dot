@@ -50,9 +50,9 @@
 				<div class="thunder--product-variant-filter {{= it.product.variants.length === 1 ? 'hidden' : '' }}">
 				{{~ it.product.options :option }}
 					<div class="thunder--product-option-wrap">
-						<label>{{= option.name }}{{= it.m('select') }}</label>
-						<select name="{{= option.name }}"  required>
-							<option value="" disabled selected>{{= option.name }}{{= it.m('select') }}</option>
+						<label>{{= it.m('selectOption', { option: option.name }) }}</label>
+						<select name="{{= option.name }}" required>
+							<option value="" disabled selected>{{= it.m('selectOption', { option: option.name }) }}</option>
 							{{~ option.variations :variation }}
 							<option value="{{= variation._id }}/{{= variation.value }}"> {{= variation.value }} </option>
 							{{~ }}
