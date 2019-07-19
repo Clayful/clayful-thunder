@@ -93,11 +93,43 @@ module.exports = Thunder => {
 			return Thunder.util.getCurrency(jqXHR.getResponseHeader('content-currency')).then(currency => {
 
 				context.currency = currency;
-				context.product = product;
+				context.product = moveUnavailablesToEnd(product);
 
 				return callback(null, context);
 
 			});
+
+			function moveUnavailablesToEnd(product) {
+
+				const okVariants = [];
+				const notOkVariants = [];
+
+				product.variants.forEach(variant => {
+					return context.isUnavailableVariant(product, variant) ?
+							notOkVariants.push(variant) :
+							okVariants.push(variant)
+				});
+
+				product.variants = [].concat(okVariants, notOkVariants);
+
+				product.bundles.forEach(bundle => {
+
+					const okItems = [];
+					const notOkItems = [];
+
+					bundle.items.forEach(item => {
+						return context.isUnavailableVariant(item.product, item.variant) ?
+								notOkItems.push(item) :
+								okItems.push(item)
+					});
+
+					bundle.items = [].concat(okItems, notOkItems);
+
+				});
+
+				return product;
+
+			}
 
 		}, err => Thunder.util.requestErrorHandler(
 			err.responseJSON,
