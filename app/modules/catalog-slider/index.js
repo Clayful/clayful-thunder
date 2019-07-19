@@ -67,7 +67,7 @@ module.exports = Thunder => {
 			nextHtml: `<img src="${Thunder.uis['right-arrow']()}">`
 		};
 
-		$('.thunder--catlaog-slider').lightSlider(options);
+		$(this).find('.thunder--catlaog-slider').lightSlider(options);
 
 	};
 
