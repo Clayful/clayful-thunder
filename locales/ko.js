@@ -53,9 +53,6 @@
 			registerByKakao:     '카카오로 가입',
 			registerByNaver:     '네이버로 가입',
 		},
-		'catalog-slider': {
-			loadFailed: '카탈로그를 읽어오는데 실패했습니다.'
-		},
 		'customer-register': {
 			register:                 '가입',
 			userId:                   '아이디',

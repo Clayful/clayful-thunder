@@ -17,9 +17,7 @@ module.exports = Thunder => {
 	});
 
 	implementation.pre = function(context, callback) {
-		const errors = {
-			default: context.m('loadFailed')
-		};
+		const errors = {};
 
 		const catalogId = context.options.catalog;
 
@@ -36,11 +34,14 @@ module.exports = Thunder => {
 		}).then(data => {
 
 			context.targetCheck = (url) => {
-				if (url[0] !== '/' && url.indexOf(window.location.host) === -1) return '_blank';
-				return '_self';
+				const urlTarget = document.createElement('a');
+
+				urlTarget.href = url;
+
+				return urlTarget.host === window.location.host ? '_self' : '_blank';
 			};
 
-			return callback(null, set(context, 'catalog-slider', data));
+			return callback(null, set(context, 'catalogSlider', data));
 		}, err => Thunder.util.requestErrorHandler(
 			err.responseJSON,
 			errors,
