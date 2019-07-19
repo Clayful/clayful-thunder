@@ -280,7 +280,6 @@ module.exports = Thunder => {
 			}, {});
 			const target = selectItems.join('.');
 			const value = variantsMap[target] || null;
-			const $selectedOption = $('.thunder--product-option .thunder--product-variant-wrap .thunder--product-variant.separated');
 
 			if (!value && target.indexOf('none') === -1) {
 				Thunder.notify('error', context.m('notExistingVariant'));
@@ -289,8 +288,8 @@ module.exports = Thunder => {
 
 			if (!value) $('.thunder--price-total-wrap').hide('on');
 
-			$selectedOption.find('select').val(value);
-			calculatePrice($selectedOption.find('select'));
+			$variantSelector.val(value);
+			calculatePrice($variantSelector);
 		});
 
 
