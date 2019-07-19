@@ -232,7 +232,6 @@ module.exports = Thunder => {
 			if (!price) $('.thunder--price-total-wrap').hide('on');
 
 			$('.thunder--price-total-value').text(Thunder.util.formatPrice(price, context.currency));
-			$('.thunder--price-total-value').data('value', price);
 		};
 
 		// 옵션 선택 이벤트 ('separated')

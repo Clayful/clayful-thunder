@@ -153,8 +153,8 @@
 			{{? }}
 
 			<div class="thunder--price-total-wrap">
-				<span class="thunder--price-total-label">{{= it.m('priceTotal') }} : </span>
-				<span data-value="" class="thunder--price-total-value"></span>
+				<span class="thunder--price-total-label">{{= it.m('priceTotal') }}: </span>
+				<span class="thunder--price-total-value"></span>
 			</div>
 
 			<div class="thunder--product-detail-buttons {{= it.options.productActions.length === 1 ? 'single-action' : '' }}">
