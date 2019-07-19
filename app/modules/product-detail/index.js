@@ -206,7 +206,6 @@ module.exports = Thunder => {
 		const $optionSelect = $(this).find('.thunder--product-option-wrap select');
 
 		const addToCartSpinner = Thunder.util.makeAsyncButton($addToCart);
-		const currentOption = context.options.optionSelector;
 
 		productCatalog($container);
 
@@ -441,6 +440,7 @@ module.exports = Thunder => {
 			return true;
 
 			function validateQuantity(scope, item) {
+
 				if (!item.quantity) {
 					Thunder.notify('error', context.m('itemQuantityRequired', { scope }));
 					return false;
@@ -461,16 +461,14 @@ module.exports = Thunder => {
 		}
 
 		function buildItemData() {
+
 			const shippingMethod = $shippingMethodSelector.val();
 			const bundleItems = [];
 
 			$bundleItems.each(function() {
 
 				const [product, variant] = ($(this).find('select').val() || '').split('.');
-
-				let bundleItemQuantity = 0;
-
-				bundleItemQuantity = $(this).find('input[type="number"]').val();
+				const bundleItemQuantity = $(this).find('input[type="number"]').val() || 0;
 
 				if (!product || !variant) return;
 
@@ -485,14 +483,12 @@ module.exports = Thunder => {
 
 			});
 
-			let itemQuantity = $itemQuantityInput.val();
-			const variant = $variantSelector.val() ||
-								(
-									product.variants.length === 1 ?
-										product.variants[0]._id :
-										null
-								) ||
-								null;
+			const itemQuantity = $itemQuantityInput.val() || 0;
+			const variant = $variantSelector.val() || (
+				product.variants.length === 1 ?
+					product.variants[0]._id :
+					null
+			) || null;
 
 			return {
 				product:        product._id,
