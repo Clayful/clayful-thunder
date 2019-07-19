@@ -64,7 +64,11 @@
 				{{? it.product.variants.length > 0 }}
 				<div class="thunder--product-variant {{= it.product.variants.length === 1 ? 'hidden' : '' }}">
 
-					<label>{{= it.m('selectedVariant') }}</label>
+					<label>{{=
+						it.options.optionSelector === 'separated' ?
+							it.m('selectedVariant') :
+							it.m('selectVariant')
+					}}</label>
 
 					<select name="variant" required>
 						<option value="" disabled selected>{{= it.m('selectVariant') }}</option>
