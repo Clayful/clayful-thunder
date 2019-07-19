@@ -77,6 +77,14 @@ module.exports = Thunder => {
 
 		};
 
+		context.showOptionSelector = () => {
+			return (
+				context.options.optionSelector === 'separated' &&
+				context.product.options.length >= 2 &&
+				context.product.variants.length >= 2
+			);
+		};
+
 		const errors = {
 			'not-existing-product': context.m('notExistingProduct'),
 			default:                context.m('productReadFailed')

@@ -47,7 +47,7 @@
 
 			<div class="thunder--product-option">
 				{{? it.options.optionSelector === 'separated' }}
-				<div class="thunder--product-variant-filter {{= it.product.variants.length === 1 ? 'hidden' : '' }}">
+				<div class="thunder--product-variant-filter {{= it.showOptionSelector() ? '' : 'hidden' }}">
 				{{~ it.product.options :option }}
 					<div class="thunder--product-option-wrap">
 						<label>{{= it.m('selectOption', { option: option.name }) }}</label>
@@ -65,7 +65,7 @@
 				<div class="thunder--product-variant {{= it.product.variants.length === 1 ? 'hidden' : '' }}">
 
 					<label>{{=
-						it.options.optionSelector === 'separated' ?
+						it.showOptionSelector() ?
 							it.m('selectedVariant') :
 							it.m('selectVariant')
 					}}</label>
