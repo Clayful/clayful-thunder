@@ -194,16 +194,25 @@ module.exports = Thunder => {
 		}, {});
 
 		const $container = $(this);
+		const $optionSelect = $(this).find('.thunder--product-option-wrap select');
 		const $variantSelector = $(this).find('.thunder--product-info .thunder--product-option .thunder--product-variant select');
 		const $shippingMethodSelector = $(this).find('.thunder--shipping-method select');
 		const $itemQuantityInput = $(this).find('.thunder--item-quantity input');
 		const $bundleItems = $(this).find('.thunder--product-bundle-item');
 		const $bundleItemSelectors = $bundleItems.find('select');
+		const $totalWrap = $(this).find('.thunder--price-total-wrap');
+		const $totalValue = $(this).find('.thunder--price-total-value');
 		const $addToCart = $(this).find('.thunder--add-to-cart');
 		const $buyNow = $(this).find('.thunder--buy-now');
 		const $goToCart = $(this).find('.thunder--go-to-cart');
 
-		const $optionSelect = $(this).find('.thunder--product-option-wrap select');
+		const variationToVariants = context.product.variants.reduce((o, v) => {
+
+			const key = v.types.map(type => type.variation._id).sort().join('.');
+
+			return set(o, [key], v._id);
+
+		}, {});
 
 		const addToCartSpinner = Thunder.util.makeAsyncButton($addToCart);
 
@@ -275,25 +284,20 @@ module.exports = Thunder => {
 
 		// 옵션 선택 이벤트 ('separated')
 		$optionSelect.on('change', () => {
-			const selectItems = [];
 
-			$optionSelect.each((i, v) => {
-				selectItems.push($(v).val() ? $(v).val().split('/')[0] : 'none');
-			});
+			const variations = $optionSelect.map(function() {
+				return $(this).val();
+			}).get().sort();
 
-			const variantsMap = context.product.variants.reduce((o, v) => {
-				o[v.types.map(type => type.variation._id).join('.')] = v.sku;
-				return o;
-			}, {});
-			const target = selectItems.join('.');
-			const value = variantsMap[target] || null;
+			const key = variations.join('.');
 
-			if (!value && target.indexOf('none') === -1) {
+			const value = variationToVariants[key] || null;
+
+			if (!value && variations.length === $optionSelect.length) {
+				$totalWrap.hide('on');
+				$totalValue.text('');
 				Thunder.notify('error', context.m('notExistingVariant'));
-				$('.thunder--price-total-value').text('');
 			}
-
-			if (!value) $('.thunder--price-total-wrap').hide('on');
 
 			$variantSelector.val(value);
 			calculatePrice($variantSelector);
