@@ -333,11 +333,11 @@ module.exports = Thunder => {
 		}
 
 		function clearAllOptions() {
-			$('.thunder--price-total-wrap').remove();
-			$('.thunder--product-option select').val('');
-			$('.thunder--product-option input[type="number"]').val(1);
-			$('.thunder--product-bundles select').val('');
-			$('.thunder--product-bundles input[type="number"]').val(0);
+			$container.find('.thunder--price-total-wrap').remove();
+			$container.find('.thunder--product-option select').val('');
+			$container.find('.thunder--product-option input[type="number"]').val(1);
+			$container.find('.thunder--product-bundles select').val('');
+			$container.find('.thunder--product-bundles input[type="number"]').val(0);
 		}
 
 		function addToCart(success) {
@@ -372,8 +372,8 @@ module.exports = Thunder => {
 					data:   item
 				}).then(item => {
 					addToCartSpinner.done();
-					success(item);
-					clearAllOptions(currentOption);
+					clearAllOptions();
+					return success(item);
 				}, err => Thunder.util.requestErrorHandler(
 					err.responseJSON,
 					errors,
@@ -390,7 +390,7 @@ module.exports = Thunder => {
 					}
 
 					addToCartSpinner.done();
-					clearAllOptions(currentOption);
+					clearAllOptions();
 					return success(item);
 				});
 			}
