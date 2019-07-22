@@ -464,4 +464,6 @@ function getterSetter(field, child) {
 
 }
 
+Thunder.version = require('./version.json');
+
 window.Thunder = Thunder;
