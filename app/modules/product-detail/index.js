@@ -115,7 +115,7 @@ module.exports = Thunder => {
 				product.variants.forEach(variant => {
 					return context.isUnavailableVariant(product, variant) ?
 							notOkVariants.push(variant) :
-							okVariants.push(variant)
+							okVariants.push(variant);
 				});
 
 				product.variants = [].concat(okVariants, notOkVariants);
@@ -128,7 +128,7 @@ module.exports = Thunder => {
 					bundle.items.forEach(item => {
 						return context.isUnavailableVariant(item.product, item.variant) ?
 								notOkItems.push(item) :
-								okItems.push(item)
+								okItems.push(item);
 					});
 
 					bundle.items = [].concat(okItems, notOkItems);
