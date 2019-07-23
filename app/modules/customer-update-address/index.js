@@ -96,6 +96,7 @@ module.exports = Thunder => {
 		const $form = $(this).find('.thunder--customer-address-update-form');
 		const $button = $form.find('.thunder--update-address');
 		const $searchAddress = $(this).find('.thunder--search-address');
+		const $disabledAddressInputs = $(this).find('.thunder--address-location div [readonly]').parent();
 
 		const buttonSpinner = Thunder.util.makeAsyncButton($button, { bind: false });
 
@@ -112,6 +113,7 @@ module.exports = Thunder => {
 		addressToForm(context.address);
 
 		$searchAddress.on('click', searchAddress);
+		$disabledAddressInputs.on('click', searchAddress);
 
 		Thunder.util.makeRecaptcha({
 			componentName: implementation.name,
