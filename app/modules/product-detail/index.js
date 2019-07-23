@@ -232,7 +232,7 @@ module.exports = Thunder => {
 			const item = buildItemData();
 
 			if (!item || !item.variant || !item.quantity) {
-				return $totalWrap.fadeOut(400);
+				return $totalWrap.hide();
 			}
 
 			const price = [].concat(item, item.bundleItems || []).map(item => {
@@ -244,8 +244,9 @@ module.exports = Thunder => {
 
 			}).reduce((sum, price) => sum + price, 0);
 
-			$totalWrap[price ? 'fadeIn' : 'fadeOut'](400);
 			$totalValue.text(Thunder.util.formatPrice(price, context.currency));
+
+			return price ? $totalWrap.fadeIn(400) : $totalWrap.hide();
 		};
 
 		$variantSelector.on('change', function() {
@@ -272,7 +273,7 @@ module.exports = Thunder => {
 			const value = variationToVariants[key] || null;
 
 			if (!value && variations.length === $optionSelect.length) {
-				$totalWrap.fadeOut(400);
+				$totalWrap.hide();
 				$totalValue.text('');
 				Thunder.notify('error', context.m('notExistingVariant'));
 			}
