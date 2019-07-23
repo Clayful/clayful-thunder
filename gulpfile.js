@@ -1,6 +1,7 @@
 "use strict";
 
 const Path         = require('path');
+const fs           = require('fs');
 const es           = require('event-stream');
 const glob         = require('glob');
 const gulp         = require('gulp');
@@ -28,6 +29,8 @@ const style     = Path.join(app, 'style.scss');
 const styles    = Path.join(app, '**/*.scss');
 const templates = Path.join(app, 'modules/*/*.dot');
 const plugins   = './plugins/**';
+
+fs.writeFileSync(`./app/version.json`, `"${require('./package.json').version}"`, 'utf8');
 
 gulp.task('thunder', () => {
 
