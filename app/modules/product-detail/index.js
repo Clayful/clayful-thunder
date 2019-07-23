@@ -313,7 +313,8 @@ module.exports = Thunder => {
 		}
 
 		function clearAllOptions() {
-			$container.find('.thunder--price-total-wrap').remove();
+			$totalWrap.hide();
+			$totalValue.text('');
 			$container.find('.thunder--product-option select').val('');
 			$container.find('.thunder--product-option input[type="number"]').val(1);
 			$container.find('.thunder--product-bundles select').val('');
