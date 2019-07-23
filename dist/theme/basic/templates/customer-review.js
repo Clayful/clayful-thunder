@@ -1,1 +1,0 @@
-window.Thunder.components["customer-review"].template=function(e){var t='<div class="thunder--customer-review"><h2 class="'+(e.options.back?"thunder--with-back-button":"")+'">'+e.m("customerReview")+"</h2>";return e.options.back&&(t+='<a class="thunder--back-to-reviews">'+e.m("backToReviews")+"</a>"),t+='<div class="thunder--customer-review-container"></div></div>'};
