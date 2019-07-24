@@ -140,6 +140,7 @@ gulp.task('style', () => {
 			.pipe(rename({
 				basename: 'style'
 			}))
+			.pipe(replace(`background-image: url(../img/controls.png);`, ``))
 			.pipe(gulp.dest('dist/theme/basic'))
 			.pipe(csso())
 			.pipe(rename({

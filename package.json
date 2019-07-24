@@ -47,6 +47,7 @@
     "jquery-form": "^4.2.2",
     "jquery-match-height": "^0.7.2",
     "jstimezonedetect": "^1.0.6",
+    "lightslider": "^1.1.6",
     "lodash.camelcase": "^4.3.0",
     "lodash.get": "^4.4.2",
     "lodash.kebabcase": "^4.1.1",

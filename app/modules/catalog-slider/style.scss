@@ -1,0 +1,48 @@
+.thunder--catalog-slider-wrapper {
+
+	div.lSSlideOuter {
+		div.lSSlideWrapper {
+			div.lSAction {
+				a.lSPrev,
+				a.lSNext {
+					img {
+						width: 100%;
+					}
+				}
+			}
+		}
+		ul.lSPager.lSpg {
+			li {
+				a {
+					background-color: #e4e4e4;
+				}
+				&.active {
+					a {
+						background-color: #444;
+					}
+				}
+			}
+		}
+	}
+
+	li.thunder--slider-item {
+		cursor: pointer;
+		position: relative;
+		div.thunder--slider-title-wrap {
+			position: absolute;
+			width: 100%;
+			bottom: 0;
+			left: 0;
+			background-color: rgba(#000, .3);
+			padding: 2px 8px;
+			box-sizing: border-box;
+			font-size: 14px;
+			color: #fff;
+		}
+		img.thunder--slider-item-image {
+			display: block;
+			height: auto;
+			width: 100%;
+		}
+	}
+}
