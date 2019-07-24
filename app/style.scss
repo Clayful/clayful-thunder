@@ -182,6 +182,7 @@
 #thunder--overlay {
 	overflow: auto;
 	overflow-x: hidden;
+	-webkit-overflow-scrolling: touch;
 	position: fixed;
 	z-index: 9999;
 	margin: auto;
@@ -295,6 +296,7 @@
 .thunder--text-box-overlay {
 	overflow: auto;
 	overflow-x: hidden;
+	-webkit-overflow-scrolling: touch;
 	position: fixed;
 	z-index: 10000;
 	margin: auto;
