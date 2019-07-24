@@ -24,9 +24,10 @@ module.exports = Thunder => {
 			url:    `/v1/catalogs/${catalogId}`,
 			query:  {
 				fields: [
-					'items',
 					'slug',
-					'title'
+					'items.image',
+					'items.link',
+					'items.title',
 				].join(',')
 			}
 		}).then(data => {
