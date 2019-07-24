@@ -67,7 +67,22 @@ module.exports = Thunder => {
 			nextHtml:       `<img src="${Thunder.uis['right-arrow']()}">`
 		};
 
-		$(this).find('.thunder--catlaog-slider').lightSlider(options);
+		const slider = $(this).find('.thunder--catlaog-slider').lightSlider(options);
+
+		return {
+			// Expose slider methods
+			goToSlide:     slider.goToSlide,
+			goToPrevSlide: slider.goToPrevSlide,
+			goToNextSlide: slider.goToNextSlide,
+			play:          slider.play,
+			pause:         slider.pause,
+			// Expose custom destory method
+			destroy:       () => {
+				slider.pause();   // To clear interval
+				slider.destroy(); // Destroy the slider
+				slider.remove();  // Remove the DOM
+			},
+		};
 
 	};
 
