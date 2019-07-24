@@ -1,7 +1,5 @@
 const set = require('lodash.set');
 
-require('../../../node_modules/lightslider/dist/js/lightslider.min.js');
-
 module.exports = Thunder => {
 
 	// Implementation

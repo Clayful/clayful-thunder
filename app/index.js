@@ -2,6 +2,7 @@ require('babel-polyfill');
 require('imagesloaded');
 require('jquery-form')(window, $);
 require('jquery-match-height');
+require('lightslider/dist/js/lightslider.min.js');
 
 const Polyglot = require('node-polyglot');
 const jstz = require('jstimezonedetect');
