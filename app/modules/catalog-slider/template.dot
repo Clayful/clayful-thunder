@@ -5,7 +5,9 @@
 		{{~ it.catalogSlider.items :item }}
 		<li class="thunder--slider-item">
 			{{? item.link }}
-				<a href="{{= item.link }}" target="{{= it.targetCheck(item.link) }}"><img class="thunder--slider-item-image" src="{{= item.image.url }}" /></a>
+				<a href="{{= item.link }}" target="{{= it.targetCheck(item.link) }}">
+					<img class="thunder--slider-item-image" src="{{= item.image.url }}" />
+				</a>
 			{{? }}
 
 			{{? !item.link }}

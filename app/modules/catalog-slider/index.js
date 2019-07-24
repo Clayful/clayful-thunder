@@ -8,16 +8,25 @@ module.exports = Thunder => {
 	};
 
 	implementation.options = () => ({
-		useNav: true,
-		usePager: true,
+		useNav:      true,
+		usePager:    true,
 		showCaption: true,
-		autoLoop: 3000
+		autoLoop:    3000
 	});
 
 	implementation.pre = function(context, callback) {
-		const errors = {};
 
+		const errors = {};
 		const catalogId = context.options.catalog;
+
+		context.targetCheck = url => {
+
+			const urlTarget = document.createElement('a');
+
+			urlTarget.href = url;
+
+			return urlTarget.host === window.location.host ? '_self' : '_blank';
+		};
 
 		return Thunder.request({
 			method: 'GET',
@@ -32,15 +41,8 @@ module.exports = Thunder => {
 			}
 		}).then(data => {
 
-			context.targetCheck = (url) => {
-				const urlTarget = document.createElement('a');
-
-				urlTarget.href = url;
-
-				return urlTarget.host === window.location.host ? '_self' : '_blank';
-			};
-
 			return callback(null, set(context, 'catalogSlider', data));
+
 		}, err => Thunder.util.requestErrorHandler(
 			err.responseJSON,
 			errors,
