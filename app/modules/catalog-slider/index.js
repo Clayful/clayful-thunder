@@ -8,6 +8,7 @@ module.exports = Thunder => {
 	};
 
 	implementation.options = () => ({
+		catalog:     '', // Catalog ID to render
 		useNav:      true,
 		usePager:    true,
 		showCaption: true,
