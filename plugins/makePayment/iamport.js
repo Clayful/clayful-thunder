@@ -92,6 +92,8 @@ const implementation = (options = {}) => {
 
 		const taxFree = cart ? implementation.calculateTaxFree(cart) : null;
 
+		const pgId = paymentMethod.meta.pg.split('.')[0];
+
 		// Default request options for orders and subscriptions
 		const params = $.extend({
 			pg:             paymentMethod.meta.pg,
@@ -112,7 +114,18 @@ const implementation = (options = {}) => {
 			// For a non-registered customer: subscription._id
 			customer_uid: subscription.customer._id || subscription._id,
 			name:         billingKeyName,   // Placeholder name
-			amount:       0,
+			amount:       (
+				// 정기 구독이면서 PG사가 이니시스인 경우,
+				// 결제 금액 디스플레이를 위해 정기 구독의 1번째 스케쥴 결제 금액을 디스플레이
+				// (단순 디스플레이용이며, 해당 금액과 관련해 실제 결제가 PG에 의해서 일어나지 않음)
+				// Ref: https://github.com/iamport/iamport-manual/blob/master/%EB%B9%84%EC%9D%B8%EC%A6%9D%EA%B2%B0%EC%A0%9C/example/inicis-request-billing-key.md#2-%EB%B9%8C%EB%A7%81%ED%82%A4-%EB%B0%9C%EA%B8%89%EC%9D%84-%EC%9C%84%ED%95%9C-%EA%B2%B0%EC%A0%9C%EC%B0%BD-%ED%98%B8%EC%B6%9C
+				pgId.indexOf('inicis') >= 0 ?
+					(
+						typeof subscription.schedules[0].amount.raw === 'number' ?
+							subscription.schedules[0].amount.raw :
+							subscription.schedules[0].amount
+					) : 0
+			),
 		} : $.extend({
 			// Regular order case.
 			merchant_uid: order._id,
