@@ -156,7 +156,17 @@ module.exports = Thunder => {
 				Thunder.request({
 					method: 'GET',
 					url:    '/v1/countries',
-					query:  { fields: 'code' }
+					query:  { fields: 'code', limit: 120, page: 1 },
+				}),
+				Thunder.request({
+					method: 'GET',
+					url:    '/v1/countries',
+					query:  { fields: 'code', limit: 120, page: 2 },
+				}),
+				Thunder.request({
+					method: 'GET',
+					url:    '/v1/countries',
+					query:  { fields: 'code', limit: 120, page: 3 },
 				}),
 				getCart({
 					query: defaultCartQuery,
@@ -191,7 +201,14 @@ module.exports = Thunder => {
 				}) : null
 			);
 
-		}, requestFailed).then((countries, cart, coupons, plans) => {
+		}, requestFailed).then((
+			countries1,
+			countries2,
+			countries3,
+			cart,
+			coupons,
+			plans
+		) => {
 
 			const hasCartError = cart[0].cart.errors
 									.some(err => err.code !== 'shipping-address-required');
@@ -203,7 +220,12 @@ module.exports = Thunder => {
 				});
 			}
 
-			context.countries = countries[0];
+			context.countries = [].concat(
+				countries1[0],
+				countries2[0],
+				countries3[0]
+			);
+
 			context.cart = cart[0].cart;
 			context.subscription = cart[0].subscription || null;
 			context.subscriptionPlans = (plans ? plans[0] : []).map(plan => {

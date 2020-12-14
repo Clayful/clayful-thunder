@@ -68,16 +68,36 @@ module.exports = Thunder => {
 			Thunder.request({
 				method: 'GET',
 				url:    '/v1/countries',
-				query:  { fields: 'code' }
+				query:  { fields: 'code', limit: 120, page: 1 },
+			}),
+			Thunder.request({
+				method: 'GET',
+				url:    '/v1/countries',
+				query:  { fields: 'code', limit: 120, page: 2 },
+			}),
+			Thunder.request({
+				method: 'GET',
+				url:    '/v1/countries',
+				query:  { fields: 'code', limit: 120, page: 3 },
 			}),
 			Thunder.request({
 				method: 'GET',
 				url:    '/v1/me',
 				query:  { fields: 'address' }
 			})
-		).then((countries, customer) => {
+		).then((
+			countries1,
+			countries2,
+			countries3,
+			customer
+		) => {
 
-			context.countries = countries[0];
+			context.countries = [].concat(
+				countries1[0],
+				countries2[0],
+				countries3[0]
+			);
+
 			context.address = customer[0].address.primary || { name: {} };
 
 			return callback(null, context);
