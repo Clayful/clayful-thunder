@@ -1,4 +1,5 @@
-const set = require('lodash.set');
+const _set = require('lodash.set');
+const _get = require('lodash.get');
 const camelCase = require('lodash.camelcase');
 
 module.exports = Thunder => {
@@ -169,17 +170,25 @@ module.exports = Thunder => {
 			order.hasTangibleItem = allItems.some(item => item.type === 'tangible');
 
 			context.order = order;
+
 			context.vbanks = order.transactions.reduce((vbanks, transaction) => {
 				return vbanks.concat(transaction.vbanks || []);
 			}, []).filter(vbank => {
+
+				const expiresAt = _get(vbank, 'expiresAt.raw');
+
+				// 만료 기간이 없으면 만료 되지 않은 것으로 간주
+				if (!expiresAt) return true;
+
 				// Filter out expired virtual bank details
-				return !Thunder.util.isExpired(vbank.expiresAt.raw);
+				return !Thunder.util.isExpired(expiresAt);
+
 			});
 
 			// Set payment details.
 			const thunderPaymentMethodMap =
 				(Thunder.options.paymentMethods.order || [])
-					.reduce((o, p) => set(o, p.id, p), {});
+					.reduce((o, p) => _set(o, p.id, p), {});
 
 			// Filter viable payment methods where..
 			const paymentMethods = order.transactions.map(({ paymentMethod, vbanks }) => {
@@ -196,7 +205,14 @@ module.exports = Thunder => {
 					(
 						!vbanks.length ||      // the payment method is not for virtual banks
 						vbanks.some(vbank => { // or one or more virtual banks are expired
-							return Thunder.util.isExpired(vbank.expiresAt.raw);
+
+							const expiresAt = _get(vbank, 'expiresAt.raw');
+
+							// 만료 기간이 없으면 만료 되지 않은 것으로 간주
+							if (!expiresAt) return false;
+
+							return Thunder.util.isExpired(expiresAt);
+
 						})
 					)
 				);
