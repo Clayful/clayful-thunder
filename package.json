@@ -1,6 +1,6 @@
 {
   "name": "clayful-thunder",
-  "version": "1.2.3",
+  "version": "1.2.4",
   "description": "Embeddable eCommerce built on top of Clayful APIs",
   "main": "index.js",
   "scripts": {
