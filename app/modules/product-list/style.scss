@@ -10,8 +10,8 @@
 				width: 100%;
 			}
 			@if $i > 1 {
-				width: (100% - $whitespace) / $i;
-				margin-right: $whitespace / ($i - 1);
+				width: calc((100% - $whitespace) / $i);
+				margin-right: calc($whitespace / ($i - 1));
 
 				&:nth-child(#{ $i }n) {
 					margin-right: 0;
