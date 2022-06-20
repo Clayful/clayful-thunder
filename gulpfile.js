@@ -96,14 +96,14 @@ gulp.task('plugins', done => {
 
 gulp.task('locales', () => {
 
-	return gulp.src(locales)
+	return gulp.src(locales, {allowEmpty: true})
 			.pipe(gulp.dest('dist/locales'));
 
 });
 
 gulp.task('templates', () => {
 
-	return gulp.src(templates)
+	return gulp.src(templates, {allowEmpty: true})
 			.pipe(dotify({
 				root:       'modules',
 				extension:  '.dot',
@@ -131,7 +131,7 @@ gulp.task('templates', () => {
 
 gulp.task('style', () => {
 
-	return gulp.src(style)
+	return gulp.src(style, {allowEmpty: true})
 			.pipe(sass().on('error', sass.logError))
 			.pipe(autoprefixer())
 			.pipe(rename({
@@ -160,7 +160,7 @@ gulp.task('watch', () => {
 
 gulp.task('clean', () => {
 
-	return gulp.src('dist', { read: false })
+	return gulp.src('dist', { read: false, allowEmpty: true })
 		.pipe(clean());
 
 });
