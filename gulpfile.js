@@ -2,7 +2,7 @@
 
 const Path         = require('path');
 const fs           = require('fs');
-const es           = require('event-stream');
+const mergeStream  = require('merge-stream');
 const glob         = require('glob');
 const gulp         = require('gulp');
 const rename       = require('gulp-rename');
@@ -13,14 +13,12 @@ const browserify   = require('browserify');
 const babelify     = require('babelify');
 const watchify     = require('watchify');
 const uglify       = require('gulp-uglify');
-const sass         = require('gulp-sass');
+const sass         = require('gulp-sass')(require('sass'));
 const csso         = require('gulp-csso');
-const gap          = require('gulp-append-prepend');
 const autoprefixer = require('gulp-autoprefixer');
 const source       = require('vinyl-source-stream');
 const buffer       = require('vinyl-buffer');
 const notify       = require('gulp-notify');
-const sequence     = require('gulp-sequence');
 const clean        = require('gulp-clean');
 
 const app       = './app';
@@ -61,31 +59,36 @@ gulp.task('thunder', () => {
 
 gulp.task('plugins', done => {
 
-	glob('./plugins/**/*.js', (err, files) => {
+  
+  glob('./plugins/**/*.js', (err, files) => {
+    
+    if (err) return done(err);
+    
+    const ms = mergeStream();
+		const tasks = files.reduce((ms, entry) => {
 
-		if (err) return done(err);
+			ms.add(watchify(browserify({
+          entries:   [entry],
+          debug:     true,
+          sourceMap: false
+        }))
+        .transform(babelify, {})
+        .bundle()
+        .pipe(source(entry))
+        .pipe(buffer())
+        .pipe(gulp.dest('dist'))
+        .pipe(uglify())
+        .pipe(rename({
+          suffix: '.min'
+        }))
+        .pipe(gulp.dest('dist'))
+      )
 
-		const tasks = files.map(entry => {
+      return ms;
 
-			return watchify(browserify({
-				entries:   [entry],
-				debug:     true,
-				sourceMap: false
-			}))
-			.transform(babelify, {})
-			.bundle()
-			.pipe(source(entry))
-			.pipe(buffer())
-			.pipe(gulp.dest('dist'))
-			.pipe(uglify())
-			.pipe(rename({
-				suffix: '.min'
-			}))
-			.pipe(gulp.dest('dist'));
+		}, ms);
 
-		});
-
-		return es.merge(tasks).on('end', done);
+    return tasks
 
 	});
 
@@ -93,14 +96,14 @@ gulp.task('plugins', done => {
 
 gulp.task('locales', () => {
 
-	return gulp.src(locales)
+	return gulp.src(locales, {allowEmpty: true})
 			.pipe(gulp.dest('dist/locales'));
 
 });
 
 gulp.task('templates', () => {
 
-	return gulp.src(templates)
+	return gulp.src(templates, {allowEmpty: true})
 			.pipe(dotify({
 				root:       'modules',
 				extension:  '.dot',
@@ -128,15 +131,9 @@ gulp.task('templates', () => {
 
 gulp.task('style', () => {
 
-	return gulp.src(style)
+	return gulp.src(style, {allowEmpty: true})
 			.pipe(sass().on('error', sass.logError))
-			.pipe(autoprefixer({
-				browsers: [
-					'ie >= 8',
-					'> 5%',
-					'last 2 versions'
-				]
-			}))
+			.pipe(autoprefixer())
 			.pipe(rename({
 				basename: 'style'
 			}))
@@ -163,12 +160,12 @@ gulp.task('watch', () => {
 
 gulp.task('clean', () => {
 
-	return gulp.src('dist', { read: false })
+	return gulp.src('dist', { read: false, allowEmpty: true })
 		.pipe(clean());
 
 });
 
-gulp.task('build', sequence(
+gulp.task('build', gulp.series(
 	'clean',
 	[
 		'thunder',
@@ -179,7 +176,7 @@ gulp.task('build', sequence(
 	]
 ));
 
-gulp.task('default', sequence(
+gulp.task('default', gulp.series(
 	'build',
 	'watch'
 ));
